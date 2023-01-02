@@ -2,7 +2,7 @@ import React from 'react'
 import { Hero } from '../../components/index/Hero';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-import { User } from '../../utils/types';
+import { User } from '../../utils/types/types';
 
 interface WelcomePageProps {
 user?:User|null

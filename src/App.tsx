@@ -10,9 +10,12 @@ import { Test } from './components/test/Test';
 import { QueryStateWrapper,LoadingElipse } from '@denniskinuthia/tiny-pkgs';
 import { useQuery } from '@tanstack/react-query';
 import { ReactRouterError } from './shared/ReactRouterError';
+import { getUser } from './utils/pb/config';
+import { Redirect } from './components/auth/Redirect';
+
 function App() {
 
-   const user = useQuery(['user'],()=>null)
+   const user = useQuery(['user'],getUser)
   const router = createBrowserRouter([
     {
       path: '/',
@@ -38,9 +41,10 @@ function App() {
             },
           ],
         },
-
-
-
+         {
+          path: '/redirect',
+          element: <Redirect/>,
+         },
 
         {
           path: '/test',
@@ -57,17 +61,15 @@ function App() {
 
       ],
     },
-    // {
-    //   path: '/newsletter',
-    //   action: newsletterAction,
-    // },
+
   ]);
 
 
   return (
     <QueryStateWrapper
-    query={user}
-    loader={<LoadingElipse />}
+    // @ts-ignore
+      query={user}
+      loader={<LoadingElipse />}
     >
       <div className=" dark:bg-slate-900 h-full max-h-screen
        dark:text-white dark:shadow-white">

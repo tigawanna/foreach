@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { User } from '../../utils/types';
+import { User } from '../../utils/types/types';
 
 interface AuthLayoutProps {
     user?: User | null

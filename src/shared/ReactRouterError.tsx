@@ -10,23 +10,31 @@ export interface RRError {
     internal: boolean
     data: string
     error: Error
+    message:string
 }
 
 export const ReactRouterError: React.FC<ReactRouterErrorProps> = ({}) => {
 const error = useRouteError() as RRError
 const navigate = useNavigate()
 
+// console.log("route error == ",error)
 
 return (
  <div className='w-full h-screen flex flex-col items-center justify-center gap-5'>
     <div className='w-full text-center text-2xl font-bold'>
     Route Error
     </div>
-  
-        <div className='p-2 flex items-center justify-center
+        <div className='p-2 flex items-center justify-center m-2
         bg-red-100 text-red-900 border-2 border-red-800 rounded-xl
         '>
-        {error.data}
+            {error.data}
+
+        </div>  
+        <div className='p-2 flex items-center justify-center m-2
+        bg-red-100 text-red-900 border-2 border-red-800 rounded-xl
+        '>
+
+        {error.message}
         </div>
 <div className='w-full flex justify-center items-center gap-2'>
     <button className='text-blue-600 border p-1 rounded-xl' onClick={() => navigate(-1)}> back to home </button>

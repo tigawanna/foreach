@@ -2,21 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { TheIcon } from '@denniskinuthia/tiny-pkgs';
-import { User } from "../../utils/types";
-
+import { TheIcon,ReactModalWrapper} from '@denniskinuthia/tiny-pkgs';
+import { PBUser } from "../../utils/types/types";
+import { ProfileMenu } from './ProfileMenu';
 
 interface ToolbarProps {
-  user: User
+  user: PBUser
 }
 
-export const Toolbar: React.FC<ToolbarProps> = ({
-  user,
-}) => {
+export const Toolbar: React.FC<ToolbarProps> = ({user}) => {
 
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const avatar = "https://dummyimage.com/100x100/000.jpg&text=user"
+  const avatar = user?.avatar
 // console.log("profile ===",avatar)
   return (
     <div className="w-full h-10 flex justify-between items-center">
@@ -35,7 +33,23 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           </Link>
         </div>
       </div>
+       <ReactModalWrapper
+       child={
+       <ProfileMenu user={user} setIsOpen={setIsOpen}/>}
+       closeModal={()=>setIsOpen(false)}
+       isOpen={isOpen}
+       styles={{
+        overlay_top:'0%',
+        overlay_right:'0%',
+        overlay_left:'0%',
+        overlay_bottom:'0%',
+        content_bottom:'20%',
+        content_right:'0%',
+        content_left:'60%',
+        content_top:'0%'
 
+      }}
+       />
 
       <div className="min-w-[10%] md:px-2 h-full flex justify-center items-center gap-1 md:gap-2
          md:border-2 rounded-xl  font-bold dark:font-normal ">
@@ -49,10 +63,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       <div className="w-full px-1 h-full flex justify-center items-center 
       hover:text-rose-700">
           <Link to="/test">test</Link>
+   
         </div> 
-
-
-      </div>
+     </div>
       
       <div className="w-fit h-full flex justify-end items-center">
 
@@ -68,9 +81,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
          
           ) : (
             <img
-                src={avatar}
+              src={avatar}
               alt={""}
-                className="rounded-[50%] hover:rounded-sm max-h-[40px] h-10 w-10
+              className="rounded-[50%] hover:rounded-sm max-h-[40px] h-10 w-10
               border-2 border-slate-900 dark:border-slate-100 aspect-square"
               onClick={() => setIsOpen(true)}
             />

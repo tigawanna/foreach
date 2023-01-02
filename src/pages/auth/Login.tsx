@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { User } from "../../utils/types";
-
-
+import { PBUser } from "../../utils/types/types";
+import { OAuthLogin } from "../../components/auth/OAuthLogin";
 
 
 interface LoginProps {
-user?: User
+user?: PBUser
 }
 
 export const Login: React.FC<LoginProps> = ({user}) => {
@@ -25,9 +24,9 @@ return (
   justify-center 
 
   ">
-    <div className="w-[80%] md:w-[60%]  m-2 p-2 flex flex-col 
+    <div className="h-full w-[90%] md:w-[60%]  m-2 p-2 flex flex-col 
     items-center justify-start ">
-
+    <OAuthLogin user={user}/>
     </div>
     <Link
     className="text-blue-500"

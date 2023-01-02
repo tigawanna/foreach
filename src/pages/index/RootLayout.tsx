@@ -2,7 +2,7 @@
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
-import { User } from '../../utils/types';
+import { User } from '../../utils/types/types';
 
 
 
