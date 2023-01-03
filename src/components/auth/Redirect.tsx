@@ -1,12 +1,13 @@
 
 import React, { useEffect } from 'react'
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { PBUser } from '../../utils/types/types';
 import { useQueryClient } from '@tanstack/react-query';
 import { client } from './../../utils/pb/config';
 import { LoadingElipse } from '@denniskinuthia/tiny-pkgs';
 import { redirect_url } from '../../utils/env';
 import { login_url } from './../../utils/env';
+
 
 
 interface RedirectProps {
@@ -104,38 +105,50 @@ const state = url.searchParams.get('state') as string
 // this hasto match what you orovided in the oauth provider , in tis case google
 let redirectUrl = redirect_url
 useEffect(()=>{
-    console.log("redirect block starting oauth")
-    console.log("redirect block ::: local_prov.state === ",local_prov.state)
-    console.log("redirect block ::: state search params === ", state)
-    
-   if (local_prov.state !== state) {
+    const pbOauthLogin=async()=>{
+
+    console.table("oauth params passed to pb",[local_prov.name, code, local_prov.codeVerifier, redirectUrl])   
+    client.autoCancellation(false)
+    const oauthRes = await client.collection('devs')
+    .authWithOAuth2(local_prov.name, code, local_prov.codeVerifier, redirectUrl
+    , undefined)
+    const meta = oauthRes.meta as Meta
+    console.log("oauth response === ",oauthRes)
+    await client.collection('devs').update(oauthRes.record.id, {
+            avatar: meta?.avatarUrl,
+            accessToken: meta?.accessToken
+        })
+    queryClient.setQueryData(['user'], client.authStore.model)
+    navigate('/')
+    }
+
+
+    if (local_prov.state !== state) {
       const url = login_url
-        console.log("redirect block ::: no prov stats",url)
-        if (typeof window !== 'undefined') {
+     if (typeof window !== 'undefined') {
             window.location.href = url;
         }
     }
     else {
-        console.log("redirect block calling pocketbase")
-        client.collection('devs').authWithOAuth2(
-            local_prov.name,code,local_prov.codeVerifier,redirectUrl)
-            .then((response) => {
-            console.log("redirect block ::: authentication data === ", response)
-            const meta = response.meta as Meta
-            client.collection('devs').update(response.record.id,{
-            username: meta?.username,
-            avatar: meta?.avatarUrl,
-            accessToken: meta?.accessToken
-            })
-            .catch((e) => {
-            console.log("error updating profile  == ", e)
-            })
-            // setLoading(false)
-            // console.log("client modal after logg   == ", client.authStore.model)
-            queryClient.setQueryData(['user'], client.authStore.model)
-            navigate('/')
-            })
-            .catch((e) => {
+
+        // client.collection('devs').authWithOAuth2(
+        //     local_prov.name,code,local_prov.codeVerifier,redirectUrl)
+        //     .then((response) => {
+        //     // console.log("redirect block ::: authentication data === ", response)
+        //     const meta = response.meta as Meta
+        //     client.collection('devs').update(response.record.id,{
+        //     avatar: meta?.avatarUrl,
+        //     accessToken: meta?.accessToken
+        //     })
+        //     .catch((e) => {
+        //     console.log("error updating profile  == ", e)
+        //     })
+        //     // setLoading(false)
+        //     // console.log("client modal after logg   == ", client.authStore.model)
+        //     queryClient.setQueryData(['user'], client.authStore.model)
+        //     navigate('/')
+        //     })
+        pbOauthLogin().catch((e) => {
                 console.log("error logging in with provider  == ", e)
             })
     }

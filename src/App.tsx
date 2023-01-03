@@ -7,7 +7,7 @@ import { AuthLayout } from './pages/auth/AuthLayout';
 import { Login } from './pages/auth/Login';
 import { Signup } from './pages/auth/Signup';
 import { Test } from './components/test/Test';
-import { QueryStateWrapper,LoadingElipse,LoadingRipples } from '@denniskinuthia/tiny-pkgs';
+import { QueryStateWrapper,LoadingRipples } from '@denniskinuthia/tiny-pkgs';
 import { useQuery } from '@tanstack/react-query';
 import { ReactRouterError } from './shared/ReactRouterError';
 import { getUser } from './utils/pb/config';
@@ -18,7 +18,7 @@ function App() {
   const query = useQuery(['user'],getUser)
   const user = query.data
   console.log("user , ",user)
-  
+
   const router = createBrowserRouter([
     {
       path: '/',
