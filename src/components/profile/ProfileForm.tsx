@@ -1,0 +1,80 @@
+import React from 'react'
+import { useForm } from "react-hook-form";
+import { RequiredFormFields } from '../form/types';
+import { useMutation } from '@tanstack/react-query';
+import { concatErrors } from './../../utils/utils';
+import { FormInput, FormButton } from '../form/FormParts';
+import { PBUser } from '../../utils/types/types';
+import { updateProfile } from './../../utils/api/mutations';
+
+
+interface ProfileFormProps {
+user:PBUser
+}
+
+export const ProfileForm: React.FC<ProfileFormProps> = ({user}) => {
+const form_stuff = useForm<RequiredFormFields>();
+const [error,setError]=React.useState({name:"",message:""})
+
+const onSubmit = (data: RequiredFormFields, event?: React.BaseSyntheticEvent<object, any, any>) => {
+ console.log("handle submit data === ", data)
+    mutation.mutate({user_id:user?.id as string,vals:data})
+ };
+interface Mutationprops{
+    user_id:string;
+    vals: RequiredFormFields
+}
+const mutation = useMutation(
+  async ({user_id,vals}:Mutationprops) => {
+    
+    try {
+     updateProfile({
+    user_id,
+    accessToken:vals?.accessToken,
+    avatar:vals?.avatar,
+    displayname:vals?.displayname
+    })
+    } catch (e) {
+      throw e;
+    }
+  },
+  {
+    onError: (err: any) => {
+      console.log(
+        "errror adding bill in ",
+        err.data
+      );
+      setError({
+        name: "main",
+        message: concatErrors(err),
+      });
+    },
+  }
+);
+
+return (
+ <div className='w-full h-full'>
+        <form
+            className='w-full h-full flex  flex-col items-center justify-center gap-2'
+            onSubmit={form_stuff.handleSubmit(onSubmit)}>
+            <FormInput
+                styles={{ width: '80%', padding: 0, margin: 0, display: 'none' }}
+                label='avatar' form_stuff={form_stuff} defaultValue={user?.avatar} />
+            <FormInput
+                styles={{ width: '80%', padding: 0, margin: 0, display: 'none' }}
+                label='displayname' form_stuff={form_stuff} defaultValue={user?.displayname} />
+            <FormInput
+                styles={{ width: '80%', padding: 0, margin: 0, display: 'none' }}
+                label='accessToken' form_stuff={form_stuff} defaultValue={user?.accessToken} />   
+
+            <FormButton form_stuff={form_stuff} />
+          
+            <div className='w-[90%] flex  flex-col items-center justify-center'>
+                <div className=" w-full p-2bg-red-100 border-2 border-red-800 text-red-900  rounded-xl">
+                    {error?.message}
+                </div>
+            </div>
+        </form>
+ </div>
+);
+}

@@ -1,26 +1,26 @@
 import React from 'react'
 import { Outlet} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { User } from '../../utils/types/types';
+import { PBUser } from '../../utils/types/types';
 
 interface AuthLayoutProps {
-    user?: User | null
+    user:PBUser 
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({user}) => {
-    // const navigate = useNavigate()
-    // // console.log("user ===",user)
-    // React.useEffect(() => {
-    //     if (user) {
-    //         if (user?.email && (user?.bio === "" || user?.avatar === "")) {
-    //             navigate('/profile')
-    //         }
-    //         else {
-    //             navigate('/')
-    //         }
-    //     }
+    const navigate = useNavigate()
+    // console.log("user ===",user)
+    React.useEffect(() => {
+        if (user) {
+            if (user?.email && user?.displayName === "") {
+                navigate('/profile')
+            }
+            else {
+                navigate('/')
+            }
+        }
 
-    // }, [user])
+    }, [user])
 
 
 return (
