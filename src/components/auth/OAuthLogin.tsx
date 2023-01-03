@@ -50,7 +50,7 @@ google:FaGoogle
             <div
               key={item.name}
               onClick={() => startLogin(item)} 
-              className="p-2 w-[60%] md:w-[30%] cursor-pointer
+              className="p-2 w-[40%] md:w-[30%] cursor-pointer
               border-2 border-purple-600 rounded-lg hover:border-purple-800 
              capitalize text-xl font-bold flex items-center justify-center gap-2"
             >
