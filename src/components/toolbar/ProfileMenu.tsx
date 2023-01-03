@@ -12,7 +12,7 @@ setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const ProfileMenu: React.FC<ProfileMenuProps> = ({user,setIsOpen}) => {
-// console.log("user in side panel ",user)
+console.log("user in side panel ",user?.data)
     const queryClient = useQueryClient();
     const theme = useTheme();
     const nextTheme = theme.theme === "dark" ? "light" : "dark";
@@ -20,6 +20,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({user,setIsOpen}) => {
     const toggle = () => { theme.setTheme(nextTheme) };
     const logout = () => {
         client.authStore.clear();
+        localStorage.removeItem('provider')
         queryClient.invalidateQueries(["user"]);
         setIsOpen(prev => !prev)
     };

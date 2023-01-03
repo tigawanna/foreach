@@ -99,19 +99,26 @@ const local_prov = JSON.parse(localStorage.getItem('provider') as string)
 // this hasto match what you orovided in the oauth provider , in tis case google
 let redirectUrl = redirect_url
 useEffect(()=>{
+    console.log("redirect block starting oauth")
+    console.log("redirect block ::: local_prov.state === ",local_prov.state)
+    console.log("redirect block ::: state search params === ", searchParams.get('state'))
+
+
     if (local_prov.state !== searchParams.get("state")) {
       const url = login_url
+        console.log("redirect block ::: no prov stats",url)
         if (typeof window !== 'undefined') {
             window.location.href = url;
         }
     }
     else {
+        console.log("redirect block calling pocketbase")
         client.collection('devs').authWithOAuth2(local_prov.name,code,local_prov.codeVerifier,redirectUrl)
             .then((response) => {
-            // console.log("authentication data === ", response)
+            console.log("redirect block ::: authentication data === ", response)
             const meta = response.meta as Meta
             client.collection('devs').update(response.record.id,{
-            username: meta?.name,
+            username: meta?.username,
             avatarUrl: meta?.avatarUrl,
             accessToken: meta?.accessToken
             })
@@ -129,6 +136,7 @@ useEffect(()=>{
     }
 
 },[])
+
 if (user) {
     return <Navigate to="/" replace />;
 }
