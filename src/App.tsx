@@ -12,6 +12,8 @@ import { useQuery } from '@tanstack/react-query';
 import { ReactRouterError } from './shared/ReactRouterError';
 import { getUser } from './utils/pb/config';
 import { Redirect } from './components/auth/Redirect';
+import { ProfileLayout } from './pages/profile/ProfileLayout';
+import { Profile } from './pages/profile/Profile';
 
 function App() {
 
@@ -48,6 +50,18 @@ function App() {
           path: '/redirect',
           element: <Redirect/>,
          },
+        {
+          path: '/profile',
+          element: <ProfileLayout user={user} />,
+          children: [
+            {
+              index: true,
+              element: <Profile user={user} />,
+              // loader: deferredBlogPostsLoader,
+            },
+
+          ],
+        },
 
         {
           path: '/test',

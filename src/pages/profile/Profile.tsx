@@ -8,7 +8,7 @@ user:PBUser
 
 export const Profile: React.FC<ProfileProps> = ({user}) => {
 return (
- <div className='w-full'>
+ <div className='w-full h-full'>
 <ProfileForm user={user}/>
  </div>
 );
