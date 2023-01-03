@@ -7,7 +7,7 @@ import { AuthLayout } from './pages/auth/AuthLayout';
 import { Login } from './pages/auth/Login';
 import { Signup } from './pages/auth/Signup';
 import { Test } from './components/test/Test';
-import { QueryStateWrapper,LoadingElipse } from '@denniskinuthia/tiny-pkgs';
+import { QueryStateWrapper,LoadingElipse,LoadingRipples } from '@denniskinuthia/tiny-pkgs';
 import { useQuery } from '@tanstack/react-query';
 import { ReactRouterError } from './shared/ReactRouterError';
 import { getUser } from './utils/pb/config';
@@ -15,7 +15,10 @@ import { Redirect } from './components/auth/Redirect';
 
 function App() {
 
-   const user = useQuery(['user'],getUser)
+  const query = useQuery(['user'],getUser)
+  const user = query.data
+  console.log("user , ",user)
+  
   const router = createBrowserRouter([
     {
       path: '/',
@@ -67,9 +70,8 @@ function App() {
 
   return (
     <QueryStateWrapper
-    // @ts-ignore
-      query={user}
-      loader={<LoadingElipse />}
+      query={query}
+      loader={<LoadingRipples />}
     >
       <div className=" dark:bg-slate-900 h-full max-h-screen
        dark:text-white dark:shadow-white">

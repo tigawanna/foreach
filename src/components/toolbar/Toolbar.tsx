@@ -12,11 +12,11 @@ interface ToolbarProps {
 
 export const Toolbar: React.FC<ToolbarProps> = ({user}) => {
 
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  const avatar = user?.avatar
+const [isOpen, setIsOpen] = React.useState(false);
+const avatar = user?.avatar
 // console.log("profile ===",avatar)
-  return (
+
+return (
     <div className="w-full h-10 flex justify-between items-center">
 
       <div className=" h-full flex justify-start items-center">
@@ -33,6 +33,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({user}) => {
           </Link>
         </div>
       </div>
+
        <ReactModalWrapper
        child={
        <ProfileMenu user={user} setIsOpen={setIsOpen}/>}
@@ -69,8 +70,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({user}) => {
       
       <div className="w-fit h-full flex justify-end items-center">
 
-      <div className="  rounded-md  flex justify-center items-center 
-              w-16  h-full  aspect-square">
+      <div className="  rounded-md  flex justify-center items-center w-16 h-full  aspect-square">
           {!avatar ? (
               <TheIcon
                Icon={FaUserCircle}

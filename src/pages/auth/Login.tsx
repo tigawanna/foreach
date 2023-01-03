@@ -28,11 +28,11 @@ return (
     items-center justify-start ">
     <OAuthLogin user={user}/>
     </div>
-    <Link
+    {/* <Link
     className="text-blue-500"
     to={'/auth/signup'}>
       Create new account
-    </Link>
+    </Link> */}
     </div>
   );
 };

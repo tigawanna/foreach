@@ -52,10 +52,11 @@ google:FaGoogle
             <div
               key={item.name} 
               className="p-2 w-[60%] md:w-[30%] 
-              border-2 border-purple-600 rounded-lg hover:border-purple-800 
+              
              capitalize text-xl font-bold flex items-center justify-center gap-2"
             >
-            <TheIcon 
+            <TheIcon
+            iconstyle="border-2 border-purple-600 rounded-lg hover:border-purple-800 " 
             Icon={providerIcons[item.name as keyof typeof providerIcons]}
             iconAction={() => startLogin(item)}
             size={'50'}

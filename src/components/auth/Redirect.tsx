@@ -93,18 +93,22 @@ export const Redirect: React.FC<RedirectProps> = ({user}) => {
 // const [loading, setLoading] = React.useState(true)
 const queryClient = useQueryClient()
 const navigate = useNavigate()
-const [searchParams] = useSearchParams();
-const code = searchParams.get('code') as string
+// const [searchParams] = useSearchParams();
+// const code = searchParams.get('code') as string
 const local_prov = JSON.parse(localStorage.getItem('provider') as string)
+const url = new URL(window.location.href);
+const code = url.searchParams.get('code') as string
+const state = url.searchParams.get('state') as string
+
+
 // this hasto match what you orovided in the oauth provider , in tis case google
 let redirectUrl = redirect_url
 useEffect(()=>{
     console.log("redirect block starting oauth")
     console.log("redirect block ::: local_prov.state === ",local_prov.state)
-    console.log("redirect block ::: state search params === ", searchParams.get('state'))
-
-
-    if (local_prov.state !== searchParams.get("state")) {
+    console.log("redirect block ::: state search params === ", state)
+    
+   if (local_prov.state !== state) {
       const url = login_url
         console.log("redirect block ::: no prov stats",url)
         if (typeof window !== 'undefined') {
@@ -113,17 +117,18 @@ useEffect(()=>{
     }
     else {
         console.log("redirect block calling pocketbase")
-        client.collection('devs').authWithOAuth2(local_prov.name,code,local_prov.codeVerifier,redirectUrl)
+        client.collection('devs').authWithOAuth2(
+            local_prov.name,code,local_prov.codeVerifier,redirectUrl)
             .then((response) => {
             console.log("redirect block ::: authentication data === ", response)
             const meta = response.meta as Meta
             client.collection('devs').update(response.record.id,{
             username: meta?.username,
-            avatarUrl: meta?.avatarUrl,
+            avatar: meta?.avatarUrl,
             accessToken: meta?.accessToken
             })
             .catch((e) => {
-                console.log("error updating profile  == ", e)
+            console.log("error updating profile  == ", e)
             })
             // setLoading(false)
             // console.log("client modal after logg   == ", client.authStore.model)
@@ -140,6 +145,9 @@ useEffect(()=>{
 if (user) {
     return <Navigate to="/" replace />;
 }
+    if (!user) {
+        return <Navigate to="/auth" replace />;
+    }
 return (
  <div className='w-full h-full '>
         {/* {loading ? <LoadingElipse/>:null} */}

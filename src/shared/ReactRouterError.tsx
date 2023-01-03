@@ -37,7 +37,7 @@ return (
         {error.message}
         </div>
 <div className='w-full flex justify-center items-center gap-2'>
-    <button className='text-blue-600 border p-1 rounded-xl' onClick={() => navigate(-1)}> back to home </button>
+    <button className='text-blue-600 border p-1 rounded-xl' onClick={() => navigate('/')}> back to home </button>
     <button className='text-blue-600 border p-1 rounded-xl' onClick={() => navigate(-1)}> back to recent </button>
 </div>
 

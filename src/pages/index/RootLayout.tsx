@@ -2,12 +2,12 @@
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
-import { User } from '../../utils/types/types';
+import { PBUser } from '../../utils/types/types';
 
 
 
 interface RootLayoutProps {
-user : User
+user : PBUser
 test_mode:boolean
 }
 
