@@ -20,12 +20,14 @@ export const Login: React.FC<LoginProps> = ({user}) => {
 
 
 return (
-  <div className="w-full  h-[70%] flex flex-col items-center 
-  justify-center 
+  <div className="w-full  h-full flex flex-col items-center 
+  justify-center ">
 
-  ">
-    <div className="h-full w-[90%] md:w-[60%]  m-2 p-2 flex flex-col 
-    items-center justify-start ">
+    <div className="h-[70%] w-[90%] md:w-[60%]  m-2 p-2 flex flex-col 
+    items-center justify-start border-purple-700 border-2 shadow-xl rounded-xl">
+      <div className="w-full text-3xl text-center p-2">
+        Login
+      </div>
     <OAuthLogin user={user}/>
     </div>
     {/* <Link

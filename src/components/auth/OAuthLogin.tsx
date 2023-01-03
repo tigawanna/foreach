@@ -42,26 +42,25 @@ google:FaGoogle
 }
   
   return (
-    <div className="w-full h-full flex flex-col items-center justify-evenly ">
-      <div className="text-xl">
-        LOGIN WITH
-      </div>
+    <div className="w-full h-full flex flex-wrap items-center justify-center gap-2 ">
+
       {provs &&
         provs?.map((item:any) => {
           return (
             <div
-              key={item.name} 
-              className="p-2 w-[60%] md:w-[30%] 
-              
+              key={item.name}
+              onClick={() => startLogin(item)} 
+              className="p-2 w-[60%] md:w-[30%] cursor-pointer
+              border-2 border-purple-600 rounded-lg hover:border-purple-800 
              capitalize text-xl font-bold flex items-center justify-center gap-2"
             >
             <TheIcon
-            iconstyle="border-2 border-purple-600 rounded-lg hover:border-purple-800 " 
+            iconstyle="" 
             Icon={providerIcons[item.name as keyof typeof providerIcons]}
-            iconAction={() => startLogin(item)}
+            
             size={'50'}
             />
-
+              {item.name}
             </div>
           );
         })}

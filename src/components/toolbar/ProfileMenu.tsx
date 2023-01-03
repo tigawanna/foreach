@@ -30,7 +30,9 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({user,setIsOpen}) => {
 
 const avatar = user?.avatar
 return (
- <div className='w-full h-full rounded-xl bg-slate-800 flex flex-col items-center justify-evenly gap-2'>
+ <div className='w-full h-full rounded-xl 
+ dark:text-slate-100 bg-slate-200  dark:bg-slate-800 
+ flex flex-col items-center justify-evenly gap-2'>
         
 
 { user?<div className="  rounded-md  flex flex-col justify-center items-center m-2">  
@@ -57,8 +59,7 @@ return (
         onClick={()=>setIsOpen(false)}
         className='p-2 border-4 border-purple-900 rounded-xl '
         to='/auth'>
-            
-            Login</Link> }
+        Login</Link> }
 
 
 
@@ -66,8 +67,7 @@ return (
             <TheIcon
                 Icon={mode}
                 size={"30"}
-                color={""}
-                iconstyle={""}
+           
                 iconAction={toggle}
             />
         </div>
