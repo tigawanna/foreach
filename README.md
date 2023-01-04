@@ -24,4 +24,6 @@ in short the ultimate solution for a self hosted baas service
 ## Authentication 
 [ariticle](https://dev.to/tigawanna/social-app-with-react-and-pocketbase-oauth-authentication-4mk4-temp-slug-7484585)
 
+[@denniskinuthia/tiny-pkgs](https://www.npmjs.com/package/@denniskinuthia/tiny-pkgs)
+
 
