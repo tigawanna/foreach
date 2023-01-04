@@ -42,7 +42,7 @@ google:FaGoogle
 }
   
   return (
-    <div className="w-full h-full flex flex-wrap items-center justify-center gap-2 ">
+    <div className="w-full h-fit md:h-full flex flex-wrap items-center justify-center gap-2 ">
 
       {provs &&
         provs?.map((item:any) => {
@@ -50,15 +50,14 @@ google:FaGoogle
             <div
               key={item.name}
               onClick={() => startLogin(item)} 
-              className="p-2 w-[40%] md:w-[30%] cursor-pointer
-              border-2 border-purple-600 rounded-lg hover:border-purple-800 
+              className="p-2 w-[50%] md:w-[30%] cursor-pointer
+               bg-slate-600 rounded-lg hover:bg-slate-800 
              capitalize text-xl font-bold flex items-center justify-center gap-2"
             >
             <TheIcon
             iconstyle="" 
             Icon={providerIcons[item.name as keyof typeof providerIcons]}
-            
-            size={'50'}
+            size={'30'}
             />
               {item.name}
             </div>

@@ -1,34 +1,27 @@
-# Template usage 
- ```ts
- git clone https://github.com/tigawanna/vite-react-starter.git
- ```
+# DEVHUB
 
-- update and install the dependancies
-```ts
-npm run update-deps
-```
-> though unlikely , this might pull in a newer package version with breaking change
-consider 
-```ts
-npm install 
-```
-to install the package version that this template was made with
+React and pocketbase dev centric social platform
+
+> [pocketbase](https://pocketbase.io/) is an open source backend with an embedded sqlite db with auto rest api endpoints supporting CRUD and realtime data for every collection(table) created ,
+file management with external s3 support, authentication plus ouath providers plus a dashboard.
+all written in GO for blazingly fast performance and all compiles into one executabe  dashboard included for easy to host solution with no external dependancy worries
+in short the ultimate solution for a self hosted baas service
 
 
-- included dependancies
-```ts
-    - @denniskinuthia/tiny-pkgs    
-    - @tanstack/react-query
-    - dayjs
-    - react
-    - react-dom
-    - react-icons
-    - react-router-dom
-    - tailwind
-    - tailwind-scrollbar
-    - @tailwindcss/line-clamp
-    - @tailwindcss/typography
-    - zod
+> will initially be CSR only with building with vite and pocketbase as a framework for custom SQL queries
 
-```
-[@denniskinuthia/tiny-pkgs](https://www.npmjs.com/package/@denniskinuthia/tiny-pkgs)
+[bootstrapped with custom template](https://github.com/tigawanna/vite-react-starter)
+
+## technologies used
+
+- tailwind : styling
+- @tanstack/react-query : state management
+- react-router : client side routing
+- react-icons : icons
+- dayjs : date/time parsing
+- zod : typesafety
+
+## Authentication 
+[ariticle](https://dev.to/tigawanna/social-app-with-react-and-pocketbase-oauth-authentication-4mk4-temp-slug-7484585)
+
+

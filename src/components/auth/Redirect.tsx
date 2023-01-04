@@ -8,17 +8,11 @@ import { LoadingRipples } from '@denniskinuthia/tiny-pkgs';
 import { redirect_url } from '../../utils/env';
 import { login_url } from './../../utils/env';
 
-
-
-
 interface RedirectProps {
 user?:PBUser
 }
 
-
-
 export const Redirect: React.FC<RedirectProps> = ({user}) => {
-
 const queryClient = useQueryClient()
 const navigate = useNavigate()
 const local_prov = JSON.parse(localStorage.getItem('provider') as string)

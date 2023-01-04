@@ -10,17 +10,17 @@ interface AuthLayoutProps {
 export const AuthLayout: React.FC<AuthLayoutProps> = ({user}) => {
     const navigate = useNavigate()
     // console.log("user ===",user)
-    React.useEffect(() => {
-        if (user) {
-            if (user?.email && user?.displayName === "") {
-                navigate('/profile')
-            }
-            else {
-                navigate('/')
-            }
-        }
+    // React.useEffect(() => {
+    //     if (user) {
+    //         if (user?.email && user?.displayName === "") {
+    //             navigate('/profile')
+    //         }
+    //         else {
+    //             navigate('/')
+    //         }
+    //     }
 
-    }, [user])
+    // }, [user])
 
 
 return (

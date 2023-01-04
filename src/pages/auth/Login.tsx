@@ -23,18 +23,14 @@ return (
   <div className="w-full  h-full flex flex-col items-center 
   justify-center ">
 
-    <div className="h-[70%] w-[90%] md:w-[60%]  m-2 p-2 flex flex-col 
-    items-center justify-start border-purple-700 border-2 shadow-xl rounded-xl">
-      <div className="w-full text-3xl text-center p-2">
+    <div className="h-[70%] w-[90%] md:w-[60%]  m-2 p-3 flex flex-col 
+    items-center justify-evenly text-slate-100  border  shadow-slate-600  shadow-lg rounded-xl">
+      <div className="w-full text-3xl text-center font-bold p-2 text-slate-900 dark:text-slate-100">
         Login
       </div>
     <OAuthLogin user={user}/>
     </div>
-    {/* <Link
-    className="text-blue-500"
-    to={'/auth/signup'}>
-      Create new account
-    </Link> */}
+
     </div>
   );
 };
