@@ -32,3 +32,4 @@ to install the package version that this template was made with
 
 ```
 [@denniskinuthia/tiny-pkgs](https://www.npmjs.com/package/@denniskinuthia/tiny-pkgs)
+https://github.com/tigawanna/devhub/blob/50a4b92b66c358a26716f4856dbec2620b27dcdd/src/components/auth/Redirect.tsx#L2-L70
