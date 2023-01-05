@@ -1,5 +1,7 @@
-import './App.css'
+import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryStateWrapper, LoadingRipples } from '@denniskinuthia/tiny-pkgs';
+import { useQuery } from '@tanstack/react-query';
 import { RootLayout } from './pages/index/RootLayout';
 import { WelcomePage } from './pages/index/WelcomePage';
 import { TestLayout } from './components/test/TestLayout';
@@ -7,8 +9,6 @@ import { AuthLayout } from './pages/auth/AuthLayout';
 import { Login } from './pages/auth/Login';
 import { Signup } from './pages/auth/Signup';
 import { Test } from './components/test/Test';
-import { QueryStateWrapper,LoadingRipples } from '@denniskinuthia/tiny-pkgs';
-import { useQuery } from '@tanstack/react-query';
 import { ReactRouterError } from './shared/ReactRouterError';
 import { getUser } from './utils/pb/config';
 import { Redirect } from './components/auth/Redirect';
@@ -16,17 +16,16 @@ import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { Profile } from './pages/profile/Profile';
 
 function App() {
-
-  const query = useQuery(['user'],getUser)
-  const user = query.data
-  console.log("user , ",user)
+  const query = useQuery(['user'], getUser);
+  const user = query.data;
+  // console.log('user , ', user);
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <RootLayout user={user} test_mode={true} />,
+      element: <RootLayout user={user} test_mode />,
       // loader:userLoader(queryClient),
-      errorElement: <ReactRouterError/>,
+      errorElement: <ReactRouterError />,
       children: [
         { index: true, element: <WelcomePage user={user} /> },
 
@@ -46,10 +45,10 @@ function App() {
             },
           ],
         },
-         {
+        {
           path: '/redirect',
-          element: <Redirect/>,
-         },
+          element: <Redirect />,
+        },
         {
           path: '/profile',
           element: <ProfileLayout user={user} />,
@@ -59,7 +58,6 @@ function App() {
               element: <Profile user={user} />,
               // loader: deferredBlogPostsLoader,
             },
-
           ],
         },
 
@@ -72,27 +70,22 @@ function App() {
               element: <Test user={user} />,
               // loader: deferredBlogPostsLoader,
             },
-
           ],
         },
-
       ],
     },
-
   ]);
 
-
   return (
-    <QueryStateWrapper
-      query={query}
-      loader={<LoadingRipples />}
-    >
-      <div className=" dark:bg-slate-900 h-full max-h-screen
-       dark:text-white dark:shadow-white">
+    <QueryStateWrapper query={query} loader={<LoadingRipples />}>
+      <div
+        className=" dark:bg-slate-900 h-full max-h-screen
+       dark:text-white dark:shadow-white"
+      >
         <RouterProvider router={router} />
       </div>
     </QueryStateWrapper>
-  )
+  );
 }
 
-export default App
+export default App;

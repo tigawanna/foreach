@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable prettier/prettier */
+/* eslint-disable prefer-template */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 export const concatErrors = (err_res: any) => {
   const errs = err_res?.data?.data;
   // console.log("errs === ",err_res?.data?.message)

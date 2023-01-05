@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable prettier/prettier */
 export interface OAuthResponse {
   meta: Meta;
   record: Record;
@@ -9,7 +12,7 @@ export interface Meta {
   username: string;
   email: string;
   avatarUrl: string;
-  rawUser: GithubRawUser|GoogleRawUser;
+  rawUser: GithubRawUser | GoogleRawUser;
   accessToken: string;
 }
 export interface GithubRawUser {
@@ -78,7 +81,7 @@ export interface Record {
   id: string;
   updated: string;
   username: string;
-  displayname:string;
+  displayname: string;
   verified: boolean;
   expand: {};
 }
