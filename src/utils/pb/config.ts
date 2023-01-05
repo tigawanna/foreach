@@ -7,7 +7,7 @@ import { pb_url } from '../env';
 
 export const client = new PocketBase(pb_url);
 
-export const providers = await client.collection('devs').listAuthMethods();
+export const getProviders =async()=> await client.collection('devs').listAuthMethods();
 
 export const getUser = async () => client.authStore.model;
 

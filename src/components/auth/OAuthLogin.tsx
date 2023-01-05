@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { TheIcon } from '@denniskinuthia/tiny-pkgs';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { PBUser } from '../../utils/types/types';
-import { providers } from '../../utils/pb/config';
+import { getProviders} from '../../utils/pb/config';
+import { useQuery } from '@tanstack/react-query';
 
 interface OAuthLoginProps {
   user?: PBUser;
@@ -18,7 +19,7 @@ interface ProvType {
 }
 
 export const OAuthLogin: React.FC<OAuthLoginProps> = ({ user }) => {
-  const provs = providers.authProviders;
+  const query = useQuery(['providers'],getProviders)
   const navigate = useNavigate();
   // console.log("user in Login.tsx  ==  ",user)
   if (user?.email) {
@@ -39,6 +40,7 @@ export const OAuthLogin: React.FC<OAuthLoginProps> = ({ user }) => {
     github: FaGithub,
     google: FaGoogle,
   };
+  const provs  = query.data?.authProviders
 
   return (
     <div className="w-full h-fit md:h-full flex flex-wrap items-center justify-center gap-2 ">

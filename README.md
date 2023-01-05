@@ -11,6 +11,7 @@ in short the ultimate solution for a self hosted baas service
 > will initially be CSR only with building with vite and pocketbase as a framework for custom SQL queries
 
 [bootstrapped with custom template](https://github.com/tigawanna/vite-react-starter#README.md)
+
 [code repository](https://github.com/tigawanna/devhub)
 
 ## technologies used
@@ -28,8 +29,12 @@ in short the ultimate solution for a self hosted baas service
 
 
 
-[code repository](https://github.com/tigawanna/devhub)
-[collection of custom react packages used in this proec](https://www.npmjs.com/package/@denniskinuthia/tiny-pkgs)
+
 
 ## Testing
 
+
+
+## resources
+[code repository](https://github.com/tigawanna/devhub)
+[collection of custom react packages used in this project](https://www.npmjs.com/package/@denniskinuthia/tiny-pkgs)
