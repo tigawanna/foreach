@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { LoadingRipples } from '@denniskinuthia/tiny-pkgs';
 import { PBUser } from '../../utils/types/types';
 import { client } from '../../utils/pb/config';
 import { redirect_url, login_url } from '../../utils/env';
+import { LoaderElipse } from './../../shared/loaders/Loaders';
 
 interface RedirectProps {
   user?: PBUser;
@@ -54,7 +54,7 @@ export const Redirect: React.FC<RedirectProps> = ({ user }) => {
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <LoadingRipples />
+      <LoaderElipse />
     </div>
   );
 };

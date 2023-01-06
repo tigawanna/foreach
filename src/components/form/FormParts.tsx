@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form/dist/types';
-import { LoadingRipples } from '@denniskinuthia/tiny-pkgs';
 import { RequiredFormFields } from './types';
+import { LoaderElipse } from './../../shared/loaders/Loaders';
 
 interface FormInputProps {
   form_stuff: UseFormReturn<RequiredFormFields, any>;
@@ -73,7 +73,7 @@ export const FormButton: React.FC<FormButtonProps> = ({ form_stuff }) => {
     >
       {form_stuff.formState.isSubmitting ? (
         <div className="h-full w-[60%] flex justify-center items-center">
-          <LoadingRipples />
+          <LoaderElipse />
         </div>
       ) : (
         <div className="text-lg font-bold dark:font-normal ">submit</div>

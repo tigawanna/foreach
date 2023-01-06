@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { TheIcon,ReactModalWrapper} from '@denniskinuthia/tiny-pkgs';
 import { PBUser } from "../../utils/types/types";
 import { ProfileMenu } from './ProfileMenu';
+import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
+import { TheIcon } from './../../shared/wrappers/TheIcon';
 
 interface ToolbarProps {
   user: PBUser

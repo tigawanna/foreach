@@ -1,6 +1,5 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { QueryStateWrapper, LoadingRipples } from '@denniskinuthia/tiny-pkgs';
 import { useQuery } from '@tanstack/react-query';
 import { RootLayout } from './pages/index/RootLayout';
 import { WelcomePage } from './pages/index/WelcomePage';
@@ -9,11 +8,13 @@ import { AuthLayout } from './pages/auth/AuthLayout';
 import { Login } from './pages/auth/Login';
 import { Signup } from './pages/auth/Signup';
 import { Test } from './components/test/Test';
-import { ReactRouterError } from './shared/ReactRouterError';
 import { getUser } from './utils/pb/config';
 import { Redirect } from './components/auth/Redirect';
 import { ProfileLayout } from './pages/profile/ProfileLayout';
 import { Profile } from './pages/profile/Profile';
+import { ReactRouterError } from './shared/errorboundary/ReactRouterError';
+import { QueryStateWrapper } from './shared/wrappers/QueryStateWrapper';
+import { LoaderElipse } from './shared/loaders/Loaders';
 
 function App() {
   const query = useQuery(['user'], getUser);
@@ -77,7 +78,7 @@ function App() {
   ]);
 
   return (
-    <QueryStateWrapper query={query} loader={<LoadingRipples />}>
+    <QueryStateWrapper query={query} loader={<LoaderElipse />}>
       <div
         className=" dark:bg-slate-900 h-full max-h-screen
        dark:text-white dark:shadow-white"

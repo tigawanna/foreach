@@ -1,5 +1,4 @@
 import React from 'react'
-import HeroImg from '../../assets/emps-hero.svg'
 import { Link } from 'react-router-dom';
 import LOGO from '../../assets/react.svg'
 interface HeroProps {

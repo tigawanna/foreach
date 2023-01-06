@@ -4,8 +4,8 @@ import { BsSunFill,BsFillMoonFill,} from "react-icons/bs";
 import { useQueryClient } from '@tanstack/react-query';
 import { client } from '../../utils/pb/config';
 import { useTheme } from '../../utils/hooks/themeHook';
-import { TheIcon } from '@denniskinuthia/tiny-pkgs';
 import { Link } from 'react-router-dom';
+import { TheIcon } from './../../shared/wrappers/TheIcon';
 
 interface ProfileMenuProps {
 user?:PBUser
