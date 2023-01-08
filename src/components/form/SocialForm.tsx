@@ -83,13 +83,14 @@ export const SocialForm = ({ user,mutation }: SocialFormProps) => {
                 fileInput.current = e; // you can still assign to ref
                 }}
               onChange={customHandleChange}/>
-            {(pic && typeof pic === 'object')?<img src={URL.createObjectURL(pic as Blob)} className="w-[80%] rounded-lg"/>
+            {(pic && typeof pic === 'object')?<img src={URL.createObjectURL(pic as Blob)} 
+                        className="max-h-[200px]  rounded-lg"/>
             :null} 
-            {(pic && typeof pic === 'string')?<img src={pic} className="w-[80%] rounded-lg"/>: null} 
+            {(pic && typeof pic === 'string')?<img src={pic} className="w-[80%] max-h-[300px] rounded-lg"/>: null} 
 
             <textarea
             style={{ borderColor: isError(errors,"body") ? "red" : "" }}
-            className="w-[95%] min-h-[200px] md:h-[30%]
+            className="w-[95%] min-h-[100px] md:h-[30%]
             m-2 p-2  border border-black dark:border-white text-base rounded-lg
            dark:bg-slate-700focus:border-2 dark:focus:border-4 focus:border-purple-700
             dark:focus:border-purple-600 "

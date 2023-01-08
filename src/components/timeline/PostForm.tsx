@@ -14,12 +14,10 @@ import { SocialForm } from './../form/SocialForm';
 
 interface PostFormProps {
 user:PBUser
+setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const PostForm = (
-    {
-        user
-    }: PostFormProps
+export const PostForm = ({user,setIsOpen}: PostFormProps
 ) => {
     const [error, setError] = React.useState({ name: "", message: "" })
     const [response, setResponse] = React.useState<Record | undefined>();
@@ -44,6 +42,9 @@ export const PostForm = (
                     name: "main",
                     message: concatErrors(err)
                 });
+            },
+            onSettled:()=>{
+                setIsOpen(true)
             }
         }
     );

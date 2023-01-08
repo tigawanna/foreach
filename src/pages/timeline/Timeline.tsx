@@ -7,6 +7,8 @@ import { FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { PostsCard } from './../../components/timeline/PostCard';
+import { PostForm } from './../../components/timeline/PostForm';
+import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 interface TimelineProps {
     user: PBUser
 }
@@ -18,13 +20,9 @@ interface Deps {
 
 
 
-export const Timeline = (
-    {
-        user
-    }: TimelineProps
-) => {
+export const Timeline = ({user}: TimelineProps) => {
 const { ref, inView } = useInView()
-
+const [isOpen, setIsOpen] = React.useState(false);
 const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
     getNextPageParam: (lastPage, allPages) => {
         // console.log("last page ==== ",lastPage,allPages)
@@ -63,11 +61,25 @@ return (
 
 
             <div className='w-fit h-fit p-2 bg-slate-500 text-white rounded-full fixed bottom-[10%] right-[5%]'>
-                <Link to={'/post/new'}>
-                    <TheIcon Icon={FaPlus} size={'40'} />
-                </Link>
-
+                    <TheIcon Icon={FaPlus} size={'40'} iconAction={() => setIsOpen(true)} />
             </div>
+            <ReactModalWrapper
+                child={
+                <PostForm user={user} setIsOpen={setIsOpen} />}
+                closeModal={() => setIsOpen(false)}
+                isOpen={isOpen}
+                styles={{
+                    overlay_top: '0%',
+                    overlay_right: '0%',
+                    overlay_left: '0%',
+                    overlay_bottom: '0%',
+                    content_bottom: '2%',
+                    content_right: '2%',
+                    content_left: '2%',
+                    content_top: '2%'
+
+                }}
+            />
             <div>
                 <button
                     ref={ref}
