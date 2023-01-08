@@ -40,7 +40,7 @@ React.useEffect(() => {
 }, [inView])
 
 const data = customPostsQuery.data
-console.log("custom query === ",data)
+// console.log("custom query === ",data)
 return (
     <QueryStateWrapper query={customPostsQuery}>
 

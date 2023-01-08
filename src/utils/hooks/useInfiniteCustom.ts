@@ -46,7 +46,7 @@ export const useInfiniteCustom = <T>(
     };
 
    return useInfiniteQuery<T[], unknown, T[], string[]>(
-        [key, user?.id as string],
+        [key],
         fetchPosts,
         options
     );

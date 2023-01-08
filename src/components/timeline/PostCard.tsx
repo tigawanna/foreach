@@ -5,7 +5,7 @@ import { FcComments } from 'react-icons/fc'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Record, Admin } from 'pocketbase';
 import { pb_url } from '../../utils/env';
-import { CustomPostType } from '../../utils/types/types';
+import { CustomPostType, PBUser } from '../../utils/types/types';
 import { client } from './../../utils/pb/config';
 import { concatErrors } from './../../utils/utils';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
@@ -20,15 +20,18 @@ interface PostCardProps {
 
 
 export const PostsCard: React.FC<PostCardProps> = ({ item, user }) => {
-    console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
-
+    // console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
+console.log("creator image  === ",item.creator_image)
     return (
         <div className='w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
           dark:border-[1px]  dark:border-white rounded-lg gap-3'>
             <div className='w-full flex justify-start itemscenter gap-[1px]'>
-                <div className='flex items-center justify-center '>
-                    {item.creator_image ? <img src={makeUrl('emps', item.creator_id, item.creator_image)}
-                        className=' w-fit max-h-10 rounded-full aspect-square' /> : null}
+                <div className='w-10 h-10 '>
+                    {item.creator_image ?
+                    <img 
+                    src={item.creator_image}
+                    // src={makeUrl('devs', item.creator_id, item.creator_image)}
+                        className=' w-fit h-10 rounded-full aspect-square' /> : null}
                 </div>
                 <div className='flex items-center text-blue-700 justifycenter text-md font-bold px-2'>
                     {item.creator_name}
@@ -67,19 +70,8 @@ const makeUrl = (coll_name: string, coll_id: string, media: string) => {
     return
 }
 interface PostReactionsCardProps {
-    user: Record | Admin | null | undefined
+    user: PBUser
     item: CustomPostType
-}
-interface ReactionResponse {
-    id: string
-    collectionId: string
-    collectionName: string
-    created: string
-    updated: string
-    post: string
-    emp: string
-    like: "yes" | "no";
-    comment: string
 }
 interface ReactionRequest {
     reaction?: string
@@ -90,16 +82,13 @@ interface ReactionRequest {
 
 export const PostReactionsCard: React.FC<PostReactionsCardProps> = ({ user, item }) => {
     // console.log("post ids === ",user?.id,item.id)
-    console.log("user ====", user?.id)
-    console.log("item ===== ", item)
+    // console.log("user ====", user?.id)
+    // console.log("item ===== ", item)
     const queryClient = useQueryClient()
     const [liked, setLiked] = React.useState(item.mylike === "yes")
 
     const updateReactionMutation = useMutation(async (vars: CustomPostType) => {
-
-        const updatevars = {
-            liked: item.mylike === "yes" ? "no" : "yes"
-        }
+       const updatevars = {liked: item.mylike === "yes" ? "no" : "yes"}
         console.log("update mutation vars=== ", updatevars, vars.reaction_id)
         try {
             const response = await client.collection('reactions')
@@ -114,19 +103,20 @@ export const PostReactionsCard: React.FC<PostReactionsCardProps> = ({ user, item
     },
         {
             onSettled: () => {
-                queryClient.invalidateQueries(['posts-list']);
-                // queryClient.invalidateQueries(count_query_key);
+            queryClient.invalidateQueries(['custom-posts']);
+            // queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
                 console.log("error updating ===> ", concatErrors(err))
-            }
+            },
+        
         }
     )
     const newReactionMutation = useMutation(async (vars: CustomPostType) => {
 
         const newReaction = {
             post: vars.post_id,
-            emp: user?.id,
+            user: user?.id,
             liked: "yes"
         }
         console.log("create vars =====> ", newReaction)
