@@ -8,7 +8,7 @@ user:PBUser
 
 export const TimelineLayout: React.FC<TimelineLayoutProps> = ({user}) => {
 return (
- <div className='w-full h-full'>
+ <div className='w-full h-fit'>
   <Outlet/>
  </div>
 );

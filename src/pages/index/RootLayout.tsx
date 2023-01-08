@@ -17,7 +17,7 @@ export const RootLayout: React.FC<RootLayoutProps> = ({ user, test_mode }) => {
   }, [user?.email]);
 
   return (
-    <div className="w-full h-screen max-h-screen dark:bg-slate-900">
+    <div className="w-full h-full dark:bg-slate-900">
       <div
         className="h-14 w-full  bg-slate-700 dark:bg-slate-800
           bg-opacity-30 dark:bg-opacity-90 max-h-[50px] p-1

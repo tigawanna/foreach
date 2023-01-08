@@ -1,11 +1,12 @@
 import React from 'react'
-import { PBUser } from '../../utils/types/types';
+import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInView } from 'react-intersection-observer'
 import { useInfiniteCustom } from './../../utils/hooks/useInfiniteCustom';
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
+import { PostsCard } from './../../components/timeline/PostCard';
 interface TimelineProps {
     user: PBUser
 }
@@ -15,18 +16,7 @@ interface Deps {
     }
 }
 
-export interface CustomPostType {
-    creator_id: string
-    creator_name: string
-    creator_image: string
-    post_id: string
-    post_body: string
-    post_media: string
-    created_at: string
-    likes: number
-    mylike: "yes"|"no"|"virgin"
-    reaction_id: string
-}
+
 
 export const Timeline: React.FC<TimelineProps> = ({user}) => {
 const { ref, inView } = useInView()
@@ -54,7 +44,8 @@ console.log("custom query === ",data)
 return (
     <QueryStateWrapper query={customPostsQuery}>
 
-        <div className='w-full min-h-full flex flex-col gap-2 items-center justify-center '>
+        <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center
+        '>
             <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
                 {data?.pages.map((page) => {
                     // console.log("page=== ",page)

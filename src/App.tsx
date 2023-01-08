@@ -69,9 +69,7 @@ function App() {
 
   return (
     <QueryStateWrapper query={query} loader={<LoaderElipse />}>
-      <div className=" dark:bg-slate-900 h-full max-h-screen
-       dark:text-white dark:shadow-white"
-      >
+      <div className=" dark:bg-slate-900 h-full dark:text-white dark:shadow-white">
       <RouterProvider router={appRoutes(user)} />
       </div>
     </QueryStateWrapper>
