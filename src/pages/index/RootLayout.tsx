@@ -25,7 +25,7 @@ export const RootLayout: React.FC<RootLayoutProps> = ({ user, test_mode }) => {
       >
         <Toolbar user={user} />
       </div>
-      <main className=" w-full h-full fixed top-12">
+      <main className=" w-full h-[90%] fixed top-12 overflow-y-scroll">
         <Outlet />
       </main>
     </div>
