@@ -21,17 +21,17 @@ interface PostCardProps {
 
 export const PostsCard: React.FC<PostCardProps> = ({ item, user }) => {
     // console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
-console.log("creator image  === ",item.creator_image)
+// console.log("creator image  === ",item.creator_image)
     return (
         <div className='w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
           dark:border-[1px]  dark:border-white rounded-lg gap-3'>
             <div className='w-full flex justify-start itemscenter gap-[1px]'>
-                <div className='w-10 h-10 '>
+                <div className='w-7 h-7 '>
                     {item.creator_image ?
                     <img 
                     src={item.creator_image}
                     // src={makeUrl('devs', item.creator_id, item.creator_image)}
-                        className=' w-fit h-10 rounded-full aspect-square' /> : null}
+                        className=' w-full h-full rounded-full aspect-square' /> : null}
                 </div>
                 <div className='flex items-center text-blue-700 justifycenter text-md font-bold px-2'>
                     {item.creator_name}

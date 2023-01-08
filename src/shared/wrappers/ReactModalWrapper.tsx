@@ -52,7 +52,7 @@ export const ReactModalWrapper: React.FC<ReactModalWrapperProps> = (
             top: adjustSize(styles?.content_top ?? '0%', '0%'),
             left: adjustSize(styles?.content_left ?? '15%', '0%'),
             right: adjustSize(styles?.content_right ?? '15%', '0%'),
-            bottom: adjustSize(styles?.content_bottom ?? '5%', '0%'),
+            bottom: adjustSize(styles?.content_bottom ?? '10%', '10%'),
             overflow: 'hidden',
             WebkitOverflowScrolling: 'touch',
             border: styles?.content_border ?? '',
