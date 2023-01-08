@@ -7,8 +7,10 @@ interface ProfileProps {
   user: PBUser;
 }
 
-export const Profile: React.FC<ProfileProps> = ({ user }) => (
-  <div className="w-full h-full">
-    <ProfileForm user={user} />
-  </div>
-);
+export const Profile = (
+  {
+    user
+  }: ProfileProps
+) => (<div className="w-full h-full">
+  <ProfileForm user={user} />
+</div>);

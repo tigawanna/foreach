@@ -4,7 +4,7 @@ interface LoaderProps {
 
 }
 
-export const LoaderElipse: React.FC<LoaderProps> = ({ }) => {
+export const LoaderElipse = ({}: LoaderProps) => {
     return (
         <div className='w-full h-full border flex justify-center items-center '>
             <div className="lds-ellipsis">
@@ -19,7 +19,7 @@ export const LoaderElipse: React.FC<LoaderProps> = ({ }) => {
 
 
 
-export const LoadersRing: React.FC<LoaderProps> = ({}) => {
+export const LoadersRing = ({}: LoaderProps) => {
 return (
     <div className='w-full h-full border flex justify-center items-center '>
     <div className="lds-ring">
@@ -34,7 +34,7 @@ return (
 
 
 
-export const LoaderSpinner: React.FC<LoaderProps> = ({}) => {
+export const LoaderSpinner = ({}: LoaderProps) => {
 return (
 <div className='w-full h-full border flex justify-center items-center '>
         <div className="lds-spinner">

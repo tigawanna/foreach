@@ -11,8 +11,14 @@ interface QueryStateWrapperProps {
     query?: | UseQueryResult<unknown, unknown> | UseInfiniteQueryResult<unknown, unknown>;
 }
 
-export const QueryStateWrapper: React.FC<QueryStateWrapperProps> = ({ 
-    children, loader, query, length }) => {
+export const QueryStateWrapper = (
+    {
+        children,
+        loader,
+        query,
+        length
+    }: QueryStateWrapperProps
+) => {
 
     if (query?.isLoading) {
         return (

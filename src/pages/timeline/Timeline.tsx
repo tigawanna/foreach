@@ -18,7 +18,11 @@ interface Deps {
 
 
 
-export const Timeline: React.FC<TimelineProps> = ({user}) => {
+export const Timeline = (
+    {
+        user
+    }: TimelineProps
+) => {
 const { ref, inView } = useInView()
 
 const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{

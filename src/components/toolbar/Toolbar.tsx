@@ -11,7 +11,11 @@ interface ToolbarProps {
   user: PBUser
 }
 
-export const Toolbar: React.FC<ToolbarProps> = ({user}) => {
+export const Toolbar = (
+  {
+    user
+  }: ToolbarProps
+) => {
 
 const [isOpen, setIsOpen] = React.useState(false);
 const avatar = user?.avatar

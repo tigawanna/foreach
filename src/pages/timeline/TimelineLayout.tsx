@@ -6,7 +6,11 @@ interface TimelineLayoutProps {
 user:PBUser
 }
 
-export const TimelineLayout: React.FC<TimelineLayoutProps> = ({user}) => {
+export const TimelineLayout = (
+ {
+  user
+ }: TimelineLayoutProps
+) => {
 return (
  <div className='w-full h-fit'>
   <Outlet/>

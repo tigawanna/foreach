@@ -10,7 +10,11 @@ interface RedirectProps {
   user?: PBUser;
 }
 
-export const Redirect: React.FC<RedirectProps> = ({ user }) => {
+export const Redirect = (
+  {
+    user
+  }: RedirectProps
+) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 

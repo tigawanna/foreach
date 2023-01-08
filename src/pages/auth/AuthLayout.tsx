@@ -6,7 +6,11 @@ interface AuthLayoutProps {
   user: PBUser;
 }
 
-export const AuthLayout: React.FC<AuthLayoutProps> = ({user}) => {
+export const AuthLayout = (
+  {
+    user
+  }: AuthLayoutProps
+) => {
   const navigate = useNavigate();
   console.log("user ===", user)
   React.useEffect(() => {

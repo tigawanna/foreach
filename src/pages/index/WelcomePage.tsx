@@ -6,7 +6,7 @@ interface WelcomePageProps {
   user?: PBUser;
 }
 
-export const WelcomePage: React.FC<WelcomePageProps> = () => (
+export const WelcomePage = () => (
   <div className="w-full h-full flex flex-col justify-start items center dark:bg-slate-900">
     <Hero />
   </div>

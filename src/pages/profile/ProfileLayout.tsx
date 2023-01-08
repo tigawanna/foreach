@@ -8,7 +8,7 @@ interface ProfileLayoutProps {
   user: PBUser;
 }
 
-export const ProfileLayout: React.FC<ProfileLayoutProps> = () => (
+export const ProfileLayout = () => (
   <div className="w-full h-full">
     <Outlet />
   </div>

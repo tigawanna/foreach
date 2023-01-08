@@ -8,7 +8,12 @@ interface RootLayoutProps {
   test_mode: boolean;
 }
 
-export const RootLayout: React.FC<RootLayoutProps> = ({ user, test_mode }) => {
+export const RootLayout = (
+  {
+    user,
+    test_mode
+  }: RootLayoutProps
+) => {
   const navigate = useNavigate();
   React.useEffect(() => {
     if (!user?.email && !test_mode) {

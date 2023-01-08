@@ -2,7 +2,7 @@ import React from 'react'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { VscComment } from 'react-icons/vsc'
 import { FcComments } from 'react-icons/fc'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Record, Admin } from 'pocketbase';
 import { pb_url } from '../../utils/env';
 import { CustomPostType, PBUser } from '../../utils/types/types';
@@ -19,7 +19,12 @@ interface PostCardProps {
 }
 
 
-export const PostsCard: React.FC<PostCardProps> = ({ item, user }) => {
+export const PostsCard = (
+    {
+        item,
+        user
+    }: PostCardProps
+) => {
     // console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
 // console.log("creator image  === ",item.creator_image)
     return (
@@ -80,7 +85,12 @@ interface ReactionRequest {
     liked: "yes" | "no";
 }
 
-export const PostReactionsCard: React.FC<PostReactionsCardProps> = ({ user, item }) => {
+export const PostReactionsCard = (
+    {
+        user,
+        item
+    }: PostReactionsCardProps
+) => {
     // console.log("post ids === ",user?.id,item.id)
     // console.log("user ====", user?.id)
     // console.log("item ===== ", item)

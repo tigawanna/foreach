@@ -13,7 +13,7 @@ export interface RRError {
   message: string;
 }
 
-export const ReactRouterError: React.FC<ReactRouterErrorProps> = () => {
+export const ReactRouterError = () => {
   const error = useRouteError() as RRError;
   const navigate = useNavigate();
 

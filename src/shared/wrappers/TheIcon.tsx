@@ -9,14 +9,15 @@ interface TheIconProps {
     iconAction?: () => any;
 }
 
-export const TheIcon: React.FC<TheIconProps> = (
+export const TheIcon = (
     {
         Icon,
         color,
         iconAction,
         iconstyle,
-        size,
-    }) => {
+        size
+    }: TheIconProps
+) => {
     return (
         <IconContext.Provider value={{
             size, color, className: iconstyle

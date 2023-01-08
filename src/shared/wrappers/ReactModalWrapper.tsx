@@ -25,9 +25,15 @@ interface ReactModalWrapperProps {
     deps?: any;
 }
 
-export const ReactModalWrapper: React.FC<ReactModalWrapperProps> = (
-    
-    { isOpen, closeModal, styles, child, deps }) => {
+export const ReactModalWrapper = (
+    {
+        isOpen,
+        closeModal,
+        styles,
+        child,
+        deps
+    }: ReactModalWrapperProps
+) => {
     const { isMobile } = useCheckInMobile()
     const adjustSize = (size: string, mobile_size: string) => {
         return isMobile ? mobile_size : size

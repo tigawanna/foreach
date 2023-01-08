@@ -12,12 +12,13 @@
     "upgrade-deps": "npm install -g npm-check-updates && ncu -u && npm install"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@tanstack/react-query": "^4.20.4",
     "dayjs": "^1.11.7",
     "pocketbase": "^0.9.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.41.3",
+    "react-hook-form": "^7.41.5",
     "react-icons": "^4.7.1",
     "react-intersection-observer": "^9.4.1",
     "react-modal": "^3.16.1",
@@ -56,23 +57,23 @@
     "vitest": "^0.26.3",
     "zod": "^3.20.2"
   },
-      "prettier": {
-        "arrowParens": "avoid",
-        "bracketSpacing": true,
-        "htmlWhitespaceSensitivity": "css",
-        "insertPragma": false,
-        "jsxBracketSameLine": false,
-        "jsxSingleQuote": false,
-        "printWidth": 100,
-        "proseWrap": "preserve",
-        "quoteProps": "as-needed",
-        "requirePragma": false,
-        "semi": true,
-        "singleQuote": false,
-        "tabWidth": 4,
-        "trailingComma": "none",
-        "useTabs": false,
-        "vueIndentScriptAndStyle": false,
-        "rangeStart": 0
-      }
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "htmlWhitespaceSensitivity": "css",
+    "insertPragma": false,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": false,
+    "printWidth": 100,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "semi": true,
+    "singleQuote": false,
+    "tabWidth": 4,
+    "trailingComma": "none",
+    "useTabs": false,
+    "vueIndentScriptAndStyle": false,
+    "rangeStart": 0
+  }
 }
