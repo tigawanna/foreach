@@ -5,7 +5,6 @@ import { concatErrors } from '../../utils/utils';
 import { Record } from 'pocketbase';
 import { PBUser } from '../../utils/types/types';
 import { Mutationprops } from './../form/types';
-import { SocialForm } from './../form/SocialForm';
 import { PlainForm } from '../form/PlainForm';
 
 
@@ -41,7 +40,7 @@ export const PostForm = ({user,setIsOpen}: PostFormProps
                 });
             },
             onSettled:()=>{
-                setIsOpen(true)
+                setIsOpen(false)
             }
         }
     );
@@ -56,19 +55,20 @@ return (
    setError={setError}
    user={user}
    />
-            <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
-                {error?.message === "" && response?.id ? (
-                    <div className=" w-[90%] line-clamp-3 p-2 bg-green-100 border-2 border-green-800 text-green-900  rounded-xl">
-                        Success
-                    </div>
-                ) : null}
+    <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
+        {error?.message === "" && response?.id ? (
+        <div className=" w-[90%] text-center line-clamp-3 p-2 bg-green-100 border-2
+         border-green-800 text-green-900  rounded-xl text-lg">
+            post added
+        </div>
+        ) : null}
 
-                {error?.message !== "" ? (
-                    <div className="m-1 w-full line-clamp-4 p-2 bg-red-100 border-2 border-red-800 text-red-900  rounded-xl">
-                        {error.message}
-                    </div>
-                ) : null}
-            </div>
+        {error?.message !== "" ? (
+        <div className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 border-red-800 text-red-900  rounded-xl">
+                {error.message}
+        </div>
+        ) : null}
+      </div>
 
  </div>
 );

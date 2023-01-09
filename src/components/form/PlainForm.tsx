@@ -21,7 +21,7 @@ interface PlainFormProps {
 
 }
 
-export const PlainForm = ({user,error,setError}:PlainFormProps) => {
+export const PlainForm = ({user,error,setError,mutation}:PlainFormProps) => {
 const [input, setInput] = React.useState<RequiredNewPostFormFields>({
   user:user?.id as string ,
   body:'',
@@ -41,8 +41,26 @@ const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElemen
 }
 
 const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>)=>{
-e.preventDefault()
-console.log("submitting .... ",input)
+    e.preventDefault()
+    console.log("submitting .... ",input)
+
+    if (input.user) {
+        if ((input?.media && "name" in input?.media) || input.body !== "") {
+            const formdata = new FormData()
+            if ((input?.media && "name" in input?.media)) {
+                formdata.append("media", input?.media)
+            }
+            if ((input.body !== "")) {
+                formdata.append("body", input.body as string)
+            }
+            formdata.append("user", input.user)
+            mutation.mutate({ collection: 'posts', payload: formdata });
+        }
+        else {
+            setError({ name: "main", message: "either body or image is required" })
+        }
+    }
+
 }
 const isError = (err: typeof error, label: keyof RequiredNewPostFormFields) => {
     if (err.name === label && err.message !=="") {
@@ -93,7 +111,7 @@ className='w-full h-full flex flex-col items-center justify-center'>
     {/* <FormButton form_stuff={form_stuff} /> */}
     <PlainFormButton 
     disabled={disableButton(input)}
-    isSubmitting={false}
+    isSubmitting={mutation.isLoading}
     label={"Post"}
     />
 
@@ -112,11 +130,11 @@ label?:string
 }
 
 export const PlainFormButton = ({disabled,isSubmitting,label="Subimt"}:PlainFormButtonProps) => {
-    console.log("disable buyyon ??",disabled)
+ 
 return (
     <button
         type="submit"
-        disabled={disabled}
+        disabled={disabled || isSubmitting}
         style={{opacity:disabled?'20%':'100%'}}
         className="p-2 w-[60%] md:w-[30%]
             border-2 dark:border border-slate-700 dark:border-slate-400 dark:bg-slate-800
@@ -126,9 +144,7 @@ return (
             hover:scale-105"
     >
         {isSubmitting ? (
-            <div className="flex justify-center items-center">
-                <LoaderElipse />
-            </div>
+            <LoaderElipse />
         ) : (
         <div 
         // style={{backgroundColor:"ButtonHighlight"}}

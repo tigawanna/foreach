@@ -61,12 +61,13 @@ return (
 
 
             <div className='w-fit h-fit p-2 bg-slate-500 text-white rounded-full fixed bottom-[10%] right-[5%]'>
-                    <TheIcon Icon={FaPlus} size={'40'} iconAction={() => setIsOpen(true)} />
+            <TheIcon Icon={FaPlus} size={'40'} iconAction={() => setIsOpen(true)} />
             </div>
             <ReactModalWrapper
                 child={
                 <PostForm user={user} setIsOpen={setIsOpen} />}
                 closeModal={() => setIsOpen(false)}
+                delay={3}
                 isOpen={isOpen}
                 styles={{
                     overlay_top: '0%',

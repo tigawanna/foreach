@@ -3,7 +3,7 @@ import { PBUser } from '../../utils/types/types';
 import { useForm } from "react-hook-form";
 import { RequiredNewPostFormFields } from '../form/types';
 import { PostForm } from '../timeline/PostForm';
-import { SocialForm } from '../form/SocialForm';
+
 
 interface TestProps {
     user: PBUser

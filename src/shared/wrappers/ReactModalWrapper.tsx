@@ -21,6 +21,7 @@ interface ReactModalWrapperProps {
         content_bg_color?: string;
         content_box_shadow?: string;
     };
+    delay?:number
     child: React.ReactNode;
     deps?: any;
 }
@@ -31,7 +32,8 @@ export const ReactModalWrapper = (
         closeModal,
         styles,
         child,
-        deps
+        deps,
+        delay=1
     }: ReactModalWrapperProps
 ) => {
     const { isMobile } = useCheckInMobile()
@@ -77,6 +79,7 @@ export const ReactModalWrapper = (
             shouldCloseOnOverlayClick={true}
             appElement={document.getElementById('root') as HTMLElement}
             style={customStyles}
+            closeTimeoutMS={delay*1000}
             contentLabel="Modal"
         >
             <div className="w-full flex justify-end">
