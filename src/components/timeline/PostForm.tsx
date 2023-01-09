@@ -29,7 +29,7 @@ export const PostForm = ({user,setIsOpen}: PostFormProps
         },
         {
             onError: (err: any) => {
-                console.log("errror adding new post in ", err.data);
+                // console.log("errror adding new post in ", err.data);
                 setError({
                     name: "main",
                     message: concatErrors(err)
@@ -54,7 +54,7 @@ return (
    />
     <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
         {error?.message === "" && response?.id ? (
-        <div className=" w-[90%] text-center line-clamp-3 p-2 bg-green-100 border-2
+        <div className=" w-fit text-center line-clamp-3 p-2 bg-green-100 border-2
          border-green-800 text-green-900  rounded-xl text-lg">
             post added
         </div>

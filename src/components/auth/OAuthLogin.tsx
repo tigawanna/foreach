@@ -5,6 +5,7 @@ import { PBUser } from '../../utils/types/types';
 import { getProviders} from '../../utils/pb/config';
 import { useQuery } from '@tanstack/react-query';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
+import { redirect_url } from '../../utils/env';
 
 interface OAuthLoginProps {
   user?: PBUser;
@@ -27,8 +28,7 @@ export const OAuthLogin = ({user}: OAuthLoginProps) => {
   }
   const startLogin = (prov: ProvType) => {
     localStorage.setItem('provider', JSON.stringify(prov));
-    const redirectUrl = 'http://localhost:3000/redirect';
-    const url = prov.authUrl + redirectUrl;
+    const url = prov.authUrl + redirect_url;
     // console.log("prov in button === ", prov)
     // console.log("combined url ==== >>>>>>  ",url)
 

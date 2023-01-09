@@ -1,5 +1,4 @@
-import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet} from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
 import { PBUser } from '../../utils/types/types';
 import { useAuthGuard } from './../../shared/hooks/useAuthGuard';
@@ -10,12 +9,7 @@ interface RootLayoutProps {
 }
 
 export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
-  // const navigate = useNavigate();
-  // React.useEffect(() => {
-  //   if (!user?.email && !test_mode) {
-  //     navigate('/auth');
-  //   }
-  // }, [user?.email]);
+
   useAuthGuard(user,test_mode)
 
   return (
@@ -27,7 +21,7 @@ export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
       >
         <Toolbar user={user} />
       </div>
-      <main className=" w-full h-[90%] fixed top-12 overflow-y-scroll">
+      <main className=" w-full h-[90%] fixed top-12 overflow-y-scroll scroll-bar">
         <Outlet />
       </main>
     </div>

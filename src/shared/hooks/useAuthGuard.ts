@@ -5,6 +5,7 @@ import { PBUser } from '../../utils/types/types';
 
 export const useAuthGuard = (user:PBUser,test_mode:boolean) => {
     const navigate = useNavigate();
+
     useEffect(() => {
         if (!user?.email && !test_mode) {
             navigate("/auth");

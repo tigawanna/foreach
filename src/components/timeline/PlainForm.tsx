@@ -43,7 +43,7 @@ const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElemen
 
 const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>)=>{
     e.preventDefault()
-    console.log("submitting .... ",input)
+    // console.log("submitting .... ",input)
 
     if (input.user) {
         if ((input?.media && "name" in input?.media) || input.body !== "") {
@@ -71,7 +71,7 @@ const isError = (err: typeof error, label: keyof RequiredNewPostFormFields) => {
 };
 
 const disableButton=(vals:typeof input)=>{
-    console.log("input === ",input)
+    // console.log("input === ",input)
 if(vals.body !=="" || vals.media) {
     return false
 }

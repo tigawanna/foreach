@@ -24,6 +24,11 @@ in short the ultimate solution for a self hosted baas service
 - zod : typesafety
 
 ## Authentication 
+
+[authentication](docs/authentication.md)
+
+[auth guarding](docs/authgurad.md)
+
 [article](https://dev.to/tigawanna/social-app-with-react-and-pocketbase-oauth-authentication-1nb7)
 
 

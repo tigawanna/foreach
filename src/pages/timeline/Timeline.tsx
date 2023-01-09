@@ -59,7 +59,7 @@ return (
                 child={
                 <PostForm user={user} setIsOpen={setIsOpen} />}
                 closeModal={() => setIsOpen(false)}
-                delay={3}
+                delay={2}
                 isOpen={isOpen}
                 styles={{
                     overlay_top: '0%',
