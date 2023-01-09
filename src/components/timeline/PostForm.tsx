@@ -13,13 +13,12 @@ user:PBUser
 setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const PostForm = ({user,setIsOpen}: PostFormProps
-) => {
+export const PostForm = ({user,setIsOpen}: PostFormProps) => {
     const [error, setError] = React.useState({ name: "", message: "" })
     const [response, setResponse] = React.useState<Record | undefined>();
-  
-   
-   const mutation = useMutation(async ({ collection,payload }: Mutationprops) => {
+    
+    
+const mutation = useMutation(async ({ collection,payload }: Mutationprops) => {
      try {
         const record = await client.collection(collection).create(payload);
         setResponse(record);

@@ -15,7 +15,8 @@ interface TimelineProps {
 export const Timeline = ({user}: TimelineProps) => {
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = React.useState(false);
-    const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
+    
+const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
     getNextPageParam: (lastPage, allPages) => {
         // console.log("last page ==== ",lastPage,allPages)
         if (lastPage && lastPage[lastPage.length - 1]) {
@@ -27,6 +28,7 @@ const [isOpen, setIsOpen] = React.useState(false);
         return;
     }
 })
+
  React.useEffect(() => {
     if (inView) {
         customPostsQuery.fetchNextPage()
@@ -36,12 +38,10 @@ const [isOpen, setIsOpen] = React.useState(false);
 const data = customPostsQuery.data
 // console.log("custom query === ",data)
 return (
-    <QueryStateWrapper query={customPostsQuery}>
-
-        <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center
-        '>
-            <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
-                {data?.pages.map((page) => {
+<QueryStateWrapper query={customPostsQuery}>
+    <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
+        <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
+            {data?.pages.map((page) => {
                     // console.log("page=== ",page)
                     return page.map((item) => {
                         return <PostsCard item={item} key={item.post_id} user={user} />
@@ -49,12 +49,12 @@ return (
                   
                 })
                 }
-            </div>
+        </div>
 
-
-            <div className='w-fit h-fit p-2 bg-slate-500 text-white rounded-full fixed bottom-[10%] right-[5%]'>
+    <div className='w-fit h-fit p-2 bg-slate-500 text-white rounded-full fixed bottom-[10%] right-[5%]'>
             <TheIcon Icon={FaPlus} size={'40'} iconAction={() => setIsOpen(true)} />
-            </div>
+        </div>
+        
             <ReactModalWrapper
                 child={
                 <PostForm user={user} setIsOpen={setIsOpen} />}
@@ -71,18 +71,14 @@ return (
                     content_left: '2%',
                     content_top: '2%'
 
-                }}
-            />
+                }}/>
+
             <div>
-                <button
-                    ref={ref}
-                    onClick={() => customPostsQuery.fetchNextPage()}
-                    disabled={!customPostsQuery.hasNextPage || customPostsQuery.isFetchingNextPage}
-                >
-                    {customPostsQuery.isFetchingNextPage ? 'Loading more...'
-                        : customPostsQuery.hasNextPage ? 'Load More'
-                            : !customPostsQuery.isLoading ? 'Nothing more to load' : null}
-                </button>
+        <button ref={ref}
+            onClick={() => customPostsQuery.fetchNextPage()}
+            disabled={!customPostsQuery.hasNextPage || customPostsQuery.isFetchingNextPage}>
+                {customPostsQuery.isFetchingNextPage ? 'Loading more...': customPostsQuery.hasNextPage ? 'Load More'
+                : !customPostsQuery.isLoading ? 'Nothing more to load' : null}</button>
             </div>
 
         </div>
