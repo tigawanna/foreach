@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext,useWatch } from "react-hook-form";
 import { Mutationprops, RequiredNewPostFormFields } from "./types";
 import { UseFormReturn } from "react-hook-form/dist/types";
 import { PBUser } from "../../utils/types/types";
@@ -8,6 +8,7 @@ import { AiOutlineCamera } from "react-icons/ai";
 import { BiImageAdd } from 'react-icons/bi'
 import { FormButton } from "./FormParts";
 import { UseMutationResult } from "@tanstack/react-query";
+import { FaCommentsDollar } from "react-icons/fa";
 
 interface SocialFormProps {
     user: PBUser;
@@ -24,9 +25,10 @@ export const SocialForm = ({ user,mutation }: SocialFormProps) => {
     });
     
     const [pic, setPic] = React.useState<File | string | null>();
-    const { register, formState: { errors, isDirty, isValid,touchedFields }} = form_stuff;
+    const { register,watch,formState: { errors, isDirty, isValid,touchedFields }} = form_stuff;
     const [error,setError]=React.useState({name:"",message:""})
     const fileInput = React.useRef<HTMLInputElement | null>(null);
+    
     const onSubmit = (data: RequiredNewPostFormFields) => {
         console.log("handle submit data === ", data);
         if(data.user){
@@ -64,9 +66,13 @@ export const SocialForm = ({ user,mutation }: SocialFormProps) => {
         setPic(e.target.files[0]);
          form_stuff.setValue("media", e.target.files[0] as File,{shouldDirty:true});
         }
+        // form_stuff.setValue("body",e.target.value)
      };
 
-    // console.log("is dirty  === ",isDirty,isValid,touchedFields)
+    React.useEffect(() => {
+        const subscription = watch((value, { name, type }) => console.log(value, name, type));
+        return () => subscription.unsubscribe();
+    }, [watch]);
 
     return (
         <div className="w-full h-full rounded-lg flex items-center justify-center ">
@@ -84,9 +90,10 @@ export const SocialForm = ({ user,mutation }: SocialFormProps) => {
                 }}
               onChange={customHandleChange}/>
             {(pic && typeof pic === 'object')?<img src={URL.createObjectURL(pic as Blob)} 
-                        className="max-h-[200px]  rounded-lg"/>
+                    className="max-h-[200px]  rounded-lg"/>
             :null} 
-            {(pic && typeof pic === 'string')?<img src={pic} className="w-[80%] max-h-[300px] rounded-lg"/>: null} 
+            {(pic && typeof pic === 'string')?<img src={pic} 
+                    className="w-[80%] max-h-[300px] rounded-lg"/>: null} 
 
             <textarea
             style={{ borderColor: isError(errors,"body") ? "red" : "" }}
@@ -108,6 +115,12 @@ export const SocialForm = ({ user,mutation }: SocialFormProps) => {
         </div>
     );
 };
+
+
+
+
+
+
 
 // interface SocialFormTextAreaProps {
 //     form_stuff: UseFormReturn<RequiredNewPostFormFields, any>;

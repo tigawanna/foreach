@@ -5,8 +5,7 @@ export interface RequiredProfileFormFields {
 }
 
 export interface RequiredNewPostFormFields {
-    title?: string;
-    body?: string;
+     body?: string;
     media?: File;
     user: string;
 }
