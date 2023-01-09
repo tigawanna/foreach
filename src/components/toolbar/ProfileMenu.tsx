@@ -3,7 +3,7 @@ import { PBUser } from '../../utils/types/types';
 import { BsSunFill,BsFillMoonFill,} from "react-icons/bs";
 import { useQueryClient } from '@tanstack/react-query';
 import { client } from '../../utils/pb/config';
-import { useTheme } from '../../utils/hooks/themeHook';
+import { useTheme } from '../../shared/hooks/themeHook';
 import { Link } from 'react-router-dom';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
 

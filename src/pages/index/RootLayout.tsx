@@ -2,24 +2,21 @@ import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
 import { PBUser } from '../../utils/types/types';
+import { useAuthGuard } from './../../shared/hooks/useAuthGuard';
 
 interface RootLayoutProps {
   user: PBUser;
   test_mode: boolean;
 }
 
-export const RootLayout = (
-  {
-    user,
-    test_mode
-  }: RootLayoutProps
-) => {
-  const navigate = useNavigate();
-  React.useEffect(() => {
-    if (!user?.email && !test_mode) {
-      navigate('/auth');
-    }
-  }, [user?.email]);
+export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
+  // const navigate = useNavigate();
+  // React.useEffect(() => {
+  //   if (!user?.email && !test_mode) {
+  //     navigate('/auth');
+  //   }
+  // }, [user?.email]);
+  useAuthGuard(user,test_mode)
 
   return (
     <div className="w-full h-full dark:bg-slate-900">

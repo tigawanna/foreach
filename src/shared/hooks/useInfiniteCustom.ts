@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import { pb_url } from "./../env";
-import { PBUser } from "../types/types";
+import { pb_url } from "../../utils/env";
+import { PBUser } from "../../utils/types/types";
 import { UseInfiniteQueryOptions, useInfiniteQuery } from "@tanstack/react-query";
 
 interface PaginationDeps {

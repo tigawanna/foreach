@@ -8,7 +8,7 @@ interface ProfileLayoutProps {
   user: PBUser;
 }
 
-export const ProfileLayout = () => (
+export const ProfileLayout = ({}:ProfileLayoutProps) => (
   <div className="w-full h-full">
     <Outlet />
   </div>

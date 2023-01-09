@@ -18,11 +18,7 @@ interface ProvType {
   authUrl: string;
 }
 
-export const OAuthLogin = (
-  {
-    user
-  }: OAuthLoginProps
-) => {
+export const OAuthLogin = ({user}: OAuthLoginProps) => {
   const query = useQuery(['providers'],getProviders)
   const navigate = useNavigate();
   // console.log("user in Login.tsx  ==  ",user)
