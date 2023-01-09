@@ -19,12 +19,7 @@ interface PostCardProps {
 }
 
 
-export const PostsCard = (
-    {
-        item,
-        user
-    }: PostCardProps
-) => {
+export const PostsCard = ({item,user}: PostCardProps) => {
     // console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
 // console.log("creator image  === ",item.creator_image)
     return (
@@ -85,12 +80,7 @@ interface ReactionRequest {
     liked: "yes" | "no";
 }
 
-export const PostReactionsCard = (
-    {
-        user,
-        item
-    }: PostReactionsCardProps
-) => {
+export const PostReactionsCard = ({user,item}: PostReactionsCardProps) => {
     // console.log("post ids === ",user?.id,item.id)
     // console.log("user ====", user?.id)
     // console.log("item ===== ", item)

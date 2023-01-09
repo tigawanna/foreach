@@ -1,15 +1,16 @@
 import React from 'react'
-import { Mutationprops, RequiredNewPostFormFields } from './types';
+import { Mutationprops, RequiredNewPostFormFields } from '../form/types';
 import { PBUser } from '../../utils/types/types';
-import { TheIcon } from './../../shared/wrappers/TheIcon';
+import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { BiImageAdd } from 'react-icons/bi'
 import { LoaderElipse } from '../../shared/loaders/Loaders';
 import { UseMutationResult } from '@tanstack/react-query';
-
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 
 interface PlainFormProps {
     user:PBUser;
     mutation: UseMutationResult<void, any, Mutationprops, unknown>
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
     error: {
         name: string;
         message: string;
@@ -21,7 +22,7 @@ interface PlainFormProps {
 
 }
 
-export const PlainForm = ({user,error,setError,mutation}:PlainFormProps) => {
+export const PlainForm = ({user,error,setError,mutation,setIsOpen}:PlainFormProps) => {
 const [input, setInput] = React.useState<RequiredNewPostFormFields>({
   user:user?.id as string ,
   body:'',
@@ -78,13 +79,16 @@ return true
 }
 
 return (
-<div className='w-full h-fit max-h-[90%] flex flex-col items-center justify-center bg-black rounded-xl'>
+<div className='w-full h-fit max-h-[90%] flex flex-col items-center justify-center 
+dark:bg-black bg-white rounded-xl '>
 <form 
 onSubmit={handleSubmit}
-className='w-full h-full flex flex-col items-center justify-center'>
+className='w-full md:w-[60%] h-full border-2 shadow-xl rounded-xl p-3
+flex flex-col items-center justify-center'>
 
 
-<div className="w-full h-full flex flex-col items-center justify-center ">
+
+<div className="w-full  h-full flex flex-col items-center justify-center ">
 {/* <input className="hidden" {...register('user')}/> */}
 {/* file input will be hidden and the iage icon will forwad the click event via a ref */}
 <input className="hidden" ref={fileInput} type="file" onChange={handleChange} />
@@ -101,8 +105,19 @@ className='w-full h-full flex flex-col items-center justify-center'>
     placeholder="What's on your mind"
     />
     
-    {(pic && typeof pic === 'object') ? <img src={URL.createObjectURL(pic as Blob)}
-            className="max-h-[200px]  rounded-lg" /> : null}
+    {(pic && typeof pic === 'object') ? 
+    <div className='w-full flex flex-col items-center justify-center'>
+    <div className='w-[90%] flex items-center justify-end'>
+        <TheIcon Icon={AiOutlineCloseCircle} size={'25'} iconAction={() => {
+            setPic(null)
+            setInput((prev)=>{
+                return {...prev,media:undefined}
+            })
+            }} />
+    </div>
+    <img src={URL.createObjectURL(pic as Blob)} className="max-h-[200px] rounded-lg" />
+    </div> : null}
+
     {(pic && typeof pic === 'string') ? <img src={pic}
                     className="w-[80%] max-h-[300px] rounded-lg" /> : null}
     <div className="w-[90%]">
@@ -153,3 +168,5 @@ return (
     </button>
 );
 }
+
+

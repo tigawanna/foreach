@@ -81,6 +81,7 @@ export const ReactModalWrapper = (
             style={customStyles}
             closeTimeoutMS={delay*1000}
             contentLabel="Modal"
+            
         >
             <div className="w-full flex justify-end">
                 <IconContext.Provider value={{ size: '25' }}>

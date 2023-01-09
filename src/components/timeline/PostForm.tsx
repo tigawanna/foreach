@@ -5,10 +5,7 @@ import { concatErrors } from '../../utils/utils';
 import { Record } from 'pocketbase';
 import { PBUser } from '../../utils/types/types';
 import { Mutationprops } from './../form/types';
-import { PlainForm } from '../form/PlainForm';
-
-
-
+import { PlainForm } from './PlainForm';
 
 
 interface PostFormProps {
@@ -20,16 +17,15 @@ export const PostForm = ({user,setIsOpen}: PostFormProps
 ) => {
     const [error, setError] = React.useState({ name: "", message: "" })
     const [response, setResponse] = React.useState<Record | undefined>();
-    const queryClient = useQueryClient();
+  
    
-   const mutation = useMutation(
-        async ({ collection,payload }: Mutationprops) => {
-            try {
-                const record = await client.collection(collection).create(payload);
-                setResponse(record);
-            } catch (e) {
+   const mutation = useMutation(async ({ collection,payload }: Mutationprops) => {
+     try {
+        const record = await client.collection(collection).create(payload);
+        setResponse(record);
+        } catch (e) {
                 throw e;
-            }
+        }
         },
         {
             onError: (err: any) => {
@@ -54,6 +50,7 @@ return (
    mutation={mutation}
    setError={setError}
    user={user}
+   setIsOpen={setIsOpen}
    />
     <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
         {error?.message === "" && response?.id ? (
@@ -77,15 +74,3 @@ return (
 
 
 
-interface PostFormProps {
-
-}
-
-export const PostFormComponent = ({}:PostFormProps) => {
-return (
-    <div className="w-full h-full rounded-lg flex items-center justify-center ">
-
-
-    </div>
-);
-}

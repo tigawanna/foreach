@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer'
 import { useInfiniteCustom } from './../../utils/hooks/useInfiniteCustom';
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { FaPlus } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { PostsCard } from './../../components/timeline/PostCard';
 import { PostForm } from './../../components/timeline/PostForm';
@@ -12,18 +11,11 @@ import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 interface TimelineProps {
     user: PBUser
 }
-interface Deps {
-    pageParam: {
-        created: string, id: string
-    }
-}
-
-
 
 export const Timeline = ({user}: TimelineProps) => {
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = React.useState(false);
-const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
+    const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
     getNextPageParam: (lastPage, allPages) => {
         // console.log("last page ==== ",lastPage,allPages)
         if (lastPage && lastPage[lastPage.length - 1]) {
@@ -35,10 +27,10 @@ const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
         return;
     }
 })
-React.useEffect(() => {
-        if (inView) {
-            customPostsQuery.fetchNextPage()
-        }
+ React.useEffect(() => {
+    if (inView) {
+        customPostsQuery.fetchNextPage()
+    }
 }, [inView])
 
 const data = customPostsQuery.data

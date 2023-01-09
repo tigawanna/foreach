@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { FieldValue, FieldValues, UseFormReturn } from 'react-hook-form/dist/types';
+import {  UseFormReturn } from 'react-hook-form/dist/types';
 import { LoaderElipse } from './../../shared/loaders/Loaders';
 
 interface FormInputProps<T> {
