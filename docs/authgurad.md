@@ -1,8 +1,8 @@
-# Auth guarding
+# AUTH guarding
 
-after we authenticate we ght want to gourd certain routes and redirect to the login page if not authenticated
+after we authenticate we might want to guard certain routes and redirect to the login page if not authenticated
 
-the most comon way to do it is 
+the most common way to do it is 
 
 ```ts
 import { Navigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ export const ProtectedRoute = ({ user,children }) => {
 
 ```
 
-and wrap the childern like this
+and wrap the children like this
 ```ts
           <Routes>
             <Route

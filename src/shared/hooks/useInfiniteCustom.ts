@@ -54,13 +54,3 @@ export const useInfiniteCustom = <T>(
 
 };
 
-// getNextPageParam: (lastPage, allPages) => {
-//     // console.log("last page ==== ",lastPage,allPages)
-//     if (lastPage && lastPage[lastPage.length - 1]) {
-//         return {
-//             created: lastPage[lastPage?.length - 1]?.created_at,
-//             id: lastPage[lastPage?.length - 1]?.post_id
-//         };
-//     }
-//     return;
-// };

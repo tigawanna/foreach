@@ -1,18 +1,18 @@
 ## Authentication
-In this first part we'll implement user authentication with the pocketbase social oauth providers 
-i'll use google and github but they support a dozen more.
+In this first part we'll implement user authentication with the pocketbase social OAUTH providers 
+I'll use google and GitHub but they support a dozen more.
 
 1. Obtaining client id and  client secret from the providers
-[setting up github oauth](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app)
+[setting up GitHub OAUTH](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app)
     
-[setting up google oauth](https://support.google.com/cloud/answer/6158849?hl=en)
+[setting up google OAUTH](https://support.google.com/cloud/answer/6158849?hl=en)
 
 then enable the respective providers in the pocketbase admin dashboard
 
-![enabling github oauth](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/12jn3sgjgqpbewentr5l.png)
-![enabling google oauth](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1mklmx38egzps9zlkpan.png)
+![enabling GitHub OAUTH](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/12jn3sgjgqpbewentr5l.png)
+![enabling Google OAUTH](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1mklmx38egzps9zlkpan.png)
 
-2. frontend intergration
+2. frontend integration
 using the pocketbase client 
 ```ts
 const authData = await pb.collection('devs').authWithOAuth2(
@@ -47,7 +47,7 @@ then
 ```ts
 const providers = await client.collection("devs").listAuthMethods()
 ```
-intiatite login function using:
+initiate login function using:
 ```ts
 const startLogin = (prov:ProvType) => {
    localStorage.setItem("provider",JSON.stringify(prov));
@@ -61,7 +61,7 @@ const startLogin = (prov:ProvType) => {
     }
   };
 ```
-> note: the redirect url should match what you provided in the setup process: once you've hsosted your websute you can use your actual domain instead of localhost
+> note: the redirect URL should match what you provided in the setup process: once you've hosted your website you can use your actual domain instead of localhost
 
 then we'll map over them and render out a button for each provider
 
@@ -93,6 +93,8 @@ then we'll map over them and render out a button for each provider
 
 finally the redirect component
 > remember to define a route for it in your react router config
+<details>
+<summary>Click to expand Redirect.tsx</summary>
 
 ```ts
 Redirect.tsx
@@ -164,9 +166,14 @@ return (
 }
 
 ```
-> Note:  i used   client.autoCancellation(false) to avoid the oauth request getting auto cancelled in dev mode because of react strict mode 
+</details>
 
-finally we can put in place route auth guards , i prefer to do it at the root layout level inside which every ther route is nested
+> Note:  I used   client.autoCancellation(false) to avoid the OAUTH request getting auto cancelled in dev mode because of react strict mode 
+
+finally we can put in place route AUTH guards , I prefer to do it at the root layout level inside which every other route is nested
+
+<details>
+<summary>Click to expand RootLayout.tsx</summary>
 
 ```ts
 RootLayout.tsx
@@ -207,5 +214,7 @@ return (
 }
 
 ```
+</details>
 
 [complete code](https://github.com/tigawanna/devhub)
+[AUTH guarding](https://dev.to/tigawanna/auth-guarding-in-react-392o)
