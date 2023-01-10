@@ -6,23 +6,19 @@ import { BiImageAdd } from 'react-icons/bi'
 import { LoaderElipse } from '../../shared/loaders/Loaders';
 import { UseMutationResult } from '@tanstack/react-query';
 import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { concatErrors } from './../../utils/utils';
+import { Record } from 'pocketbase';
 
 interface PlainFormProps {
     user:PBUser;
-    mutation: UseMutationResult<void, any, Mutationprops, unknown>
+    mutation: UseMutationResult<Record, unknown, Mutationprops, unknown>
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-    error: {
-        name: string;
-        message: string;
-    };
-    setError: React.Dispatch<React.SetStateAction<{
-        name: string;
-        message: string;
-    }>>
+    label:string
 
 }
 
-export const PlainForm = ({user,error,setError,mutation,setIsOpen}:PlainFormProps) => {
+export const PlainForm = ({label,user,mutation,setIsOpen}:PlainFormProps) => {
+const [error, setError] = React.useState({ name: "", message: "" })    
 const [input, setInput] = React.useState<RequiredNewPostFormFields>({
   user:user?.id as string ,
   body:'',
@@ -55,7 +51,17 @@ const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>)=>{
                 formdata.append("body", input.body as string)
             }
             formdata.append("user", input.user)
-            mutation.mutate({ collection: 'posts', payload: formdata });
+            mutation.mutate({basepayload: formdata },{
+            onSettled:()=>{
+                setIsOpen(false)
+                }, onError: (err: any) => {
+                    // console.log("errror adding new post in ", err.data);
+                    setError({
+                        name: "main",
+                        message: concatErrors(err)
+                    });
+                },
+            });
         }
         else {
             setError({ name: "main", message: "either body or image is required" })
@@ -127,11 +133,28 @@ flex flex-col items-center justify-center'>
     <PlainFormButton 
     disabled={disableButton(input)}
     isSubmitting={mutation.isLoading}
-    label={"Post"}
+    label={label}
     />
 
     </div>
  </form>
+
+        <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
+            {error?.message === "" && mutation.isSuccess ? (
+                <div className=" w-fit text-center line-clamp-3 p-2 bg-green-100 border-2
+         border-green-800 text-green-900  rounded-xl text-lg">
+                  {label?`${label} success`:'success'}
+                </div>
+            ) : null}
+
+            {error?.message !== "" ? (
+                <div className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 border-red-800 text-red-900  rounded-xl">
+                    {error.message}
+                </div>
+            ) : null}
+        </div>
+
+
 </div>
 );
 }

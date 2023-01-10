@@ -12,5 +12,7 @@ export interface CustomPostType {
     created_at: string;
     likes: number;
     mylike: "yes" | "no" | "virgin";
+    myreply: string | "virgin";
+    replies:number;
     reaction_id: string;
 }

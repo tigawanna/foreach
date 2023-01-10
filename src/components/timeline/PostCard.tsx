@@ -9,6 +9,11 @@ import { CustomPostType, PBUser } from '../../utils/types/types';
 import { client } from './../../utils/pb/config';
 import { concatErrors } from './../../utils/utils';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
+import { RequiredReplyFields } from '../form/types';
+import { ReactModalWrapper } from '../../shared/wrappers/ReactModalWrapper';
+import { PlainForm } from './PlainForm';
+import { Mutationprops } from './../form/types';
+
 
 
 
@@ -22,6 +27,7 @@ interface PostCardProps {
 export const PostsCard = ({item,user}: PostCardProps) => {
     // console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
 // console.log("creator image  === ",item.creator_image)
+
     return (
         <div className='w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
           dark:border-[1px]  dark:border-white rounded-lg gap-3'>
@@ -84,6 +90,7 @@ export const PostReactionsCard = ({user,item}: PostReactionsCardProps) => {
     // console.log("post ids === ",user?.id,item.id)
     // console.log("user ====", user?.id)
     // console.log("item ===== ", item)
+    const [isOpen, setIsOpen] = React.useState(false);
     const queryClient = useQueryClient()
     const [liked, setLiked] = React.useState(item.mylike === "yes")
 
@@ -144,11 +151,47 @@ export const PostReactionsCard = ({user,item}: PostReactionsCardProps) => {
         }
     )
 
+   const replyMutation = useMutation(async ({ basepayload }: Mutationprops) => {
+         basepayload.append('depth','1')
+         basepayload.append('post',item.post_id )
+        // basepayload.append('parent', null)
+        try {
+            return await client.collection('replies').create(basepayload);
+        }
+        catch (e) {
+            throw e;
+        }
+    });
+
     // console.log("total likes  ====== ",total_likes)
 
     return (
         <div className='w-full p-1'>
             <div className='w-full flex items-center justify-evenly'>
+                <ReactModalWrapper
+                    child={
+                        <PlainForm
+                            user={user}
+                            setIsOpen={setIsOpen}
+                            mutation={replyMutation}
+                            label="reply"
+                        />
+            
+            }
+                    closeModal={() => setIsOpen(false)}
+                    delay={2}
+                    isOpen={isOpen}
+                    styles={{
+                        overlay_top: '0%',
+                        overlay_right: '0%',
+                        overlay_left: '0%',
+                        overlay_bottom: '0%',
+                        content_bottom: '2%',
+                        content_right: '2%',
+                        content_left: '2%',
+                        content_top: '2%'
+
+                    }} />
                 <div className='w-full flex '>
                     <TheIcon
                         Icon={liked ? AiFillHeart : AiOutlineHeart}
@@ -167,12 +210,14 @@ export const PostReactionsCard = ({user,item}: PostReactionsCardProps) => {
                     />
                     {item.likes ?? 0}
                 </div>
-                {/* <div className='flex '>
-                    <TheIcon Icon={item.my_reply_id !== "virgin" ? FcComments : VscComment}
+                <div className='flex '>
+                    <TheIcon Icon={VscComment}
                         size='1.5rem'
-                        color={item.my_reply_id !== "virgin" ? "purple" : ""} />
-                    {item.reply_count ?? 0}
-                </div> */}
+                        color={item.myreply !== "virgin" ? "purple" : ""}
+                        iconAction={()=>setIsOpen(true)}
+                        />
+                    {item.replies ?? 0}
+                </div>
 
             </div>
         </div>

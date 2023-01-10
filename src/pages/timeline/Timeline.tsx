@@ -6,8 +6,12 @@ import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { FaPlus } from 'react-icons/fa';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { PostsCard } from './../../components/timeline/PostCard';
-import { PostForm } from './../../components/timeline/PostForm';
 import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
+import { PlainForm } from './../../components/timeline/PlainForm';
+import { useMutation } from '@tanstack/react-query';
+import { Mutationprops } from './../../components/form/types';
+import { client } from './../../utils/pb/config';
+
 interface TimelineProps {
     user: PBUser
 }
@@ -35,8 +39,18 @@ const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
     }
 }, [inView])
 
+    const mutation = useMutation(async ({ basepayload }: Mutationprops) => {
+        try {
+            return await client.collection('posts').create(basepayload);
+        }
+        catch (e) {
+            throw e;
+        }
+    });
+
+
 const data = customPostsQuery.data
-// console.log("custom query === ",data)
+console.log("custom query === ",data)
 return (
 <QueryStateWrapper query={customPostsQuery}>
     <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
@@ -57,7 +71,14 @@ return (
         
             <ReactModalWrapper
                 child={
-                <PostForm user={user} setIsOpen={setIsOpen} />}
+                    <PlainForm
+                        user={user}
+                        setIsOpen={setIsOpen}
+                        mutation={mutation}
+                        label='post'
+                    />
+            
+            }
                 closeModal={() => setIsOpen(false)}
                 delay={2}
                 isOpen={isOpen}

@@ -1,3 +1,5 @@
+import { Record } from "pocketbase";
+
 export interface RequiredProfileFormFields {
     avatar: string;
     displayname: string;
@@ -5,12 +7,20 @@ export interface RequiredProfileFormFields {
 }
 
 export interface RequiredNewPostFormFields {
-     body?: string;
+    body?: string;
     media?: File;
     user: string;
 }
 
 export interface Mutationprops {
-    collection: string;
-    payload: FormData;
+    // user,body,media
+    basepayload: FormData;
+}
+
+export interface RequiredReplyFields {
+    user: string;
+    post: string;
+    body: string;
+    depth: number;
+    parent?: string;
 }
