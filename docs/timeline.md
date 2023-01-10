@@ -24,6 +24,7 @@ but current migrations documentation is not very good so I didn't spend too much
 
 <details>
 <summary>Click to expand schema</summary>
+
 ```json
 [
     {
@@ -270,8 +271,107 @@ but current migrations documentation is not very good so I didn't spend too much
         "updateRule": "@request.auth.id = user",
         "deleteRule": "@request.auth.id = user",
         "options": {}
+    },
+    {
+        "id": "bmpn2ceujltwqy7",
+        "name": "replies",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "id": "f94qdwwh",
+                "name": "user",
+                "type": "relation",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "collectionId": "5sckr8a13top3zs",
+                    "cascadeDelete": true
+                }
+            },
+            {
+                "id": "sxzqsprc",
+                "name": "post",
+                "type": "relation",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "collectionId": "vbse1l0qet8z4hu",
+                    "cascadeDelete": true
+                }
+            },
+            {
+                "id": "gx6ygzg3",
+                "name": "body",
+                "type": "text",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "id": "oc2wko4y",
+                "name": "media",
+                "type": "file",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "maxSize": 5242880,
+                    "mimeTypes": [
+                        "image/jpg",
+                        "image/jpeg",
+                        "image/png",
+                        "image/svg+xml",
+                        "image/gif"
+                    ],
+                    "thumbs": []
+                }
+            },
+            {
+                "id": "jziagucc",
+                "name": "depth",
+                "type": "number",
+                "system": false,
+                "required": true,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null
+                }
+            },
+            {
+                "id": "bljwr3b0",
+                "name": "parent",
+                "type": "relation",
+                "system": false,
+                "required": false,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "collectionId": "bmpn2ceujltwqy7",
+                    "cascadeDelete": false
+                }
+            }
+        ],
+        "listRule": "@request.auth.id !=\"\"",
+        "viewRule": "@request.auth.id !=\"\"",
+        "createRule": "@request.auth.id !=\"\"",
+        "updateRule": "@request.auth.id = user.id",
+        "deleteRule": "@request.auth.id = user.id",
+        "options": {}
     }
 ]
+
 ```
 </details>
 
@@ -597,6 +697,8 @@ func CustomPostRoute(app *pocketbase.PocketBase) echo.Route {
 				Likes        int    `db:"likes" json:"likes"`
 				MyLike       string `db:"mylike" json:"mylike"`
 				ReactionId   string `db:"reaction_id" json:"reaction_id"`
+                Replies       int `db:"replies" json:"replies"`
+				MyReply   string `db:"myreply" json:"myreply"`
 			}{}
 			queryErr := app.Dao().DB().NewQuery(` 
 SELECT 
@@ -611,7 +713,11 @@ pp.created created_at,
 
 (SELECT COUNT(*) FROM reactions WHERE liked = 'yes' AND post = pp.id) likes,
 IFNULL((SELECT  liked FROM reactions WHERE user = {:user} AND post = pp.id),'virgin')mylike,
-IFNULL((SELECT id FROM reactions WHERE user = {:user} AND post = pp.id),"virgin") reaction_id
+IFNULL((SELECT id FROM reactions WHERE user = {:user} AND post = pp.id),"virgin") reaction_id,
+
+(SELECT COUNT(*) FROM replies WHERE post = pp.id) replies,
+IFNULL((SELECT  id FROM replies WHERE user = {:user}  AND post = pp.id),'virgin')myreply
+
 FROM posts pp
 LEFT JOIN devs dv on dv.id = pp.user
 WHERE (pp.created < {:created} OR (pp.created = {:created} AND pp.id < {:id}))
