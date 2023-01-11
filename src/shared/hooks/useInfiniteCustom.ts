@@ -61,16 +61,18 @@ export const useInfiniteCustom = <T>(
     return useInfiniteQuery<T[], unknown, T[], string[]>([key], () => fetchPosts(user), options);
 };
 
-export const useCustomPosts = async <T>(
+export const useCustomPosts = <T>(
     user: PBUser,
-    id: string,
-    options?:
+   options?:
         | (Omit<UseQueryOptions<T[], unknown, T[], string[]>,
               "queryKey" | "queryFn" | "initialData"
           > & { initialData?: (() => undefined) | undefined })
         | undefined
 ) => {
-    return useQuery<T[], unknown, T[], string[]>(["custom-posts"], () => fetchPosts(user));
+    return useQuery<T[], unknown, T[], string[]>(["custom-posts"], 
+    () => fetchPosts(user),
+    options
+    );
 };
 
 

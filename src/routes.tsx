@@ -12,8 +12,9 @@ import { ReactRouterError } from './shared/errorboundary/ReactRouterError';
 import { PBUser } from './utils/types/types';
 import { TimelineLayout } from './pages/timeline/TimelineLayout';
 import { Timeline } from './pages/timeline/Timeline';
-import { PostLayout } from './pages/post/Postlayout';
+
 import { Post } from './pages/post/Post';
+import { PostLayout } from './pages/post/PostLayout';
 
 
 export const appRoutes=(user:PBUser)=>{
