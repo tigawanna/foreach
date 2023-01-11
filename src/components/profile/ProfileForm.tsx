@@ -7,7 +7,7 @@ import { FormInput, FormButton } from "../form/FormParts";
 import { PBUser } from "../../utils/types/types";
 import { updateProfile } from "./../../utils/api/mutations";
 import { Record } from "pocketbase";
-import { FormFileInput } from "../form/FormFileInput";
+
 
 interface ProfileFormProps {
     user: PBUser;
@@ -85,13 +85,15 @@ export const ProfileForm = (
 
                 <div className="w-[90%] flex  flex-col items-center justify-center">
                     {error?.message === "" && response?.id ? (
-                        <div className=" w-[90%] line-clamp-3 p-2 bg-green-100 border-2 border-green-800 text-green-900  rounded-xl">
+                        <div className=" w-[90%] line-clamp-3 p-2 bg-green-100 border-2 border-green-800
+                         text-green-900  rounded-xl">
                             Success ! {JSON.stringify(response)}
                         </div>
                     ) : null}
 
                     {error?.message !== "" ? (
-                        <div className=" w-full line-clamp-4 p-2 bg-red-100 border-2 border-red-800 text-red-900  rounded-xl">
+                        <div className=" w-full line-clamp-4 p-2 bg-red-100 border-2 border-red-800
+                         text-red-900  rounded-xl">
                             {error.message}
                         </div>
                     ) : null}

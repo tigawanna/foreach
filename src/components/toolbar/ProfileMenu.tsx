@@ -12,12 +12,7 @@ user?:PBUser
 setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ProfileMenu = (
-    {
-        user,
-        setIsOpen
-    }: ProfileMenuProps
-) => {
+export const ProfileMenu = ({user,setIsOpen}: ProfileMenuProps) => {
 
 
     const queryClient = useQueryClient();
