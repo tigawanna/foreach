@@ -41,11 +41,12 @@ export const OAuthLogin = ({user}: OAuthLoginProps) => {
     google: FaGoogle,
   };
   const provs  = query.data?.authProviders
-
+ console.log("provs",provs)
   return (
     <div className="w-full h-fit md:h-full flex flex-wrap items-center justify-center gap-2 ">
       {provs &&
-        provs?.map((item: any) => {
+        provs?.map((item) => {
+          if(item.name === 'github')
           return (
             <div
               key={item.name}

@@ -6,13 +6,10 @@ interface AuthLayoutProps {
   user: PBUser;
 }
 
-export const AuthLayout = (
-  {
-    user
-  }: AuthLayoutProps
-) => {
+export const AuthLayout = ({user}: AuthLayoutProps) => {
   const navigate = useNavigate();
-  console.log("user ===", user)
+  // console.log("user ===", user)
+
   React.useEffect(() => {
     if (user) {
       if (user?.email && user?.displayName === "") {
@@ -24,7 +21,8 @@ export const AuthLayout = (
     }
 
   }, [user])
-  // eslint-disable-next-line implicit-arrow-linebreak
+
+
   return (<div className="w-full h-full">
     <Outlet />
   </div>

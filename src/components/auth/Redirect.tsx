@@ -5,6 +5,7 @@ import { PBUser } from '../../utils/types/types';
 import { client } from '../../utils/pb/config';
 import { redirect_url, login_url } from '../../utils/env';
 import { LoaderElipse } from './../../shared/loaders/Loaders';
+import { GithubRawUser } from './types';
 
 interface RedirectProps {
   user?: PBUser;
@@ -32,12 +33,17 @@ export const Redirect = ({user}: RedirectProps) => {
           local_prov.codeVerifier,
           redirectUrl
         );
+      console.log("oat response === ",oauthRes)
+      const rawUser = oauthRes?.meta?.rawUser as GithubRawUser
+      console.log("rawuser  === ",rawUser)
       await client.collection('devs').update(oauthRes?.record.id as string, {
         avatar: oauthRes.meta?.avatarUrl,
         accessToken: oauthRes.meta?.accessToken,
+        displayname:rawUser.name,
+        userame: rawUser.login.split("")[0]
       });
       queryClient.setQueryData(['user'], client.authStore.model);
-      navigate('/');
+      ;
     };
 
     if (local_prov.state !== state) {
@@ -51,10 +57,13 @@ export const Redirect = ({user}: RedirectProps) => {
       });
     }
   }, []);
+ 
+
+
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <LoaderElipse />
+      {user?.email?"you can go back to main now":<LoaderElipse />}
     </div>
   );
 };

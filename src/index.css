@@ -28,3 +28,7 @@
  .flex-center-col{
   @apply flex flex-col items-center justify-center
  }
+
+ .flex-start{
+  @apply flex flex-col items-start justify-start
+ }
