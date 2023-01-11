@@ -12,6 +12,8 @@ import { ReactRouterError } from './shared/errorboundary/ReactRouterError';
 import { PBUser } from './utils/types/types';
 import { TimelineLayout } from './pages/timeline/TimelineLayout';
 import { Timeline } from './pages/timeline/Timeline';
+import { PostLayout } from './pages/post/Postlayout';
+import { Post } from './pages/post/Post';
 
 
 export const appRoutes=(user:PBUser)=>{
@@ -64,7 +66,17 @@ export const appRoutes=(user:PBUser)=>{
                 },
               ],
             },
-
+            {
+              path: '/post',
+              element: <PostLayout user={user}  />,
+              children: [
+                {
+                  path: ':id',
+                  element: <Post user={user} />,
+                  // loader: deferredBlogPostsLoader,
+                },
+              ],
+            },
             {
               path: '/test',
               element: <TestLayout user={user} />,

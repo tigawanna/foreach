@@ -23,8 +23,15 @@ export const useInfiniteCustom = <T>(
 
     const fetchPosts = async (deps?: Partial<PaginationDeps>) => {
         // console.log("page params dependaces === ", deps, deps.pageParam?.id)
-        const url = `${pb_url}/custom_posts/?id=${deps?.pageParam?.id ?? ""}&user=${
-        user?.id ?? ""}&created=${deps?.pageParam?.created ?? currentdate}`;
+        const postsUrl = new URL(`  ${pb_url}/custom_posts`);
+        postsUrl.searchParams.set("id", deps?.pageParam?.id as string);
+        postsUrl.searchParams.set("user", user?.id as string);
+        postsUrl.searchParams.set("created", deps?.pageParam?.created ?? (currentdate as string));
+
+        // const url = `${pb_url}/custom_posts/?id=${deps?.pageParam?.id ?? ""}&user=${
+        //     user?.id ?? ""
+        // }&created=${deps?.pageParam?.created ?? currentdate}`;
+        const url = postsUrl.toString()
         let headersList = {
             Accept: "*/*"
         };
@@ -45,12 +52,6 @@ export const useInfiniteCustom = <T>(
         }
     };
 
-   return useInfiniteQuery<T[], unknown, T[], string[]>(
-        [key],
-        fetchPosts,
-        options
-    );
-
-
+    return useInfiniteQuery<T[], unknown, T[], string[]>([key], fetchPosts, options);
 };
 
