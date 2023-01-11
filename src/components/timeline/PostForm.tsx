@@ -6,7 +6,7 @@ import { BiImageAdd } from 'react-icons/bi'
 import { LoaderElipse } from '../../shared/loaders/Loaders';
 import { UseMutationResult } from '@tanstack/react-query';
 import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { concatErrors } from './../../utils/utils';
+import { concatErrors } from '../../utils/utils';
 import { Record } from 'pocketbase';
 
 interface PlainFormProps {
@@ -17,7 +17,7 @@ interface PlainFormProps {
 
 }
 
-export const PlainForm = ({label,user,mutation,setIsOpen}:PlainFormProps) => {
+export const PostForm = ({label,user,mutation,setIsOpen}:PlainFormProps) => {
 const [error, setError] = React.useState({ name: "", message: "" })    
 const [input, setInput] = React.useState<RequiredNewPostFormFields>({
   user:user?.id as string ,

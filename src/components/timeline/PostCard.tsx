@@ -11,7 +11,7 @@ import { concatErrors } from './../../utils/utils';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { RequiredReplyFields } from '../form/types';
 import { ReactModalWrapper } from '../../shared/wrappers/ReactModalWrapper';
-import { PlainForm } from './PlainForm';
+import { PostForm } from './PostForm';
 import { Mutationprops } from './../form/types';
 
 
@@ -170,7 +170,7 @@ export const PostReactionsCard = ({user,item}: PostReactionsCardProps) => {
             <div className='w-full flex items-center justify-evenly'>
                 <ReactModalWrapper
                     child={
-                        <PlainForm
+                        <PostForm
                             user={user}
                             setIsOpen={setIsOpen}
                             mutation={replyMutation}

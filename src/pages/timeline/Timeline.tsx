@@ -7,7 +7,7 @@ import { FaPlus } from 'react-icons/fa';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { PostsCard } from './../../components/timeline/PostCard';
 import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
-import { PlainForm } from './../../components/timeline/PlainForm';
+import { PostForm } from '../../components/timeline/PostForm';
 import { useMutation } from '@tanstack/react-query';
 import { Mutationprops } from './../../components/form/types';
 import { client } from './../../utils/pb/config';
@@ -71,7 +71,7 @@ return (
         
             <ReactModalWrapper
                 child={
-                    <PlainForm
+                    <PostForm
                         user={user}
                         setIsOpen={setIsOpen}
                         mutation={mutation}
