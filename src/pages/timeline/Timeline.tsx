@@ -61,7 +61,7 @@ return (
                     return page.map((item) => {
                         return (
                         <Link
-                        to={'/post/'+item.post_id}
+                        to={'post/'+item.post_id}
                         key={item.post_id}
                         className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">   
