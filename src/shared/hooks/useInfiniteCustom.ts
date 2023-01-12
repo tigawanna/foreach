@@ -18,7 +18,8 @@ interface PaginationDeps {
 const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]");
 
 const fetchPosts = async (user: PBUser, deps?: Partial<PaginationDeps>) => {
-    // console.log("page params dependaces === ", deps, deps.pageParam?.id)
+    // console.log("page params dependaces === ", deps?.pageParam?.created)
+   
     const postsUrl = new URL(`  ${pb_url}/custom_posts`);
     postsUrl.searchParams.set("id", deps?.pageParam?.id as string);
     postsUrl.searchParams.set("user", user?.id as string);
@@ -58,7 +59,7 @@ export const useInfiniteCustom = <T>(
     // custom-posts uses a where clause to paginate and needs the current
     //date formatted in sqlite date format as the starting point
 
-    return useInfiniteQuery<T[], unknown, T[], string[]>([key], () => fetchPosts(user), options);
+    return useInfiniteQuery<T[], unknown, T[], string[]>([key], (params) => fetchPosts(user,params), options);
 };
 
 export const useCustomPosts = <T>(
