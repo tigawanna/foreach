@@ -13,6 +13,18 @@ export interface CustomPostType {
     likes: number;
     mylike: "yes" | "no" | "virgin";
     myreply: string | "virgin";
-    replies:number;
+    replies: number;
     reaction_id: string;
+}
+
+export interface ReactionMutationResponse {
+    collectionId: string;
+    collectionName: string;
+    created: string;
+    id: string;
+    liked: "yes"|"no";
+    post: string;
+    updated: string;
+    user: string;
+    expand: {};
 }

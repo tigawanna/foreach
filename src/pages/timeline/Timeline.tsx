@@ -11,7 +11,7 @@ import { PostForm } from '../../components/timeline/PostForm';
 import { useMutation } from '@tanstack/react-query';
 import { Mutationprops } from './../../components/form/types';
 import { client } from './../../utils/pb/config';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface TimelineProps {
     user: PBUser
@@ -20,7 +20,7 @@ interface TimelineProps {
 export const Timeline = ({user}: TimelineProps) => {
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = React.useState(false);
-    
+const navigate = useNavigate()    
 const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
     getNextPageParam: (lastPage, allPages) => {
         // console.log("last page ==== ",lastPage,allPages)
@@ -60,13 +60,13 @@ return (
                     // console.log("page=== ",page)
                     return page.map((item) => {
                         return (
-                        <Link
-                        to={'post/'+item.post_id}
+                        <div
+                        onClick={() => navigate('post/' + item.post_id)}
                         key={item.post_id}
                         className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">   
                         <PostsCard item={item}  user={user} />
-                        </Link>
+                        </div>
                         )
                     })
                   

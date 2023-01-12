@@ -12,6 +12,7 @@ import { TheIcon } from "../../shared/wrappers/TheIcon";
 import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
 import { PostForm } from "./PostForm";
 import { Mutationprops } from "./../form/types";
+import { ReactionMutationResponse } from './../../utils/types/types';
 
 interface PostCardProps {
     item: CustomPostType;
@@ -23,9 +24,7 @@ export const PostsCard = ({ item, user }: PostCardProps) => {
     // console.log("creator image  === ",item.creator_image)
 
     return (
-        <div
-            className="w-full h-full p-2 flex flex-col"
-        >
+        <div className="w-full h-full p-2 flex flex-col">
             <div className="w-full flex justify-start itemscenter gap-[1px]">
                 <div className="w-7 h-7 ">
                     {item.creator_image ? (
@@ -125,8 +124,8 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
             }
         },
         {
-            onSettled: () => {
-                queryClient.invalidateQueries(["posts-list"]);
+            onSettled: (data) => {
+                queryClient.invalidateQueries(["custom-posts"]);
                 //     queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {

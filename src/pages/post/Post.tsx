@@ -27,11 +27,13 @@ const query = useCustomPosts<CustomPostType>(user, ["custom-posts", params?.id a
     console.log("posts query === ",query.data)
 const post = query.data&&query?.data[0]
     return (
-        <div className='w-full h-full flex-center-col'>
+        <div className='w-full h-full flex flex-col items-center justify-start gap-2'>
+            <div className="w-[98%] p-2 flex flex-col  border-black border-2 
+            dark:border-[1px]  dark:border-white rounded-lg ">
             <QueryStateWrapper query={query}>
-                <PostsCard item={post as CustomPostType}  user={user} />
+            <PostsCard item={post as CustomPostType}  user={user} />
             </QueryStateWrapper>
-    
+            </div>
         </div>
     );
 }

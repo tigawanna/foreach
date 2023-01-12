@@ -18,11 +18,19 @@ export const TheIcon = (
         size
     }: TheIconProps
 ) => {
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation();
+        iconAction && iconAction()
+        // other logic for handling the icon's click event
+    }
     return (
         <IconContext.Provider value={{
             size, color, className: iconstyle
         }}>
-            <Icon onClick={() => iconAction && iconAction()} />
+           <button onClick={handleClick}>
+                <Icon />
+           </button>
+           
         </IconContext.Provider>
     );
 };
