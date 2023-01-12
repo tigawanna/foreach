@@ -11,7 +11,7 @@ import { PostForm } from '../../components/timeline/PostForm';
 import { useMutation } from '@tanstack/react-query';
 import { Mutationprops } from './../../components/form/types';
 import { client } from './../../utils/pb/config';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface TimelineProps {
     user: PBUser

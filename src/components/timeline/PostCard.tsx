@@ -86,10 +86,9 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
             const updatevars = { liked: item.mylike === "yes" ? "no" : "yes" };
             console.log("update mutation vars=== ", updatevars, vars.reaction_id);
             try {
-                const response = await client
-                    .collection("reactions")
-                    .update(vars?.reaction_id as string, updatevars);
-                console.log("update reaction response === ", response);
+            const response = await client.collection("reactions").update(vars?.reaction_id as string, updatevars);
+            console.log("update reaction response === ", response);
+            return response
             } catch (err: any) {
                 console.log("error updating ===> ", concatErrors(err));
                 // setError({ name: "main", message: err?.messge })
@@ -117,6 +116,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
             try {
                 const response = await client.collection("reactions").create(newReaction);
                 console.log("new reaction response === ", response);
+                return response
             } catch (err: any) {
                 console.log("error liking post", concatErrors(err));
                 // setError({ name: "main", message: err?.messge })
@@ -140,11 +140,18 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
         basepayload.append("post", item.post_id);
         // basepayload.append('parent', null)
         try {
-            return await client.collection("replies").create(basepayload);
+        return await client.collection("replies").create(basepayload);
         } catch (e) {
-            throw e;
+        throw e;
         }
-    });
+    },{
+        onSettled:(data: Record | undefined, error: unknown, variables: Mutationprops, context: unknown)=>{
+            console.log("data after reply",data)
+            queryClient.invalidateQueries(["custom-posts"]);
+        }
+    }
+    
+    );
 
     // console.log("total likes  ====== ",total_likes)
 

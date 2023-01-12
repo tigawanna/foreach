@@ -4,6 +4,7 @@ import { useCustomPosts } from '../../shared/hooks/useInfiniteCustom';
 import { useParams } from 'react-router-dom';
 import { PostsCard } from '../../components/timeline/PostCard';
 import { QueryStateWrapper } from '../../shared/wrappers/QueryStateWrapper';
+import { Replies } from '../../components/replies/Replies';
 
 interface PostProps {
     user: PBUser
@@ -34,6 +35,7 @@ const post = query.data&&query?.data[0]
             <PostsCard item={post as CustomPostType}  user={user} />
             </QueryStateWrapper>
             </div>
+            <Replies post_id={post?.post_id as string}/>
         </div>
     );
 }
