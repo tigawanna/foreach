@@ -11,6 +11,7 @@ import { PostForm } from '../../components/timeline/PostForm';
 import { useMutation } from '@tanstack/react-query';
 import { Mutationprops } from './../../components/form/types';
 import { client } from './../../utils/pb/config';
+import { Link } from 'react-router-dom';
 
 interface TimelineProps {
     user: PBUser
@@ -55,10 +56,18 @@ return (
 <QueryStateWrapper query={customPostsQuery}>
     <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
         <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
-            {data?.pages.map((page) => {
+            {data?.pages?.map((page) => {
                     // console.log("page=== ",page)
                     return page.map((item) => {
-                        return <PostsCard item={item} key={item.post_id} user={user} />
+                        return (
+                        <Link
+                        to={'/post/'+item.post_id}
+                        key={item.post_id}
+                        className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
+                        dark:border-[1px]  dark:border-white rounded-lg gap-3">   
+                        <PostsCard item={item}  user={user} />
+                        </Link>
+                        )
                     })
                   
                 })
