@@ -3,7 +3,7 @@ import { useInfiniteReplies, useReplies } from './../../shared/hooks/useReplies'
 import { isHtmlElement } from 'react-router-dom/dist/dom';
 import { useInView } from 'react-intersection-observer';
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
-import { RepliesCard } from './RepliesCard';
+import { ReplyCard } from './RepliesCard';
 import { useNavigate } from 'react-router-dom';
 import { PBUser } from '../../utils/types/types';
 
@@ -50,7 +50,7 @@ return (
                         key={item.id}
                         className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">
-                                <RepliesCard reply={item} user={user} />
+                                <ReplyCard reply={item} user={user} />
                             </div>
                         )
                     })

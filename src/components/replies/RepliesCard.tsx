@@ -2,12 +2,12 @@ import React from 'react'
 import { PBUser, RepliesType } from '../../utils/types/types';
 import { makeUrl } from './../../utils/pb/config';
 
-interface RepliesCardProps {
+interface ReplyCardProps {
     reply:RepliesType
     user:PBUser
 }
 
-export const RepliesCard = ({reply}:RepliesCardProps) => {
+export const ReplyCard = ({reply}:ReplyCardProps) => {
     const image =reply?.expand?.user?.avatar
     console.log("reply === ",reply)
 return (
@@ -38,7 +38,7 @@ return (
         </div>
 
         {/* <div className="w-full  flex">
-            <PostReactionsCard user={user} item={item} />
+            <ReplyReactionsCard user={user} item={item} />
         </div> */}
     </div>
 );
