@@ -1,6 +1,8 @@
 import React from 'react'
 import { PBUser, RepliesType } from '../../utils/types/types';
 import { makeUrl } from './../../utils/pb/config';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { concatErrors } from './../../utils/utils';
 
 interface ReplyCardProps {
     reply:RepliesType
@@ -43,3 +45,98 @@ return (
     </div>
 );
 }
+
+
+
+// interface ReplyReactionProps {
+//     user:PBUser
+//     reply: RepliesType
+// }
+
+// export const ReplyReactionCard = ({user,reply}:ReplyReactionProps) => {
+
+
+//     const [isOpen, setIsOpen] = React.useState(false);
+//     const queryClient = useQueryClient();
+//     const [liked, setLiked] = React.useState(item.mylike === "yes");
+
+//     const updateReactionMutation = useMutation(
+//         async (vars: RepliesType) => {
+//             // const updatevars = { liked: item.mylike === "yes" ? "no" : "yes" };
+//             console.log("update mutation vars=== ", updatevars, vars.reaction_id);
+//             try {
+//                 const response = await client.collection("reactions").update(vars?.reaction_id as string, updatevars);
+//                 console.log("update reaction response === ", response);
+//                 return response
+//             } catch (err: any) {
+//                 console.log("error updating ===> ", concatErrors(err));
+//                 // setError({ name: "main", message: err?.messge })
+//                 throw err;
+//             }
+//         },
+//         {
+//             onSettled: () => {
+//                 queryClient.invalidateQueries(["custom-posts"]);
+//                 // queryClient.invalidateQueries(count_query_key);
+//             },
+//             onError: (err: any) => {
+//                 console.log("error updating ===> ", concatErrors(err));
+//             }
+//         }
+//     );
+//     const newReactionMutation = useMutation(
+//         async (vars: RepliesType) => {
+//             const newReaction = {
+//                 post: vars.id,
+//                 user: user?.id,
+//                 liked: "yes"
+//             };
+//             console.log("create vars =====> ", newReaction);
+//             try {
+//                 const response = await client.collection("reactions").create(newReaction);
+//                 console.log("new reaction response === ", response);
+//                 return response
+//             } catch (err: any) {
+//                 console.log("error liking post", concatErrors(err));
+//                 // setError({ name: "main", message: err?.messge })
+//                 throw err;
+//             }
+//         },
+//         {
+//             onSettled: (data) => {
+//                 queryClient.invalidateQueries(["custom-posts"]);
+//                 //     queryClient.invalidateQueries(count_query_key);
+//             },
+//             onError: (err: any) => {
+//                 console.log("error liking post", concatErrors(err));
+//                 updateReactionMutation.mutate(item);
+//             }
+//         }
+//     );
+
+//     const replyMutation = useMutation(async ({ basepayload }: Mutationprops) => {
+//         basepayload.append("depth", "1");
+//         basepayload.append("post", item.post_id);
+//         // basepayload.append('parent', null)
+//         try {
+//             return await client.collection("replies").create(basepayload);
+//         } catch (e) {
+//             throw e;
+//         }
+//     }, {
+//         onSettled: (data: Record | undefined, error: unknown, variables: Mutationprops, context: unknown) => {
+//             console.log("data after reply", data)
+//             queryClient.invalidateQueries(["custom-posts"]);
+//         }
+//     }
+
+//     );
+
+
+
+// return (
+//  <div>
+
+//  </div>
+// );
+// }
