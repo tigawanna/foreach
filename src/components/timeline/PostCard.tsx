@@ -1,7 +1,6 @@
 import React from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { VscComment } from "react-icons/vsc";
-import { FcComments } from "react-icons/fc";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Record, Admin } from "pocketbase";
 import { pb_url } from "../../utils/env";

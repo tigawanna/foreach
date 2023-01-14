@@ -17,7 +17,7 @@ interface Pagination_params {
 
 interface QueryVariables {
     user: PBUser;
-    post_id?:string
+    post_id?: string;
 }
 
 const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]");
@@ -32,6 +32,7 @@ const fetchPosts = async (
     const { user } = query_vars;
 
     postsUrl.searchParams.set("id", pagination_params?.pageParam?.id as string);
+    // postsUrl.searchParams.set("op", query_vars.post_id as string);
     postsUrl.searchParams.set("user", user?.id as string);
     postsUrl.searchParams.set(
         "created",

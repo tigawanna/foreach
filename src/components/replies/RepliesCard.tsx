@@ -1,18 +1,24 @@
 import React from 'react'
-import { CustomRepliesType, PBUser, RepliesType } from '../../utils/types/types';
+import { CustomRepliesType, PBUser,} from '../../utils/types/types';
 import { client, makeUrl } from './../../utils/pb/config';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { concatErrors } from '../../utils/utils';
 import { Mutationprops } from '../form/types';
 import { Record } from 'pocketbase';
+import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
+import { PostForm } from './../timeline/PostForm';
+import { TheIcon } from './../../shared/wrappers/TheIcon';
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { VscComment } from "react-icons/vsc";
 
 interface ReplyCardProps {
-    reply:CustomRepliesType
-    user:PBUser
+    reply: CustomRepliesType
+    user: PBUser
+    op: string
 }
 
-export const ReplyCard = ({reply}:ReplyCardProps) => {
-    console.log("reply === ",reply)
+export const ReplyCard = ({reply,user,op}:ReplyCardProps) => {
+    // console.log("reply === ",reply)
 return (
     <div className="w-full h-full p-2 flex flex-col">
    
@@ -34,15 +40,15 @@ return (
         <div className="w-full  flex items-center justify-center ">
             {reply.reply_media ? (
                 <img
-                    src={makeUrl("replies", reply.reply_id, reply.reply_media)}
+                    src={makeUrl("reply_replies", reply.reply_id, reply.reply_media)}
                     className=" w-fit max-h-80 rounded-lg border-t"
                 />
             ) : null}
         </div>
 
-        {/* <div className="w-full  flex">
-            <ReplyReactionsCard user={user} item={item} />
-        </div> */}
+        <div className="w-full  flex">
+            <ReplyReactionsCard user={user} item={reply} op={op}/>
+        </div>
     </div>
 );
 }
@@ -52,9 +58,10 @@ return (
 interface ReplyReactionsCardProps {
     user: PBUser;
     item: CustomRepliesType;
+    op:string;
 }
 
-export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
+export const ReplyReactionsCard = ({ user,item,op}: ReplyReactionsCardProps) => {
 
 
     const [isOpen, setIsOpen] = React.useState(false);
@@ -66,7 +73,7 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
             const updatevars = { liked: item.mylike === "yes" ? "no" : "yes" };
             console.log("update mutation vars=== ", updatevars, vars.reaction_id);
             try {
-                const response = await client.collection("reactions").update(
+                const response = await client.collection("reply_reactions").update(
                     vars?.reaction_id as string, updatevars);
                 console.log("update reaction response === ", response);
                 return response
@@ -78,7 +85,7 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
         },
         {
             onSettled: () => {
-                queryClient.invalidateQueries(["custom-posts"]);
+                queryClient.invalidateQueries(["custom-replies"]);
                 // queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
@@ -89,13 +96,13 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
     const newReactionMutation = useMutation(
         async (vars: CustomRepliesType) => {
             const newReaction = {
-                post: vars.reply_id,
+              post: vars.reply_id,
                 user: user?.id,
                 liked: "yes"
             };
             console.log("create vars =====> ", newReaction);
             try {
-                const response = await client.collection("reactions").create(newReaction);
+                const response = await client.collection("reply_reactions").create(newReaction);
                 console.log("new reaction response === ", response);
                 return response
             } catch (err: any) {
@@ -106,7 +113,7 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
         },
         {
             onSettled: (data) => {
-                queryClient.invalidateQueries(["custom-posts"]);
+                queryClient.invalidateQueries(["custom-replies"]);
                 //     queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
@@ -128,7 +135,7 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
     }, {
         onSettled: (data: Record | undefined, error: unknown, variables: Mutationprops, context: unknown) => {
             console.log("data after reply", data)
-            queryClient.invalidateQueries(["custom-posts"]);
+            queryClient.invalidateQueries(["custom-replies"]);
         }
     }
 
@@ -136,7 +143,62 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
 
 return (
 <div className="w-full h-full p-2 flex flex-col">
+        <div className="w-full flex items-center justify-evenly">
+            <ReactModalWrapper
+                child={
+                    <PostForm
+                        user={user}
+                        setIsOpen={setIsOpen}
+                        mutation={replyMutation}
+                        label="reply"
+                    />
+                }
+                closeModal={() => setIsOpen(false)}
+                delay={2}
+                isOpen={isOpen}
+                styles={{
+                    overlay_top: "0%",
+                    overlay_right: "0%",
+                    overlay_left: "0%",
+                    overlay_bottom: "0%",
+                    content_bottom: "2%",
+                    content_right: "2%",
+                    content_left: "2%",
+                    content_top: "2%"
+                }}
+            />
 
+            <div className="w-full flex ">
+                <TheIcon
+                    Icon={liked ? AiFillHeart : AiOutlineHeart}
+                    size="1.5rem"
+                    color={liked ? "red" : ""}
+                    iconAction={() => {
+                        if (
+                            item.mylike !== "virgin" &&
+                            item.reaction_id &&
+                            item.reaction_id !== ""
+                        ) {
+                            updateReactionMutation.mutate(item);
+                            setLiked(prev => !prev);
+                        } else {
+                            newReactionMutation.mutate(item);
+                            setLiked(prev => !prev);
+                        }
+                    }}
+                />
+                {item.likes ?? 0}
+            </div>
+            <div className="flex ">
+                <TheIcon
+                    Icon={VscComment}
+                    size="1.5rem"
+                    color={item.myreply !== "virgin" ? "purple" : ""}
+                    iconAction={() => setIsOpen(true)}
+                />
+                {item.replies ?? 0}
+            </div>
+        </div>
  </div>
 );
 }

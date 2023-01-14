@@ -1,10 +1,7 @@
-import React from 'react'
-
-import { isHtmlElement } from 'react-router-dom/dist/dom';
+import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer';
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { ReplyCard } from './RepliesCard';
-import { useNavigate } from 'react-router-dom';
 import { CustomRepliesType, PBUser } from '../../utils/types/types';
 import { useInfiniteCustomRelies } from './../../utils/hooks/useCustomReplies';
 
@@ -17,7 +14,6 @@ user:PBUser
 export const Replies = ({op,parent,user}:RepliesProps) => {
 //  const query = useReplies(['replies',post_id],post_id)
 const { ref, inView } = useInView()
-    const navigate = useNavigate()
 
 const query = useInfiniteCustomRelies<CustomRepliesType>('custom-replies',{op,parent,user},{
     getNextPageParam: (lastPage, allPages) => {
@@ -32,7 +28,7 @@ const query = useInfiniteCustomRelies<CustomRepliesType>('custom-replies',{op,pa
         return;
     }
 })
-    React.useEffect(() => {
+    useEffect(() => {
         if (inView) {
             query.fetchNextPage()
         }
@@ -53,7 +49,7 @@ return (
                         key={item.reply_id}
                         className="w-[95%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">
-                                <ReplyCard reply={item} user={user} />
+                                <ReplyCard reply={item} user={user} op={op}/>
                             </div>
                         )
                     })
