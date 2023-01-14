@@ -11,7 +11,7 @@ export const ReplyCard = ({reply}:ReplyCardProps) => {
     console.log("reply === ",reply)
 return (
     <div className="w-full h-full p-2 flex flex-col">
-        {reply.reply_body}
+   
         <div className="w-full flex justify-start itemscenter gap-[1px]">
             <div className="w-7 h-7 ">
                 {reply.creator_image ? (
@@ -22,16 +22,16 @@ return (
                     />
                 ) : null}
             </div>
-            <div className="flex items-center text-blue-700 justifycenter text-md font-bold px-2">
+            <div className="flex items-center text-blue-700 justifycenter text-md font-bold px-1">
                 {reply.creator_name}
             </div>
         </div>
-        <div className="w-full  flex  text-sm ">{reply.reply_body}</div>
+        <div className="w-full  flex  text-sm p-2">{reply.reply_body}</div>
         <div className="w-full  flex items-center justify-center ">
             {reply.reply_media ? (
                 <img
                     src={makeUrl("replies", reply.reply_id, reply.reply_media)}
-                    className=" w-fit max-h-80 rounded-lg"
+                    className=" w-fit max-h-80 rounded-lg border-t"
                 />
             ) : null}
         </div>
@@ -40,5 +40,19 @@ return (
             <ReplyReactionsCard user={user} item={item} />
         </div> */}
     </div>
+);
+}
+
+
+
+interface ReplyReactionsCardProps {
+
+}
+
+export const ReplyReactionsCard = ({ }: ReplyReactionsCardProps) => {
+return (
+<div className="w-full h-full p-2 flex flex-col">
+
+ </div>
 );
 }

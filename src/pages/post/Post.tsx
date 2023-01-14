@@ -1,4 +1,3 @@
-import React from 'react'
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useCustomPosts } from '../../utils/hooks/useCustomPosts';
 import { useParams } from 'react-router-dom';
@@ -25,11 +24,11 @@ const query = useCustomPosts<CustomPostType>('custom-posts',{user,post_id:params
     }
 })
 
-    console.log("posts query === ",query.data)
+// console.log("posts query === ",query.data)
 const post = query.data&&query?.data[0]
     return (
         <div className='w-full min-h-full flex flex-col items-center justify-start gap-2'>
-            <div className="w-[98%] p-2 flex flex-col  border-black border-2 
+            <div className="w-[95%] p-2 flex flex-col  border-black border-2 
             dark:border-[1px]  dark:border-white rounded-lg ">
             <QueryStateWrapper query={query}>
             <PostsCard item={post as CustomPostType}  user={user} />

@@ -1,7 +1,6 @@
-import React from 'react'
+import {useState,useEffect} from 'react'
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInView } from 'react-intersection-observer'
-
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { FaPlus } from 'react-icons/fa';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
@@ -20,7 +19,7 @@ interface TimelineProps {
 
 export const Timeline = ({user}: TimelineProps) => {
 const { ref, inView } = useInView()
-const [isOpen, setIsOpen] = React.useState(false);
+const [isOpen, setIsOpen] = useState(false);
 const navigate = useNavigate()    
 const customPostsQuery = useInfiniteCustomPosts<CustomPostType>('custom-posts',
 {user},{
@@ -35,8 +34,7 @@ const customPostsQuery = useInfiniteCustomPosts<CustomPostType>('custom-posts',
         return;
     }
 })
-
- React.useEffect(() => {
+useEffect(() => {
     if (inView) {
         customPostsQuery.fetchNextPage()
     }
@@ -53,7 +51,7 @@ const customPostsQuery = useInfiniteCustomPosts<CustomPostType>('custom-posts',
 
 
 const data = customPostsQuery.data
-console.log("custom query === ",data)
+// console.log("custom query === ",data)
 return (
 <QueryStateWrapper query={customPostsQuery}>
     <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
