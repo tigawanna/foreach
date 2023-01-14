@@ -1,37 +1,36 @@
 import React from 'react'
-import { PBUser, RepliesType } from '../../utils/types/types';
+import { CustomRepliesType, PBUser, RepliesType } from '../../utils/types/types';
 import { makeUrl } from './../../utils/pb/config';
 
 interface ReplyCardProps {
-    reply:RepliesType
+    reply:CustomRepliesType
     user:PBUser
 }
 
 export const ReplyCard = ({reply}:ReplyCardProps) => {
-    const image =reply?.expand?.user?.avatar
     console.log("reply === ",reply)
 return (
     <div className="w-full h-full p-2 flex flex-col">
-        {reply.body}
+        {reply.reply_body}
         <div className="w-full flex justify-start itemscenter gap-[1px]">
             <div className="w-7 h-7 ">
-                {reply?.expand?.user?.avatar ? (
+                {reply.creator_image ? (
                     <img
-                        src={reply?.expand?.user?.avatar}
+                        src={reply.creator_image}
                         // src={makeUrl('devs', item.creator_id, item.creator_image)}
                         className=" w-full h-full rounded-full aspect-square"
                     />
                 ) : null}
             </div>
             <div className="flex items-center text-blue-700 justifycenter text-md font-bold px-2">
-                {reply?.expand?.user?.username}
+                {reply.creator_name}
             </div>
         </div>
-        <div className="w-full  flex  text-sm ">{reply.body}</div>
+        <div className="w-full  flex  text-sm ">{reply.reply_body}</div>
         <div className="w-full  flex items-center justify-center ">
-            {reply?.media ? (
+            {reply.reply_media ? (
                 <img
-                    src={makeUrl("replies", reply.id, reply?.media)}
+                    src={makeUrl("replies", reply.reply_id, reply.reply_media)}
                     className=" w-fit max-h-80 rounded-lg"
                 />
             ) : null}

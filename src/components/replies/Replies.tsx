@@ -26,7 +26,7 @@ const query = useInfiniteCustomRelies<CustomRepliesType>('custom-replies',{op,pa
         if (lastPage && lastPage[lastPage.length - 1]) {
             return {
                 created: lastPage[lastPage?.length - 1]?.replied_at,
-                id: lastPage[lastPage?.length - 1]?.
+                id: lastPage[lastPage?.length - 1]?.reply_id
             };
         }
         return;
@@ -46,11 +46,11 @@ return (
             <div className='w-[95%] min-h-full flex flex-col items-center justify-center gap-2 py-2'>
                 {data?.pages?.map((page) => {
            
-                    return page.items.map((item) => {
+                    return page.map((item) => {
                         return (
                             <div
                                 // onClick={() => navigate('post/' + item.post_id)}
-                        key={item.id}
+                        key={item.reply_id}
                         className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">
                                 <ReplyCard reply={item} user={user} />

@@ -17,6 +17,7 @@ interface Pagination_params {
 
 interface QueryVariables {
     user: PBUser;
+    post_id?:string
 }
 
 const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]");
@@ -89,9 +90,9 @@ export const useCustomPosts = <T>(
           > & { initialData?: (() => undefined) | undefined })
         | undefined
 ) => {
-    const { user } = query_vars;
+    const { user,post_id } = query_vars;
     return useQuery<T[], unknown, T[], string[]>(
-        [key,user?.id as string],
+        [key,user?.id as string,post_id as string],
         () => fetchPosts(query_vars),
         options
     );
