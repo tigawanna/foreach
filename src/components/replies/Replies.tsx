@@ -1,5 +1,5 @@
 import React from 'react'
-import { useInfiniteReplies, useReplies } from './../../shared/hooks/useReplies';
+import { useInfiniteReplies, useReplies } from '../../utils/hooks/useCustomReplies';
 import { isHtmlElement } from 'react-router-dom/dist/dom';
 import { useInView } from 'react-intersection-observer';
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
@@ -9,6 +9,7 @@ import { PBUser } from '../../utils/types/types';
 
 interface RepliesProps {
 post_id:string
+parent_id:string
 user:PBUser
 }
 

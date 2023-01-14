@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PBUser } from '../../utils/types/types';
+import { PBUser } from '../types/types';
 
 export const useAuthGuard = (user:PBUser,test_mode:boolean) => {
     const navigate = useNavigate();

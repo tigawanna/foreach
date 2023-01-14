@@ -1,6 +1,6 @@
 import React from 'react'
 import { CustomPostType, PBUser } from '../../utils/types/types';
-import { useCustomPosts } from '../../shared/hooks/useInfiniteCustom';
+import { useCustomPosts } from '../../utils/hooks/useCustomPosts';
 import { useParams } from 'react-router-dom';
 import { PostsCard } from '../../components/timeline/PostCard';
 import { QueryStateWrapper } from '../../shared/wrappers/QueryStateWrapper';

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import { pb_url } from "../../utils/env";
-import { PBUser } from "../../utils/types/types";
+import { pb_url } from "../env";
+import { PBUser } from "../types/types";
 import {
     UseInfiniteQueryOptions,
     useInfiniteQuery,
@@ -8,22 +8,34 @@ import {
     UseQueryOptions
 } from "@tanstack/react-query";
 
-interface PaginationDeps {
+interface Pagination_params {
     pageParam: {
         created: string;
         id: string;
     };
 }
 
+interface QueryVariables {
+    user: PBUser;
+}
+
 const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]");
 
-const fetchPosts = async (user: PBUser, deps?: Partial<PaginationDeps>) => {
+const fetchPosts = async (
+    query_vars: QueryVariables,
+    pagination_params?: Partial<Pagination_params>
+) => {
     // console.log("page params dependaces === ", deps?.pageParam?.created)
-   
+
     const postsUrl = new URL(`  ${pb_url}/custom_posts`);
-    postsUrl.searchParams.set("id", deps?.pageParam?.id as string);
+    const { user } = query_vars;
+
+    postsUrl.searchParams.set("id", pagination_params?.pageParam?.id as string);
     postsUrl.searchParams.set("user", user?.id as string);
-    postsUrl.searchParams.set("created", deps?.pageParam?.created ?? (currentdate as string));
+    postsUrl.searchParams.set(
+        "created",
+        pagination_params?.pageParam?.created ?? (currentdate as string)
+    );
 
     const url = postsUrl.toString();
     // const url = `${pb_url}/custom_posts/?id=${deps?.pageParam?.id ?? ""}&user=${
@@ -49,9 +61,9 @@ const fetchPosts = async (user: PBUser, deps?: Partial<PaginationDeps>) => {
         throw new Error(e.message);
     }
 };
-export const useInfiniteCustom = <T>(
+export const useInfiniteCustomPosts = <T>(
     key: string,
-    user: PBUser,
+    query_vars: QueryVariables,
     options?:
         | Omit<UseInfiniteQueryOptions<T[], unknown, T[], T[], string[]>, "queryKey" | "queryFn">
         | undefined
@@ -59,21 +71,29 @@ export const useInfiniteCustom = <T>(
     // custom-posts uses a where clause to paginate and needs the current
     //date formatted in sqlite date format as the starting point
 
-    return useInfiniteQuery<T[], unknown, T[], string[]>([key], (params) => fetchPosts(user,params), options);
+    const { user } = query_vars;
+    return useInfiniteQuery<T[], unknown, T[], string[]>(
+        [key, user?.id as string],
+        params => fetchPosts(query_vars, params),
+        options
+    );
 };
 
 export const useCustomPosts = <T>(
-   user: PBUser,
-   key:string[],
-   options?:
-        | (Omit<UseQueryOptions<T[], unknown, T[], string[]>,
+    key: string,
+    query_vars: QueryVariables,
+    options?:
+        | (Omit<
+              UseQueryOptions<T[], unknown, T[], string[]>,
               "queryKey" | "queryFn" | "initialData"
           > & { initialData?: (() => undefined) | undefined })
         | undefined
 ) => {
-    return useQuery<T[], unknown, T[], string[]>(key, 
-    () => fetchPosts(user),
-    options
+    const { user } = query_vars;
+    return useQuery<T[], unknown, T[], string[]>(
+        [key,user?.id as string],
+        () => fetchPosts(query_vars),
+        options
     );
 };
 

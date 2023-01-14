@@ -30,6 +30,25 @@ export interface ReactionMutationResponse {
     expand: {};
 }
 
+export interface CustomRepliesType {
+    creator_id:    string;
+    creator_name:  string;
+    creator_image: string;
+    op_post_id:    string;
+    reply_body:    string;
+    reply_media:   string;
+    replied_at:    Date;
+    reply_depth:   string;
+    replying_to:   string;
+    likes:         number;
+    mylike:        string;
+    reaction_id:   string;
+    replies:       number;
+    myreply:       string;
+}
+
+
+
 export interface RepliesType {
     body: string;
     collectionId: string;

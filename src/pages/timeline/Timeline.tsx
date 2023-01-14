@@ -1,7 +1,7 @@
 import React from 'react'
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInView } from 'react-intersection-observer'
-import { useInfiniteCustom } from '../../shared/hooks/useInfiniteCustom';
+import { useInfiniteCustom } from '../../utils/hooks/useCustomPosts';
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { FaPlus } from 'react-icons/fa';
 import { TheIcon } from '../../shared/wrappers/TheIcon';

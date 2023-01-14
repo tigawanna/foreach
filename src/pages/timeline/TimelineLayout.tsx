@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
 import { PBUser } from '../../utils/types/types';
-import { useAuthGuard } from './../../shared/hooks/useAuthGuard';
+import { useAuthGuard } from '../../utils/hooks/useAuthGuard';
 
 interface TimelineLayoutProps {
 user:PBUser
