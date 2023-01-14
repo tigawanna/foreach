@@ -16,7 +16,7 @@ export const Post = ({user}: PostProps) => {
 const params = useParams<Params>()
 // console.log("params in pst  === ",params)
 
-const query = useCustomPosts<CustomPostType>(user, ["custom-posts", params?.id as string],{
+const query = useCustomPosts<CustomPostType>('custom-posts',{user},{
     select:(data)=>{
         if(data&&params.id){
             return data?.filter((item)=>item.post_id===params.id)
@@ -36,7 +36,7 @@ const post = query.data&&query?.data[0]
             </QueryStateWrapper>
             </div>
 
-            <Replies post_id={post?.post_id as string} user={user}/>
+            <Replies op={post?.post_id as string} user={user} parent=''/>
         </div>
     );
 }

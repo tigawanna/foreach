@@ -1,31 +1,33 @@
 import React from 'react'
-import { useInfiniteReplies, useReplies } from '../../utils/hooks/useCustomReplies';
+
 import { isHtmlElement } from 'react-router-dom/dist/dom';
 import { useInView } from 'react-intersection-observer';
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { ReplyCard } from './RepliesCard';
 import { useNavigate } from 'react-router-dom';
-import { PBUser } from '../../utils/types/types';
+import { CustomRepliesType, PBUser } from '../../utils/types/types';
+import { useInfiniteCustomRelies } from './../../utils/hooks/useCustomReplies';
 
 interface RepliesProps {
-post_id:string
-parent_id:string
+op:string
+parent:string
 user:PBUser
 }
 
-export const Replies = ({post_id,user}:RepliesProps) => {
+export const Replies = ({op,parent,user}:RepliesProps) => {
 //  const query = useReplies(['replies',post_id],post_id)
 const { ref, inView } = useInView()
     const navigate = useNavigate()
 
-const query = useInfiniteReplies(['replies', post_id], post_id,{
+const query = useInfiniteCustomRelies<CustomRepliesType>('custom-replies',{op,parent,user},{
     getNextPageParam: (lastPage, allPages) => {
         // console.log("last page ==== ",lastPage,allPages)
-        if (lastPage && (lastPage.page < lastPage.totalPages)) {
-            // console.log("last page ==== ",lastPage.page,lastPage.totalPages)
+        // console.log("last page ==== ",lastPage,allPages)
+        if (lastPage && lastPage[lastPage.length - 1]) {
             return {
-                page:lastPage.page + 1
-            }
+                created: lastPage[lastPage?.length - 1]?.replied_at,
+                id: lastPage[lastPage?.length - 1]?.
+            };
         }
         return;
     }

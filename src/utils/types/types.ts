@@ -34,7 +34,7 @@ export interface CustomRepliesType {
     creator_id:    string;
     creator_name:  string;
     creator_image: string;
-    op_post_id:    string;
+    reply_id:    string;
     reply_body:    string;
     reply_media:   string;
     replied_at:    Date;

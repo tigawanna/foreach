@@ -1,7 +1,7 @@
 import React from 'react'
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInView } from 'react-intersection-observer'
-import { useInfiniteCustom } from '../../utils/hooks/useCustomPosts';
+
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { FaPlus } from 'react-icons/fa';
 import { TheIcon } from '../../shared/wrappers/TheIcon';
@@ -12,6 +12,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Mutationprops } from './../../components/form/types';
 import { client } from './../../utils/pb/config';
 import { useNavigate } from 'react-router-dom';
+import { useInfiniteCustomPosts } from './../../utils/hooks/useCustomPosts';
 
 interface TimelineProps {
     user: PBUser
@@ -21,7 +22,8 @@ export const Timeline = ({user}: TimelineProps) => {
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = React.useState(false);
 const navigate = useNavigate()    
-const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
+const customPostsQuery = useInfiniteCustomPosts<CustomPostType>('custom-posts',
+{user},{
     getNextPageParam: (lastPage, allPages) => {
         // console.log("last page ==== ",lastPage,allPages)
         if (lastPage && lastPage[lastPage.length - 1]) {
