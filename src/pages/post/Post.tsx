@@ -1,6 +1,6 @@
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useCustomPosts } from '../../utils/hooks/useCustomPosts';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { PostsCard } from '../../components/timeline/PostCard';
 import { QueryStateWrapper } from '../../shared/wrappers/QueryStateWrapper';
 import { Replies } from '../../components/replies/Replies';
@@ -12,10 +12,15 @@ interface PostProps {
 type Params={id:string}
 
 export const Post = ({user}: PostProps) => {
+
+
 const [searchParams] = useSearchParams({});
+
+
 const depth = searchParams.get('depth')
 const params = useParams<Params>()
-    console.log("params in pst  === ", depth)
+
+
 
 const query = useCustomPosts<CustomPostType>(
 {   key:POSTS_KEY, 
