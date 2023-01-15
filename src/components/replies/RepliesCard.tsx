@@ -1,5 +1,5 @@
 import React from 'react'
-import { CustomRepliesType, PBUser,} from '../../utils/types/types';
+import { CustomPostType, CustomRepliesType, PBUser,} from '../../utils/types/types';
 import { client, makeUrl } from './../../utils/pb/config';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { concatErrors } from '../../utils/utils';
@@ -10,14 +10,15 @@ import { PostForm } from './../timeline/PostForm';
 import { TheIcon } from './../../shared/wrappers/TheIcon';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { VscComment } from "react-icons/vsc";
+import { REPLIES_KEY } from './Replies';
 
 interface ReplyCardProps {
-    reply: CustomRepliesType
+    reply: CustomPostType
     user: PBUser
-    op: string
+  
 }
 
-export const ReplyCard = ({reply,user,op}:ReplyCardProps) => {
+export const ReplyCard = ({reply,user}:ReplyCardProps) => {
     // console.log("reply === ",reply)
 return (
     <div className="w-full h-full p-2 flex flex-col">
@@ -36,18 +37,18 @@ return (
                 {reply.creator_name}
             </div>
         </div>
-        <div className="w-full  flex  text-sm p-2">{reply.reply_body}</div>
+        <div className="w-full  flex  text-sm p-2">{reply.post_body}</div>
         <div className="w-full  flex items-center justify-center ">
-            {reply.reply_media ? (
+            {reply.post_media ? (
                 <img
-                    src={makeUrl("reply_replies", reply.reply_id, reply.reply_media)}
+                    src={makeUrl("posts", reply.post_id, reply.post_media)}
                     className=" w-fit max-h-80 rounded-lg border-t"
                 />
             ) : null}
         </div>
 
         <div className="w-full  flex">
-            <ReplyReactionsCard user={user} item={reply} op={op}/>
+            <ReplyReactionsCard user={user} item={reply} />
         </div>
     </div>
 );
@@ -57,11 +58,11 @@ return (
 
 interface ReplyReactionsCardProps {
     user: PBUser;
-    item: CustomRepliesType;
-    op:string;
+    item: CustomPostType;
+ 
 }
 
-export const ReplyReactionsCard = ({ user,item,op}: ReplyReactionsCardProps) => {
+export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
 
 
     const [isOpen, setIsOpen] = React.useState(false);
@@ -69,11 +70,11 @@ export const ReplyReactionsCard = ({ user,item,op}: ReplyReactionsCardProps) => 
     const [liked, setLiked] = React.useState(item.mylike === "yes");
 
     const updateReactionMutation = useMutation(
-        async (vars: CustomRepliesType) => {
+        async (vars: CustomPostType) => {
             const updatevars = { liked: item.mylike === "yes" ? "no" : "yes" };
             console.log("update mutation vars=== ", updatevars, vars.reaction_id);
             try {
-                const response = await client.collection("reply_reactions").update(
+                const response = await client.collection("reactions").update(
                     vars?.reaction_id as string, updatevars);
                 console.log("update reaction response === ", response);
                 return response
@@ -85,7 +86,7 @@ export const ReplyReactionsCard = ({ user,item,op}: ReplyReactionsCardProps) => 
         },
         {
             onSettled: () => {
-                queryClient.invalidateQueries(["custom-replies"]);
+                queryClient.invalidateQueries([REPLIES_KEY]);
                 // queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
@@ -94,15 +95,15 @@ export const ReplyReactionsCard = ({ user,item,op}: ReplyReactionsCardProps) => 
         }
     );
     const newReactionMutation = useMutation(
-        async (vars: CustomRepliesType) => {
+        async (vars: CustomPostType) => {
             const newReaction = {
-              post: vars.reply_id,
+              post: vars.post_id,
                 user: user?.id,
                 liked: "yes"
             };
             console.log("create vars =====> ", newReaction);
             try {
-                const response = await client.collection("reply_reactions").create(newReaction);
+                const response = await client.collection("reactions").create(newReaction);
                 console.log("new reaction response === ", response);
                 return response
             } catch (err: any) {
@@ -113,29 +114,30 @@ export const ReplyReactionsCard = ({ user,item,op}: ReplyReactionsCardProps) => 
         },
         {
             onSettled: (data) => {
-                queryClient.invalidateQueries(["custom-replies"]);
+                queryClient.invalidateQueries([REPLIES_KEY]);
                 //     queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
                 console.log("error liking post", concatErrors(err));
-                updateReactionMutation.mutate(item);
+                // updateReactionMutation.mutate(item);
             }
         }
     );
 
     const replyMutation = useMutation(async ({ basepayload }: Mutationprops) => {
-        basepayload.append("depth", (parseInt(item.reply_depth)+1).toString());
-        basepayload.append("post", item.reply_id);
+        const post_depth = item.post_depth === "" ? 0 : parseInt(item.post_depth)
+        basepayload.append("depth", (post_depth+1).toString());
+        basepayload.append("parent", item.post_id);
         // basepayload.append('parent', null)
         try {
-            return await client.collection("replies").create(basepayload);
+            return await client.collection("posts").create(basepayload);
         } catch (e) {
             throw e;
         }
     }, {
         onSettled: (data: Record | undefined, error: unknown, variables: Mutationprops, context: unknown) => {
             console.log("data after reply", data)
-            queryClient.invalidateQueries(["custom-replies"]);
+            queryClient.invalidateQueries([REPLIES_KEY]);
         }
     }
 

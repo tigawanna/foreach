@@ -2,39 +2,53 @@ import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer';
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
 import { ReplyCard } from './RepliesCard';
-import { CustomRepliesType, PBUser } from '../../utils/types/types';
-import { useInfiniteCustomRelies } from './../../utils/hooks/useCustomReplies';
+import { CustomPostType, PBUser } from '../../utils/types/types';
+import { useInfiniteCustomPosts } from '../../utils/hooks/useCustomPosts';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 interface RepliesProps {
-op:string
+depth:number
 parent:string
 user:PBUser
 }
 
-export const Replies = ({op,parent,user}:RepliesProps) => {
+export const REPLIES_KEY = 'custom_replies'
+export const Replies = ({depth,parent,user}:RepliesProps) => {
 //  const query = useReplies(['replies',post_id],post_id)
 const { ref, inView } = useInView()
-
-const query = useInfiniteCustomRelies<CustomRepliesType>('custom-replies',{op,parent,user},{
-    getNextPageParam: (lastPage, allPages) => {
-        // console.log("last page ==== ",lastPage,allPages)
-        // console.log("last page ==== ",lastPage,allPages)
-        if (lastPage && lastPage[lastPage.length - 1]) {
-            return {
-                created: lastPage[lastPage?.length - 1]?.replied_at,
-                id: lastPage[lastPage?.length - 1]?.reply_id
-            };
+    const navigate = useNavigate()   
+// console.log("parent ",parent)
+    const query = useInfiniteCustomPosts<CustomPostType>(
+        { key: REPLIES_KEY,
+            user,
+             post_id:parent,
+             depth:depth }, {
+        getNextPageParam: (lastPage, allPages) => {
+            // console.log("last page ==== ",lastPage,allPages)
+            if (lastPage && lastPage[lastPage.length - 1]) {
+                return {
+                    created: lastPage[lastPage?.length - 1]?.created_at,
+                    id: lastPage[lastPage?.length - 1]?.post_id
+                };
+            }
+            return;
         }
-        return;
-    }
-})
+    })
+
     useEffect(() => {
         if (inView) {
             query.fetchNextPage()
         }
     }, [inView])
-//  console.log("replies list==== ",query.data)
+
+ console.log("replies list==== ",query.data)
     const data = query.data
+    if (data?.pages&&data?.pages?.length < 1){
+        <div className='w-full h-full  flex flex-col  items-center justify-center '>
+            Nothing to see here
+        </div>
+    }
+
 return (
     <div className='w-full h-full  flex flex-col  items-center justify-center '>
         <QueryStateWrapper query={query}>
@@ -45,11 +59,18 @@ return (
                     return page.map((item) => {
                         return (
                             <div
-                                // onClick={() => navigate('post/' + item.post_id)}
-                        key={item.reply_id}
+                                onClick={() => navigate({
+                                    pathname: 'post/' + item.post_id,
+                                    search: createSearchParams({
+                                        depth: (item.post_depth === "" ? 0 : item.post_depth).toString()
+                                    }).toString(),
+                                
+
+                                },{replace:true})}
+                        key={item.post_id}
                         className="w-[95%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">
-                                <ReplyCard reply={item} user={user} op={op}/>
+                                <ReplyCard reply={item} user={user} />
                             </div>
                         )
                     })

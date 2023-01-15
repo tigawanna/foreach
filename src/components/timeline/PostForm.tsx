@@ -51,6 +51,7 @@ const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>)=>{
                 formdata.append("body", input.body as string)
             }
             formdata.append("user", input.user)
+            
             mutation.mutate({basepayload: formdata },{
             onSettled:()=>{
                 setIsOpen(false)

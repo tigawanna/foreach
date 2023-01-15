@@ -17,7 +17,9 @@ interface Pagination_params {
 
 interface QueryVariables {
     user: PBUser;
-    post_id?: string;
+    depth?: number;
+    key: string;
+    post_id?: string; //can also be the parent query param
 }
 
 const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]");
@@ -26,13 +28,15 @@ const fetchPosts = async (
     query_vars: QueryVariables,
     pagination_params?: Partial<Pagination_params>
 ) => {
-    // console.log("page params dependaces === ", deps?.pageParam?.created)
+    console.log(" query vars === ", query_vars);
 
-    const postsUrl = new URL(`  ${pb_url}/custom_posts`);
-    const { user } = query_vars;
+    const postsUrl = new URL(`  ${pb_url}/${query_vars.key}`);
+    const { user, depth, post_id } = query_vars;
 
     postsUrl.searchParams.set("id", pagination_params?.pageParam?.id as string);
-    // postsUrl.searchParams.set("op", query_vars.post_id as string);
+    postsUrl.searchParams.set("depth", depth?.toString() as string);
+    // postsUrl.searchParams.set("depth",'1');
+    postsUrl.searchParams.set("parent", post_id as string);
     postsUrl.searchParams.set("user", user?.id as string);
     postsUrl.searchParams.set(
         "created",
@@ -64,7 +68,6 @@ const fetchPosts = async (
     }
 };
 export const useInfiniteCustomPosts = <T>(
-    key: string,
     query_vars: QueryVariables,
     options?:
         | Omit<UseInfiniteQueryOptions<T[], unknown, T[], T[], string[]>, "queryKey" | "queryFn">
@@ -73,16 +76,15 @@ export const useInfiniteCustomPosts = <T>(
     // custom-posts uses a where clause to paginate and needs the current
     //date formatted in sqlite date format as the starting point
 
-    const { user } = query_vars;
+    const { user, key,post_id,depth } = query_vars;
     return useInfiniteQuery<T[], unknown, T[], string[]>(
-        [key, user?.id as string],
+        [key, user?.id as string, post_id as string, depth?.toString() as string],
         params => fetchPosts(query_vars, params),
         options
     );
 };
 
 export const useCustomPosts = <T>(
-    key: string,
     query_vars: QueryVariables,
     options?:
         | (Omit<
@@ -91,9 +93,9 @@ export const useCustomPosts = <T>(
           > & { initialData?: (() => undefined) | undefined })
         | undefined
 ) => {
-    const { user,post_id } = query_vars;
+    const { key,user, depth, post_id } = query_vars;
     return useQuery<T[], unknown, T[], string[]>(
-        [key,user?.id as string,post_id as string],
+        [key, user?.id as string, post_id as string, depth?.toString() as string],
         () => fetchPosts(query_vars),
         options
     );

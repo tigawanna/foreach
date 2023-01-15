@@ -7,22 +7,24 @@ import { TheIcon } from '../../shared/wrappers/TheIcon';
 import { PostsCard } from './../../components/timeline/PostCard';
 import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 import { PostForm } from '../../components/timeline/PostForm';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Mutationprops } from './../../components/form/types';
 import { client } from './../../utils/pb/config';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useInfiniteCustomPosts } from './../../utils/hooks/useCustomPosts';
 
 interface TimelineProps {
     user: PBUser
 }
-
+export const POSTS_KEY = 'custom_posts'
 export const Timeline = ({user}: TimelineProps) => {
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = useState(false);
-const navigate = useNavigate()    
-const customPostsQuery = useInfiniteCustomPosts<CustomPostType>('custom-posts',
-{user},{
+const navigate = useNavigate()   
+const queryClient = useQueryClient();
+
+const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
+{key:POSTS_KEY,user,depth:0,post_id:""},{
     getNextPageParam: (lastPage, allPages) => {
         // console.log("last page ==== ",lastPage,allPages)
         if (lastPage && lastPage[lastPage.length - 1]) {
@@ -34,6 +36,8 @@ const customPostsQuery = useInfiniteCustomPosts<CustomPostType>('custom-posts',
         return;
     }
 })
+
+
 useEffect(() => {
     if (inView) {
         customPostsQuery.fetchNextPage()
@@ -41,11 +45,17 @@ useEffect(() => {
 }, [inView])
 
     const mutation = useMutation(async ({ basepayload }: Mutationprops) => {
+        basepayload.append("depth", '0')
         try {
             return await client.collection('posts').create(basepayload);
         }
         catch (e) {
             throw e;
+        }
+    },{
+        onSettled: () => {
+           
+            queryClient.invalidateQueries([POSTS_KEY]);
         }
     });
 
@@ -59,9 +69,16 @@ return (
             {data?.pages?.map((page) => {
                     // console.log("page=== ",page)
                     return page.map((item) => {
+
                         return (
                         <div
-                        onClick={() => navigate('post/' + item.post_id)}
+                        onClick={() => navigate({
+                            pathname: 'post/' + item.post_id,
+                            search: createSearchParams({
+                                depth:(item.post_depth===""?0:item.post_depth).toString()
+                            }).toString()
+
+                        })}
                         key={item.post_id}
                         className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">   

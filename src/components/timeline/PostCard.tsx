@@ -11,7 +11,8 @@ import { TheIcon } from "../../shared/wrappers/TheIcon";
 import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
 import { PostForm } from "./PostForm";
 import { Mutationprops } from "./../form/types";
-import { ReactionMutationResponse } from './../../utils/types/types';
+import { POSTS_KEY } from './../../pages/timeline/Timeline';
+
 
 interface PostCardProps {
     item: CustomPostType;
@@ -26,23 +27,23 @@ export const PostsCard = ({ item, user }: PostCardProps) => {
         <div className="w-full h-full p-2 flex flex-col">
             <div className="w-full flex justify-start itemscenter gap-[1px]">
                 <div className="w-7 h-7 ">
-                    {item.creator_image ? (
+                    {item?.creator_image ? (
                         <img
-                            src={item.creator_image}
+                            src={item?.creator_image}
                             // src={makeUrl('devs', item.creator_id, item.creator_image)}
                             className=" w-full h-full rounded-full aspect-square"
                         />
                     ) : null}
                 </div>
                 <div className="flex items-center text-blue-700 justifycenter text-md font-bold px-2">
-                    {item.creator_name}
+                    {item?.creator_name}
                 </div>
             </div>
-            <div className="w-full  flex  text-sm ">{item.post_body}</div>
+            <div className="w-full  flex  text-sm ">{item?.post_body}</div>
             <div className="w-full  flex items-center justify-center ">
-                {item.post_media ? (
+                {item?.post_media ? (
                     <img
-                        src={makeUrl("posts", item.post_id, item.post_media)}
+                        src={makeUrl("posts", item?.post_id, item?.post_media)}
                         className=" w-fit max-h-80 rounded-lg"
                     />
                 ) : null}
@@ -78,7 +79,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
     // console.log("item ===== ", item)
     const [isOpen, setIsOpen] = React.useState(false);
     const queryClient = useQueryClient();
-    const [liked, setLiked] = React.useState(item.mylike === "yes");
+    const [liked, setLiked] = React.useState(item?.mylike === "yes");
 
     const updateReactionMutation = useMutation(
         async (vars: CustomPostType) => {
@@ -96,7 +97,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
         },
         {
             onSettled: () => {
-                queryClient.invalidateQueries(["custom-posts"]);
+                queryClient.invalidateQueries([POSTS_KEY]);
                 // queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
@@ -124,7 +125,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
         },
         {
             onSettled: (data) => {
-                queryClient.invalidateQueries(["custom-posts"]);
+                queryClient.invalidateQueries([POSTS_KEY]);
                 //     queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
@@ -136,18 +137,15 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
 
     const replyMutation = useMutation(async ({ basepayload }: Mutationprops) => {
         basepayload.append("depth", "1");
-        basepayload.append("post", item.post_id);
+        basepayload.append("parent", item.post_id);
         // basepayload.append('parent', null)
         try {
-        return await client.collection("replies").create(basepayload);
+        return await client.collection("posts").create(basepayload);
         } catch (e) {
         throw e;
         }
     },{
-        onSettled:(data: Record | undefined, error: unknown, variables: Mutationprops, context: unknown)=>{
-            console.log("data after reply",data)
-            queryClient.invalidateQueries(["custom-posts"]);
-        }
+
     }
     
     );
@@ -188,9 +186,9 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
                         color={liked ? "red" : ""}
                         iconAction={() => {
                             if (
-                                item.mylike !== "virgin" &&
-                                item.reaction_id &&
-                                item.reaction_id !== ""
+                                item?.mylike !== "virgin" &&
+                                item?.reaction_id &&
+                                item?.reaction_id !== ""
                             ) {
                                 updateReactionMutation.mutate(item);
                                 setLiked(prev => !prev);
@@ -200,16 +198,16 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
                             }
                         }}
                     />
-                    {item.likes ?? 0}
+                    {item?.likes ?? 0}
                 </div>
                 <div className="flex ">
                     <TheIcon
                         Icon={VscComment}
                         size="1.5rem"
-                        color={item.myreply !== "virgin" ? "purple" : ""}
+                        color={item?.myreply !== "virgin" ? "purple" : ""}
                         iconAction={() => setIsOpen(true)}
                     />
-                    {item.replies ?? 0}
+                    {item?.replies ?? 0}
                 </div>
             </div>
         </div>

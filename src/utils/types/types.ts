@@ -1,6 +1,5 @@
 import { Record, Admin } from "pocketbase";
 
-
 export type PBUser = Record | Admin | null | undefined;
 
 export interface CustomPostType {
@@ -10,6 +9,8 @@ export interface CustomPostType {
     post_id: string;
     post_body: string;
     post_media: string;
+    post_parent: string;
+    post_depth: string;
     created_at: string;
     likes: number;
     mylike: "yes" | "no" | "virgin";
@@ -17,6 +18,14 @@ export interface CustomPostType {
     replies: number;
     reaction_id: string;
 }
+
+
+
+
+
+
+
+
 
 export interface ReactionMutationResponse {
     collectionId: string;
