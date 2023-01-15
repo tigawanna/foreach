@@ -33,8 +33,10 @@ const query = useCustomPosts<CustomPostType>(
 // console.log("posts query === ",query.data)
 const post = query.data&&query?.data[0]
     return (
-        <div className='w-full min-h-full flex flex-col items-center justify-start gap-2'>
-            <div className="w-[95%] p-2 flex flex-col  border-black border-2 
+        <div className='w-full min-h-full  flex flex-col items-center justify-start gap-2'>
+            <div className="w-[95%] md:w-[60%] flex flex-col  items-center justify-start">
+
+            <div className="w-[95%]  p-2 flex flex-col  border-black border-2 
             dark:border-[1px]  dark:border-white rounded-lg bg-purple-900">
             <QueryStateWrapper query={query}>
             <PostsCard item={post as CustomPostType}  user={user} />
@@ -42,6 +44,7 @@ const post = query.data&&query?.data[0]
             </div>
 
             <Replies parent={post?.post_id as string} user={user} depth = {parseInt(depth as string) + 1}/>
+            </div>
         </div>
     );
 }

@@ -28,7 +28,7 @@ const fetchPosts = async (
     query_vars: QueryVariables,
     pagination_params?: Partial<Pagination_params>
 ) => {
-    console.log(" query vars === ", query_vars);
+    // console.log(" query vars === ", query_vars);
 
     const postsUrl = new URL(`  ${pb_url}/${query_vars.key}`);
     const { user, depth, post_id } = query_vars;

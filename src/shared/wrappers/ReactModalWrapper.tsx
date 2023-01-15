@@ -33,7 +33,7 @@ export const ReactModalWrapper = (
         styles,
         child,
         deps,
-        delay=1
+        delay=0
     }: ReactModalWrapperProps
 ) => {
     const { isMobile } = useCheckInMobile()
@@ -47,7 +47,7 @@ export const ReactModalWrapper = (
     const customStyles: ModalStyles = {
         overlay: {
             position: 'fixed',
-            zIndex: 60,
+            zIndex: 1000,
             top: adjustSize(styles?.overlay_top ?? '0%', '0%'),
             left: adjustSize(styles?.overlay_left ?? '15%', '0%'),
             right: adjustSize(styles?.overlay_right ?? '15%', '0%'),
@@ -82,14 +82,19 @@ export const ReactModalWrapper = (
             closeTimeoutMS={delay*1000}
             contentLabel="Modal"
             
+ 
         >
-            <div className="w-full flex justify-end">
+            <div 
+                onClick={(event) => event.stopPropagation()}
+            className="w-full flex justify-end">
                 <IconContext.Provider value={{ size: '25' }}>
                     <AiOutlineCloseCircle onClick={closeModal} />
                 </IconContext.Provider>
             </div>
 
-            <div className="h-full w-full overflow-auto scroll-bar">
+            <div 
+                onClick={(event) => event.stopPropagation()}
+            className="h-full w-full overflow-auto scroll-bar">
                 {/* @ts-expect-error */}
                 {React.isValidElement(child) ? React.cloneElement(child, { deps, isOpen }) : child}
             </div>

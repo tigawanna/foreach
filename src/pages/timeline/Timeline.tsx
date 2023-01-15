@@ -72,13 +72,18 @@ return (
 
                         return (
                         <div
-                        onClick={() => navigate({
+                        onClick={() => {
+                            
+                            console.log("navigate in post card triggersd")
+                            navigate({
                             pathname: 'post/' + item.post_id,
                             search: createSearchParams({
                                 depth:(item.post_depth===""?0:item.post_depth).toString()
                             }).toString()
 
                         })}
+                    
+                    }
                         key={item.post_id}
                         className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">   
@@ -91,22 +96,27 @@ return (
                 }
         </div>
 
-    <div className='w-fit h-fit p-2 bg-slate-500 text-white rounded-full fixed bottom-[10%] right-[5%]'>
+    <div className='w-fit flex-center rounded-full aspect-square  p-2 bg-purple-900 text-white 
+     fixed bottom-[10%] right-[5%]'>
             <TheIcon Icon={FaPlus} size={'40'} iconAction={() => setIsOpen(true)} />
         </div>
         
             <ReactModalWrapper
                 child={
+                    <div 
+                    // onClick={(event) => event.stopPropagation()}
+                    className='z-50'>
                     <PostForm
                         user={user}
                         setIsOpen={setIsOpen}
                         mutation={mutation}
                         label='post'
                     />
+                    </div>
             
             }
                 closeModal={() => setIsOpen(false)}
-                delay={2}
+                delay={0}
                 isOpen={isOpen}
                 styles={{
                     overlay_top: '0%',

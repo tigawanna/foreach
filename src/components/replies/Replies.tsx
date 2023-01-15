@@ -41,7 +41,7 @@ const { ref, inView } = useInView()
         }
     }, [inView])
 
- console.log("replies list==== ",query.data)
+//  console.log("replies list==== ",query.data)
     const data = query.data
     if (data?.pages&&data?.pages?.length < 1){
         <div className='w-full h-full  flex flex-col  items-center justify-center '>
@@ -66,7 +66,9 @@ return (
                                     }).toString(),
                                 
 
-                                },{replace:true})}
+                                },
+                         
+                                )}
                         key={item.post_id}
                         className="w-[95%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">

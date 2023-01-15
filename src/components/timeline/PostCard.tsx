@@ -155,31 +155,33 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
     return (
         <div className="w-full p-1">
             <div className="w-full flex items-center justify-evenly">
-                <ReactModalWrapper
-                    child={
-                        <PostForm
-                            user={user}
-                            setIsOpen={setIsOpen}
-                            mutation={replyMutation}
-                            label="reply"
-                        />
-                    }
-                    closeModal={() => setIsOpen(false)}
-                    delay={2}
-                    isOpen={isOpen}
-                    styles={{
-                        overlay_top: "0%",
-                        overlay_right: "0%",
-                        overlay_left: "0%",
-                        overlay_bottom: "0%",
-                        content_bottom: "2%",
-                        content_right: "2%",
-                        content_left: "2%",
-                        content_top: "2%"
-                    }}
-                />
+
+
 
                 <div className="w-full flex ">
+                    <ReactModalWrapper
+                        child={
+                            <PostForm
+                                user={user}
+                                setIsOpen={setIsOpen}
+                                mutation={replyMutation}
+                                label="reply"
+                            />
+                        }
+                        closeModal={() => setIsOpen(false)}
+                        delay={0}
+                        isOpen={isOpen}
+                        styles={{
+                            overlay_top: "0%",
+                            overlay_right: "0%",
+                            overlay_left: "0%",
+                            overlay_bottom: "0%",
+                            content_bottom: "2%",
+                            content_right: "2%",
+                            content_left: "2%",
+                            content_top: "2%"
+                        }}
+                    />
                     <TheIcon
                         Icon={liked ? AiFillHeart : AiOutlineHeart}
                         size="1.5rem"
@@ -210,6 +212,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
                     {item?.replies ?? 0}
                 </div>
             </div>
+ 
         </div>
     );
 };
