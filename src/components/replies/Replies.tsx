@@ -86,7 +86,7 @@ return (
                     onClick={() => query.fetchNextPage()}
                     disabled={!query.hasNextPage || query.isFetchingNextPage}>
                     {query.isFetchingNextPage ? 'Loading more...' : query.hasNextPage ? 'Load More'
-                        : !query.isLoading ? 'Nothing more to load' : null}</button>
+                        : !query.isLoading ? '...' : null}</button>
             </div>
             </div>
   
