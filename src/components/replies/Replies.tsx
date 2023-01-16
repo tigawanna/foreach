@@ -65,7 +65,8 @@ return (
                                         depth: (item.post_depth === "" ? 0 : item.post_depth).toString()
                                     }).toString(),
                                 },
-                                )}
+                                )
+                            }
                         key={item.post_id}
                         className="w-[95%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">

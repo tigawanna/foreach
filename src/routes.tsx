@@ -35,6 +35,17 @@ export const appRoutes=(user:PBUser)=>{
               }
             ]
             },
+            {
+              path: '/post',
+              element: <PostLayout user={user} />,
+              children: [
+                {
+                  path: ':id',
+                  element: <Post user={user} />,
+                  // loader: deferredBlogPostsLoader,
+                },
+              ],
+            },
 
             {
               path: '/auth',
@@ -66,18 +77,9 @@ export const appRoutes=(user:PBUser)=>{
                   // loader: deferredBlogPostsLoader,
                 },
               ],
-            },
-            {
-              path: '/post',
-              element: <PostLayout user={user}  />,
-              children: [
-                {
-                  path: ':id',
-                  element: <Post user={user} />,
-                  // loader: deferredBlogPostsLoader,
-                },
-              ],
-            },
+            }
+            ,
+
             {
               path: '/test',
               element: <TestLayout user={user} />,

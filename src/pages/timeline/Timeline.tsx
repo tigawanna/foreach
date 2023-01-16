@@ -71,24 +71,22 @@ return (
                     return page.map((item) => {
 
                         return (
+                            
                         <div
                         onClick={() => {
-                            
-                            console.log("navigate in post card triggersd")
                             navigate({
                             pathname: 'post/' + item.post_id,
                             search: createSearchParams({
                                 depth:(item.post_depth===""?0:item.post_depth).toString()
                             }).toString()
-
-                        })}
-                    
-                    }
+                                    })}
+                                }
                         key={item.post_id}
                         className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 
                         dark:border-[1px]  dark:border-white rounded-lg gap-3">   
                         <PostsCard item={item}  user={user} />
                         </div>
+
                         )
                     })
                   
