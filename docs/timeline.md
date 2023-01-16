@@ -943,6 +943,45 @@ return (
 </details>
 
 
+⚠️ UPDATE:
+ After issues with how to model different posts and replies and their respective sub replies  and make the components as reusable as possible 
+ the replies table has been removed and everything posts,replies and sub replies will all be in the posts table but with different `depth` levels 
+
+|query parameter|description|
+|----------------|----------|
+| user | logged in user id |
+|id | record id |
+| depth     | number , 0 for original post|
+| parent    | id for the post/reply to get replies for. Null in initial request|
+| created   | SQLite date format  |
+
+
+The initial request requires 
+`user`: the logged in user id and `created`: the latest date the rest can be sent as empty strings 
+```js
+const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]")
+``` 
+
+
+## ⚠️⚠️
+this method of having separate tables for posts and replies is getting hard to implement especially with mutations and aggregated fields , will switch to making replies in the posts table but with different depth levels 
+
+|query parameter|description|
+|----------------|----------|
+| user | logged in user id |
+|id | record id 
+| created   | SQLite date format  |
+| parent    | reply id for the reply its nested under|
+| op | original post all the replies are on |
+
+
+
+The initial request requires 
+`user`: the logged in user id and `created`: the latest date the rest can be sent as empty strings 
+```js
+const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]")
+```
+
 
 
 ### useful references

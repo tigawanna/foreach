@@ -121,3 +121,8 @@ To get
 http://localhost:3000/post/0radtdtdtdtn8?depth=1
 ```
 
+### useful references
+- [react router v6 features](https://reactrouter.com/en/main/upgrading/v5)
+- [complete react code](https://github.com/tigawanna/devhub.git)
+- [complete custom pocketbase code + built executable](https://github.com/tigawanna/devhub-backend.git)
+- [pocketbase discussions](https://github.com/pocketbase/pocketbase/discussions) 
