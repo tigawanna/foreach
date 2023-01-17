@@ -104,7 +104,7 @@ flex flex-col items-center justify-center'>
 <textarea
     id="body"
     style={{ borderColor: isError(error, "body") ? "red" : "" }}
-    className="w-[95%] min-h-[100px] md:h-[30%]
+    className="w-[95%] min-h-[150px] md:h-[30%]
     m-2 p-2  border border-black dark:border-white text-base rounded-lg
     dark:bg-slate-700focus:border-2 dark:focus:border-4 focus:border-purple-700
     dark:focus:border-purple-600 "

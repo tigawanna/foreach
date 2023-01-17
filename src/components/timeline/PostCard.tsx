@@ -26,7 +26,7 @@ export const PostsCard = ({ item, user }: PostCardProps) => {
     return (
         <div className="w-full h-full p-2 flex flex-col">
             <div className="w-full flex justify-start itemscenter gap-[1px]">
-                <div className="w-7 h-7 ">
+                <div className="w-10 h-10 ">
                     {item?.creator_image ? (
                         <img
                             src={item?.creator_image}
@@ -39,7 +39,7 @@ export const PostsCard = ({ item, user }: PostCardProps) => {
                     {item?.creator_name}
                 </div>
             </div>
-            <div className="w-full  flex  text-sm ">{item?.post_body}</div>
+            <div className="w-full  flex items-center justify-start p-2 ">{item?.post_body}</div>
             <div className="w-full  flex items-center justify-center ">
                 {item?.post_media ? (
                     <img
