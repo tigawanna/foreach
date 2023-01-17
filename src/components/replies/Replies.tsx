@@ -16,13 +16,13 @@ export const REPLIES_KEY = 'custom_replies'
 export const Replies = ({depth,parent,user}:RepliesProps) => {
 //  const query = useReplies(['replies',post_id],post_id)
 const { ref, inView } = useInView()
-    const navigate = useNavigate()   
-// console.log("parent ",parent)
+const navigate = useNavigate()   
+// console.log("parent in replies ",parent,depth)
     const query = useInfiniteCustomPosts<CustomPostType>(
         { key: REPLIES_KEY,
             user,
              post_id:parent,
-             depth:depth }, {
+             depth:depth + 1 }, {
         getNextPageParam: (lastPage, allPages) => {
             // console.log("last page ==== ",lastPage,allPages)
             if (lastPage && lastPage[lastPage.length - 1]) {
@@ -57,6 +57,7 @@ return (
                 {data?.pages?.map((page) => {
            
                     return page.map((item) => {
+                        // console.log("reply items depth === ",item)
                         return (
                             <div
                                 onClick={() => navigate({

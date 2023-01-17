@@ -1,6 +1,6 @@
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useCustomPosts } from '../../utils/hooks/useCustomPosts';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { PostsCard } from '../../components/timeline/PostCard';
 import { QueryStateWrapper } from '../../shared/wrappers/QueryStateWrapper';
 import { Replies } from '../../components/replies/Replies';
@@ -48,7 +48,7 @@ const post = query.data&&query?.data[0]
             </QueryStateWrapper>
             </div>
 
-            <Replies parent={post?.post_id as string} user={user} depth = {parseInt(depth as string) + 1}/>
+            <Replies parent={post?.post_id as string} user={user} depth = {parseInt(depth as string)}/>
             </div>
         </div>
     );

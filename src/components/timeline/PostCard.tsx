@@ -145,7 +145,10 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
         throw e;
         }
     },{
-
+        onSettled: (data) => {
+            queryClient.invalidateQueries([POSTS_KEY]);
+            //     queryClient.invalidateQueries(count_query_key);
+        },
     }
     
     );

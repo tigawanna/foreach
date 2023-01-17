@@ -125,9 +125,10 @@ flex flex-col items-center justify-center'>
     <img src={URL.createObjectURL(pic as Blob)} className="max-h-[200px] rounded-lg" />
     </div> : null}
 
-    {(pic && typeof pic === 'string') ? <img src={pic}
-                    className="w-[80%] max-h-[300px] rounded-lg" /> : null}
-    <div className="w-[90%]">
+    {(pic && typeof pic === 'string') ? <img src={pic} className="w-[80%] max-h-[300px] rounded-lg" /> : null}
+    <div 
+    // onClick={(event) => event.stopPropagation()}
+    className="w-[90%]">
         <TheIcon Icon={BiImageAdd} size={'30'} iconAction={() => fileInput.current?.click()} />
     </div>
     {/* <FormButton form_stuff={form_stuff} /> */}
@@ -149,7 +150,8 @@ flex flex-col items-center justify-center'>
             ) : null}
 
             {error?.message !== "" ? (
-                <div className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 border-red-800 text-red-900  rounded-xl">
+                <div className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 
+                border-red-800 text-red-900  rounded-xl">
                     {error.message}
                 </div>
             ) : null}

@@ -69,9 +69,7 @@ return (
             {data?.pages?.map((page) => {
                     // console.log("page=== ",page)
                     return page.map((item) => {
-
                         return (
-                            
                         <div
                         onClick={() => {
                             navigate({
@@ -79,7 +77,7 @@ return (
                             search: createSearchParams({
                                 depth:(item.post_depth===""?0:item.post_depth).toString()
                             }).toString()
-                                    })}
+                            })}
                                 }
                         key={item.post_id}
                         className="w-[90%] md:w-[50%]  p-2 flex flex-col  border-black border-2 

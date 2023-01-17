@@ -27,7 +27,7 @@ export const TheIcon = (
         <IconContext.Provider value={{
             size, color, className: iconstyle
         }}>
-           <button onClick={handleClick}>
+           <button type="button" onClick={handleClick}>
                 <Icon />
            </button>
            
