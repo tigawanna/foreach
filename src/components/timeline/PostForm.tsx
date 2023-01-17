@@ -28,6 +28,7 @@ const [pic, setPic] = React.useState<File | string | null>();
 const fileInput = React.useRef<HTMLInputElement | null>(null);
 
 const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=>{
+
     if ('files' in e.target && e.target.files) {
         setPic(e.target.files[0]);
         // @ts-expect-error
@@ -35,6 +36,9 @@ const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElemen
     }
     
     setInput((prev)=>{return{...prev,[e.target.id]:e.target.value}})
+    if(error.message!==""||error.name!==""){
+        setError({name:"",message:""})
+    }
 }
 
 const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>)=>{
@@ -53,8 +57,11 @@ const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>)=>{
             formdata.append("user", input.user)
             
             mutation.mutate({basepayload: formdata },{
-            onSettled:()=>{
+            onSuccess:()=>{
                 setIsOpen(false)
+            },    
+            onSettled:()=>{
+              
                 }, onError: (err: any) => {
                     // console.log("errror adding new post in ", err.data);
                     setError({
@@ -84,6 +91,18 @@ if(vals.body !=="" || vals.media) {
 }
 return true
 }
+
+
+const clearImage=()=>{
+    setPic(null)
+    setInput((prev) => {
+        return { ...prev, media: undefined }
+    })
+    if (error.message !== "" || error.name !== "") {
+        setError({ name: "", message: "" })
+    }
+}
+
 
 return (
 <div className='w-full h-fit max-h-[90%] flex flex-col items-center justify-center 
@@ -115,12 +134,7 @@ flex flex-col items-center justify-center'>
     {(pic && typeof pic === 'object') ? 
     <div className='w-full flex flex-col items-center justify-center'>
     <div className='w-[90%] flex items-center justify-end'>
-        <TheIcon Icon={AiOutlineCloseCircle} size={'25'} iconAction={() => {
-            setPic(null)
-            setInput((prev)=>{
-                return {...prev,media:undefined}
-            })
-            }} />
+        <TheIcon Icon={AiOutlineCloseCircle} size={'25'} iconAction={() => clearImage()} />
     </div>
     <img src={URL.createObjectURL(pic as Blob)} className="max-h-[200px] rounded-lg" />
     </div> : null}
