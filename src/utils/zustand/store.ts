@@ -20,7 +20,7 @@ export const useStroreValues = create<LocalState>()(
     devtools((set, get) => ({
         localValues: get()?.localValues ?? {
             notifocation: null,
-            hasNotification: false,
+            hasNotification: false
         },
 
         updateNotification: notifocation => {
@@ -31,15 +31,17 @@ export const useStroreValues = create<LocalState>()(
                     hasNotification: true
                 }
             }));
-            setTimeout(() => {
-                set(state => ({
-                    localValues: {
-                        ...state?.localValues,
-                        notifocation: null,
-                        hasNotification: false
-                    }
-                }));
-            }, 5000);
+            if (notifocation.type !== "error") {
+                setTimeout(() => {
+                    set(state => ({
+                        localValues: {
+                            ...state?.localValues,
+                            notifocation: null,
+                            hasNotification: false
+                        }
+                    }));
+                }, 5000);
+            }
         },
 
         clearNotification: () => {
