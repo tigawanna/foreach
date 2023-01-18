@@ -1,18 +1,18 @@
 import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
-export interface NotifivationType {
-    type: string;
+export interface NotificationType {
+    type: "error"|"success"
     message: string;
 }
 
-interface LocalState {
+export interface LocalState {
     localValues: {
-        notifocation: NotifivationType | null;
+        notifocation: NotificationType | null;
         hasNotification: boolean;
     };
 
-    updateNotification: (notifocation: NotifivationType) => void;
+    updateNotification: (notifocation: NotificationType) => void;
     clearNotification: () => void;
 }
 
@@ -40,7 +40,7 @@ export const useStroreValues = create<LocalState>()(
                             hasNotification: false
                         }
                     }));
-                }, 5000);
+                }, 2000);
             }
         },
 

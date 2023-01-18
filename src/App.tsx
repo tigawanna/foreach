@@ -6,6 +6,7 @@ import { LoaderElipse } from './shared/loaders/Loaders';
 import { appRoutes } from './routes';
 import { getUser } from './utils/pb/config';
 import { useStroreValues } from './utils/zustand/store';
+import { Notification } from './components/index/Notification';
 
 
 function App() {
@@ -22,8 +23,8 @@ const query = useQuery(['user'], getUser);
 
    
       </div>
-       <div className='w-full h0full bg-purple-600  fixed bottom-10'>
-         {store.localValues.notifocation?.message}
+       <div className='w-full fixed bottom-3 flex items-center justify-center'>
+          <Notification store={store}/>
        </div>
     </QueryStateWrapper>
 

@@ -19,7 +19,7 @@ return (
   <div className=" w-full  h-full px-2">
     <button
     className='bg-purple-700 p-2'
-    onClick={()=>{store.updateNotification({message:"deez",type:"nuts"}) }}
+    onClick={()=>{store.updateNotification({message:"deez",type:"success"}) }}
     >add message</button>
  </div>
 
