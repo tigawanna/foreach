@@ -22,7 +22,9 @@
     "react-icons": "^4.7.1",
     "react-intersection-observer": "^9.4.1",
     "react-modal": "^3.16.1",
-    "react-router-dom": "^6.6.1"
+    "react-router-dom": "^6.6.1",
+    "zustand": "^4.3.2",
+    "zustand-persist": "^0.4.0"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",

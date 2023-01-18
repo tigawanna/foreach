@@ -1,8 +1,8 @@
 import React from 'react'
 import { PBUser } from '../../utils/types/types';
-import { useForm } from "react-hook-form";
-import { RequiredNewPostFormFields } from '../form/types';
-import { PostForm } from '../timeline/PostForm';
+import { useStroreValues } from '../../utils/zustand/store';
+
+
 
 
 interface TestProps {
@@ -11,19 +11,16 @@ interface TestProps {
 
 
 export const Test = ({user}: TestProps) => {
-
-  const { register, handleSubmit } = useForm<RequiredNewPostFormFields>();
-
-  const onSubmit = (data:RequiredNewPostFormFields) => {
-    alert(JSON.stringify(data));
-  };
-
-
-
+ 
+const store = useStroreValues()
+ 
 
 return (
   <div className=" w-full  h-full px-2">
-
+    <button
+    className='bg-purple-700 p-2'
+    onClick={()=>{store.updateNotification({message:"deez",type:"nuts"}) }}
+    >add message</button>
  </div>
 
 );

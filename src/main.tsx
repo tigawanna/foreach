@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-
 import App from './App';
 import './index.css';
 import ErrorBoundary from './shared/errorboundary/ErrorBoundary';
+
+
+
+
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,10 +24,12 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ErrorBoundary>
+
     <QueryClientProvider client={queryClient}>
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </QueryClientProvider>
+   
   </ErrorBoundary>
 );
