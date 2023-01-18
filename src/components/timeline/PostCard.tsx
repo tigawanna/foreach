@@ -12,6 +12,7 @@ import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
 import { PostForm } from "./PostForm";
 import { Mutationprops } from "./../form/types";
 import { POSTS_KEY } from './../../pages/timeline/Timeline';
+import { useStroreValues } from "../../utils/zustand/store";
 
 
 interface PostCardProps {
@@ -74,9 +75,7 @@ interface ReactionRequest {
 }
 
 export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
-    // console.log("post ids === ",user?.id,item.id)
-    // console.log("user ====", user?.id)
-    // console.log("item ===== ", item)
+    const store = useStroreValues()
     const [isOpen, setIsOpen] = React.useState(false);
     const queryClient = useQueryClient();
     const [liked, setLiked] = React.useState(item?.mylike === "yes");
@@ -145,6 +144,9 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
         throw e;
         }
     },{
+        onSuccess:()=>{
+            store.updateNotification({ message: "reply sent", type: "success" })
+        },
         onSettled: (data) => {
             queryClient.invalidateQueries([POSTS_KEY]);
             //     queryClient.invalidateQueries(count_query_key);

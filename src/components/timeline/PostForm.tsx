@@ -106,13 +106,17 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
     return (
         <div
             className="w-full h-fit max-h-[90%] flex flex-col items-center justify-center 
-dark:bg-black bg-white rounded-xl "
+            dark:bg-black bg-white rounded-xl "
         >
+   
             <form
                 onSubmit={handleSubmit}
                 className="w-full md:w-[60%] h-full border-2 shadow-xl rounded-xl p-3
-flex flex-col items-center justify-center"
+                flex flex-col items-center justify-center"
             >
+                <div className="w-full p-2 text-3xl font-bold">
+                    {label}
+                </div>
                 <div className="w-full  h-full flex flex-col items-center justify-center ">
                     {/* <input className="hidden" {...register('user')}/> */}
                     {/* file input will be hidden and the iage icon will forwad the click event via a ref */}
@@ -122,9 +126,9 @@ flex flex-col items-center justify-center"
                         id="body"
                         style={{ borderColor: isError(error, "body") ? "red" : "" }}
                         className="w-[95%] min-h-[150px] md:h-[30%]
-    m-2 p-2  border border-black dark:border-white text-base rounded-lg
-    dark:bg-slate-700focus:border-2 dark:focus:border-4 focus:border-purple-700
-    dark:focus:border-purple-600 "
+                        m-2 p-2  border border-black dark:border-white text-base rounded-lg
+                        dark:bg-slate-700focus:border-2 dark:focus:border-4 focus:border-purple-700
+                        dark:focus:border-purple-600 "
                         onChange={handleChange}
                         placeholder="What's on your mind"
                     />
@@ -168,19 +172,10 @@ flex flex-col items-center justify-center"
             </form>
 
             <div className="m-1 w-[90%] flex  flex-col items-center justify-center">
-                {error?.message === "" && mutation.isSuccess ? (
-                    <div
-                        className=" w-fit text-center line-clamp-3 p-2 bg-green-100 border-2
-         border-green-800 text-green-900  rounded-xl text-lg"
-                    >
-                        {label ? `${label} success` : "success"}
-                    </div>
-                ) : null}
-
-                {error?.message !== "" ? (
+           {error?.message !== "" ? (
                     <div
                         className="m-1 w-full text-center  line-clamp-4 p-2 bg-red-100 border-2 
-                border-red-800 text-red-900  rounded-xl"
+                        border-red-800 text-red-900  rounded-xl"
                     >
                         {error.message}
                     </div>

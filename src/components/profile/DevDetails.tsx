@@ -8,8 +8,7 @@ user:PBUser
 }
 
 export const DevDetails = ({user}:DevDetailsProps) => {
-
-  dayjs.extend(relativeTime)
+dayjs.extend(relativeTime)
 return (
  <div className='h-full w-full flex-center-col'>
  <div className='w-full h-full flex-center'>

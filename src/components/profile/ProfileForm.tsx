@@ -7,21 +7,18 @@ import { FormInput, FormButton } from "../form/FormParts";
 import { PBUser } from "../../utils/types/types";
 import { updateProfile } from "./../../utils/api/mutations";
 import { Record } from "pocketbase";
+import { useStroreValues } from "../../utils/zustand/store";
 
 
 interface ProfileFormProps {
     user: PBUser;
 }
 
-export const ProfileForm = (
-    {
-        user
-    }: ProfileFormProps
-) => {
+export const ProfileForm = ({user}: ProfileFormProps) => {
     const form_stuff = useForm<RequiredProfileFormFields>();
     const [error, setError] = React.useState({ name: "", message: "" });
     const [response, setResponse] = React.useState<Record | undefined>();
-
+    const store = useStroreValues()
     interface Mutationprops {
         user_id: string;
         vals: RequiredProfileFormFields;
@@ -41,6 +38,9 @@ export const ProfileForm = (
             }
         },
         {
+            onSuccess:()=>{
+                store.updateNotification({ message: "profile changes saved", type: "success" })
+            },
             onError: (err: any) => {
                 console.log("errror adding bill in ", err.data);
                 setError({

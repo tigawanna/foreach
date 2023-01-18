@@ -12,6 +12,7 @@ import { Mutationprops } from './../../components/form/types';
 import { client } from './../../utils/pb/config';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useInfiniteCustomPosts } from './../../utils/hooks/useCustomPosts';
+import { useStroreValues } from './../../utils/zustand/store';
 
 interface TimelineProps {
     user: PBUser
@@ -22,6 +23,8 @@ const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = useState(false);
 const navigate = useNavigate()   
 const queryClient = useQueryClient();
+
+const store = useStroreValues()
 
 const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
 {key:POSTS_KEY,user,depth:0,post_id:""},{
@@ -53,6 +56,9 @@ useEffect(() => {
             throw e;
         }
     },{
+        onSuccess:()=>{
+            store.updateNotification({ message: "posted", type: "success" })
+        },
         onSettled: () => {
            
             queryClient.invalidateQueries([POSTS_KEY]);
