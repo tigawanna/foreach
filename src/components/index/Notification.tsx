@@ -29,12 +29,13 @@ return (
                 </div>
             ) : null}
             {notification?.type === "error" ? (
-                <div className="w-[90%] flex  flex-col items-center justify-center">
-                <div className=" w-full line-clamp-4 p-2 bg-red-100 border-2 border-red-800
-                         text-red-900  rounded-xl ">
+                <div className="w-[90%] flex  items-center justify-center
+                bg-red-100 border-2 border-red-800 text-red-900  rounded-xl 
+                ">
+                <div className=" w-full line-clamp-4 p-2 ">
                  {notification.message}
                 </div>
-                <div className='w-full h-full'>
+                <div className='h-full p-3 text-white'>
                     <TheIcon Icon={FaTimes} iconAction={()=>store.clearNotification()}/>
                 </div>
                 </div>
