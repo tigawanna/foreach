@@ -10,7 +10,7 @@ import { Notification } from './components/index/Notification';
 
 
 function App() {
-  const store = useStroreValues()
+
 
 const query = useQuery(['user'], getUser);
    const user = query.data;
@@ -24,7 +24,7 @@ const query = useQuery(['user'], getUser);
    
       </div>
        <div className='w-full fixed bottom-3 flex items-center justify-center'>
-          <Notification store={store}/>
+          <Notification/>
        </div>
     </QueryStateWrapper>
 
