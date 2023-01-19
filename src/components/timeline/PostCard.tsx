@@ -35,8 +35,10 @@ const navigate = useNavigate()
             event.stopPropagation();
             navigate('../../profile/' + item.creator_id)
              }}
-            className="w-full flex justify-start itemscenter gap-[1px]">
-                <div className="min-h-5 min-w-5 h-[10%] w-[10%] md:w-10 md:h-10 ">
+                className="w-full flex justify-start itemscenter gap-[1px]
+                 cursor-pointer hover:bg-purple-100 rounded-full
+                 ">
+                <div className=" h-8 w-8 md:w-10 md:h-10 ">
                     {item?.creator_image ? (
                         <img
                             src={item?.creator_image}
