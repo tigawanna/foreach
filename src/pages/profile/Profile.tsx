@@ -1,18 +1,32 @@
 import { PBUser } from '../../utils/types/types';
 import { DevDetails } from '../../components/profile/DevDetails';
+import { Timeline } from '../timeline/Timeline';
+import { useParams } from 'react-router-dom';
+import { client } from './../../utils/pb/config';
+import { useQuery } from '@tanstack/react-query';
+import { QueryStateWrapper } from '../../shared/wrappers/QueryStateWrapper';
 
 interface ProfileProps {user: PBUser}
+type Params = { id: string }
 
 export const Profile = ({user}: ProfileProps) => {
-  
-  
-  
+  const params = useParams<Params>()
+  const getOneUser=async()=>{
+    return await client.collection('devs').getFirstListItem(`id="${params.id}"`, {
+    });
+  }
+  const query = useQuery(['profile',params?.id], getOneUser);
+  const the_user = query?.data??user
+  console.log("user profile ==== ",the_user?.id)
   return(
   <div className="w-full h-full flex flex-col items-start justify-start">
+    <QueryStateWrapper query={query}>
   <div className='w-full flex  border rounded-lg'>
-        <DevDetails user={user} />
+        <DevDetails user={the_user} />
   </div>
- 
-
+      <div className='w-full h-fit'>
+        <Timeline user={user} profile={the_user?.id as string} />
+      </div>
+    </QueryStateWrapper>
 </div>
 )};

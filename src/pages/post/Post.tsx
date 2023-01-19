@@ -17,7 +17,7 @@ const [searchParams] = useSearchParams({});
 const depth = searchParams.get('depth')
 const profile = searchParams.get('profile')
 const params = useParams<Params>()
-console.log("profile === ",profile)
+
 const query = useCustomPosts<CustomPostType>(
 {   key:POSTS_KEY, 
     user,

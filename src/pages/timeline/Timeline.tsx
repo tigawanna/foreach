@@ -19,7 +19,10 @@ interface TimelineProps {
     profile:string
 }
 export const POSTS_KEY = 'custom_posts'
+
 export const Timeline = ({user,profile}: TimelineProps) => {
+console.log("profile === ", profile)
+
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = useState(false);
 const navigate = useNavigate()   
@@ -80,7 +83,7 @@ return (
                         <div
                         onClick={() => {
                             navigate({
-                            pathname: 'post/' + item.post_id,
+                            pathname: '../../post/' + item.post_id,
                             search: createSearchParams({
                                 depth:(item.post_depth===""?0:item.post_depth).toString(),
                                 profile:profile??"general"

@@ -13,6 +13,8 @@ import { PostForm } from "./PostForm";
 import { Mutationprops } from "./../form/types";
 import { POSTS_KEY } from './../../pages/timeline/Timeline';
 import { useStroreValues } from "../../utils/zustand/store";
+import { useNavigate } from 'react-router-dom';
+
 
 
 interface PostCardProps {
@@ -23,10 +25,17 @@ interface PostCardProps {
 export const PostsCard = ({ item, user }: PostCardProps) => {
     // console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
     // console.log("creator image  === ",item.creator_image)
-
+const navigate = useNavigate()
     return (
         <div className="w-full h-full p-2 flex flex-col">
-            <div className="w-full flex justify-start itemscenter gap-[1px]">
+       
+                
+            <div
+            onClick={(event: React.MouseEvent<HTMLElement>)=>{
+            event.stopPropagation();
+            navigate('../../profile/' + item.creator_id)
+             }}
+            className="w-full flex justify-start itemscenter gap-[1px]">
                 <div className="min-h-5 min-w-5 h-[10%] w-[10%] md:w-10 md:h-10 ">
                     {item?.creator_image ? (
                         <img
@@ -40,6 +49,8 @@ export const PostsCard = ({ item, user }: PostCardProps) => {
                     {item?.creator_name}
                 </div>
             </div>
+         
+
             <div className="w-full  flex items-center justify-start p-2 ">{item?.post_body}</div>
             <div className="w-full  flex items-center justify-center ">
                 {item?.post_media ? (
@@ -221,3 +232,4 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
         </div>
     );
 };
+

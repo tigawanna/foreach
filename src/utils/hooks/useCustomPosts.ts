@@ -31,7 +31,7 @@ const fetchPosts = async (
 ) => {
     // console.log(" query vars === ", query_vars);
 
-    const postsUrl = new URL(`  ${pb_url}/${query_vars.key}`);
+    const postsUrl = new URL(`${pb_url}/${query_vars.key}`);
     const { user, depth, post_id,profile} = query_vars;
 
     postsUrl.searchParams.set("id", pagination_params?.pageParam?.id as string);
@@ -77,9 +77,9 @@ export const useInfiniteCustomPosts = <T>(
     // custom-posts uses a where clause to paginate and needs the current
     //date formatted in sqlite date format as the starting point
 
-    const { user, key,post_id,depth } = query_vars;
+    const { user, key,post_id,depth,profile } = query_vars;
     return useInfiniteQuery<T[], unknown, T[], string[]>(
-        [key, user?.id as string, post_id as string, depth?.toString() as string],
+        [key, user?.id as string, post_id as string, depth?.toString() as string,profile as string],
         params => fetchPosts(query_vars, params),
         options
     );
@@ -94,9 +94,9 @@ export const useCustomPosts = <T>(
           > & { initialData?: (() => undefined) | undefined })
         | undefined
 ) => {
-    const { key,user, depth, post_id } = query_vars;
+    const { key,user, depth, post_id,profile } = query_vars;
     return useQuery<T[], unknown, T[], string[]>(
-        [key, user?.id as string, post_id as string, depth?.toString() as string],
+        [key, user?.id as string, post_id as string, depth?.toString() as string,profile as string],
         () => fetchPosts(query_vars),
         options
     );

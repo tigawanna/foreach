@@ -31,7 +31,7 @@ export const appRoutes=(user:PBUser)=>{
               children:[
               {
                 index:true,
-                element:<Timeline user={user}/>
+                element:<Timeline user={user} profile='general'/>
               }
             ]
             },
@@ -42,6 +42,7 @@ export const appRoutes=(user:PBUser)=>{
                 {
                   path: ':id',
                   element: <Post user={user} />,
+                  
                   // loader: deferredBlogPostsLoader,
                 },
               ],
@@ -72,8 +73,15 @@ export const appRoutes=(user:PBUser)=>{
               element: <ProfileLayout user={user} />,
               children: [
                 {
-                  index: true,
+                 path:':id',
                   element: <Profile user={user} />,
+                  // children: [
+                  //   {
+                  //     path: 'post/:id',
+                  //     element: <Post user={user} />,
+                  //     // loader: deferredBlogPostsLoader,
+                  //   },
+                  // ],
                   // loader: deferredBlogPostsLoader,
                 },
               ],
