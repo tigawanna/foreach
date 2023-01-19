@@ -17,9 +17,10 @@ interface Pagination_params {
 
 interface QueryVariables {
     user: PBUser;
-    depth?: number;
     key: string;
     post_id?: string; //can also be the parent query param
+    depth?: number;
+   profile?: string;
 }
 
 const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]");
@@ -31,12 +32,12 @@ const fetchPosts = async (
     // console.log(" query vars === ", query_vars);
 
     const postsUrl = new URL(`  ${pb_url}/${query_vars.key}`);
-    const { user, depth, post_id } = query_vars;
+    const { user, depth, post_id,profile} = query_vars;
 
     postsUrl.searchParams.set("id", pagination_params?.pageParam?.id as string);
     postsUrl.searchParams.set("depth", depth?.toString() as string);
-    // postsUrl.searchParams.set("depth",'1');
-    postsUrl.searchParams.set("parent", post_id as string);
+    postsUrl.searchParams.set("profile",profile??"general");
+    postsUrl.searchParams.set("parent", post_id??'original');
     postsUrl.searchParams.set("user", user?.id as string);
     postsUrl.searchParams.set(
         "created",

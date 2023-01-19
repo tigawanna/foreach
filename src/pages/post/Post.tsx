@@ -13,20 +13,19 @@ type Params={id:string}
 
 export const Post = ({user}: PostProps) => {
 
-
 const [searchParams] = useSearchParams({});
-
-
 const depth = searchParams.get('depth')
+const profile = searchParams.get('profile')
 const params = useParams<Params>()
-
-
-
+console.log("profile === ",profile)
 const query = useCustomPosts<CustomPostType>(
 {   key:POSTS_KEY, 
     user,
     post_id:params.id,
-    depth:parseInt(depth as string)},{
+    depth:parseInt(depth as string),
+    profile:profile??"general"
+    
+},{
     select:(data)=>{
         if(data&&params.id){
             return data?.filter((item)=>item.post_id===params.id)
@@ -35,7 +34,7 @@ const query = useCustomPosts<CustomPostType>(
     }
 })
 
-// console.log("posts query === ",query.data)
+console.log("posts query === ",query.data)
 const post = query.data&&query?.data[0]
     return (
         <div className='w-full min-h-full  flex flex-col items-center justify-start gap-2'>
@@ -48,7 +47,11 @@ const post = query.data&&query?.data[0]
             </QueryStateWrapper>
             </div>
 
-            <Replies parent={post?.post_id as string} user={user} depth = {parseInt(depth as string)}/>
+            <Replies 
+            parent={post?.post_id as string} 
+            user={user}
+            profile={profile??"general"} 
+            depth = {parseInt(depth as string)}/>
             </div>
         </div>
     );

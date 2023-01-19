@@ -5,24 +5,28 @@ import { ReplyCard } from './RepliesCard';
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInfiniteCustomPosts } from '../../utils/hooks/useCustomPosts';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import { Profile } from './../../pages/profile/Profile';
 
 interface RepliesProps {
 depth:number
 parent:string
-user:PBUser
+user:PBUser;
+profile:string
 }
 
 export const REPLIES_KEY = 'custom_replies'
-export const Replies = ({depth,parent,user}:RepliesProps) => {
+export const Replies = ({depth,parent,user,profile}:RepliesProps) => {
 //  const query = useReplies(['replies',post_id],post_id)
 const { ref, inView } = useInView()
 const navigate = useNavigate()   
-// console.log("parent in replies ",parent,depth)
+console.log("parent in replies ",profile)
     const query = useInfiniteCustomPosts<CustomPostType>(
         { key: REPLIES_KEY,
             user,
              post_id:parent,
-             depth:depth + 1 }, {
+             depth:depth + 1,
+             profile
+            }, {
         getNextPageParam: (lastPage, allPages) => {
             // console.log("last page ==== ",lastPage,allPages)
             if (lastPage && lastPage[lastPage.length - 1]) {

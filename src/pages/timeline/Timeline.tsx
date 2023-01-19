@@ -16,9 +16,10 @@ import { useStroreValues } from './../../utils/zustand/store';
 
 interface TimelineProps {
     user: PBUser
+    profile:string
 }
 export const POSTS_KEY = 'custom_posts'
-export const Timeline = ({user}: TimelineProps) => {
+export const Timeline = ({user,profile}: TimelineProps) => {
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = useState(false);
 const navigate = useNavigate()   
@@ -27,7 +28,7 @@ const queryClient = useQueryClient();
 const store = useStroreValues()
 
 const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
-{key:POSTS_KEY,user,depth:0,post_id:""},{
+{key:POSTS_KEY,user,depth:0,post_id:"",profile},{
     getNextPageParam: (lastPage, allPages) => {
         // console.log("last page ==== ",lastPage,allPages)
         if (lastPage && lastPage[lastPage.length - 1]) {
@@ -81,7 +82,8 @@ return (
                             navigate({
                             pathname: 'post/' + item.post_id,
                             search: createSearchParams({
-                                depth:(item.post_depth===""?0:item.post_depth).toString()
+                                depth:(item.post_depth===""?0:item.post_depth).toString(),
+                                profile:profile??"general"
                             }).toString()
                             })}
                                 }

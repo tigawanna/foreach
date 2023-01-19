@@ -27,7 +27,7 @@ export const PostsCard = ({ item, user }: PostCardProps) => {
     return (
         <div className="w-full h-full p-2 flex flex-col">
             <div className="w-full flex justify-start itemscenter gap-[1px]">
-                <div className="w-10 h-10 ">
+                <div className="min-h-5 min-w-5 h-[10%] w-[10%] md:w-10 md:h-10 ">
                     {item?.creator_image ? (
                         <img
                             src={item?.creator_image}

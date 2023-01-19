@@ -11,9 +11,9 @@ export const DevDetails = ({user}:DevDetailsProps) => {
 dayjs.extend(relativeTime)
 return (
  <div className='h-full w-full flex-center-col'>
- <div className='w-full h-full flex-center'>
+ <div className='w-full h-full flex items-start justify-start gap-3'>
 
-    <div className="  rounded-md  flex justify-center items-center w-[150px]  aspect-square m-2">
+    <div className="  rounded-md  flex justify-center items-center w-[150px]  aspect-square m-2 ">
       <img
         src={user?.avatar}
         alt={""}
@@ -22,7 +22,7 @@ return (
         />
     </div>
     
-    <div className='h-full flex flex-col items-start justify-center'>
+    <div className='h-full  flex flex-col items-center justify-center text-sm'>
         <div className='w-full flex-start  text-bold text-lg'>{user?.displayname}</div>
         <div className='w-full flex-start text-bold'>@{user?.username}</div>
         <div className='w-full flex-start'>email {user?.email}</div>
