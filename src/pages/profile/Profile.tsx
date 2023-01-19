@@ -17,14 +17,18 @@ export const Profile = ({user}: ProfileProps) => {
   }
   const query = useQuery(['profile',params?.id], getOneUser);
   const the_user = query?.data??user
-  console.log("user profile ==== ",the_user?.id)
+ 
   return(
-  <div className="w-full h-full flex flex-col items-start justify-start">
+  <div className="w-full h-full flex flex-col items-center justify-start gap-1">
     <QueryStateWrapper query={query}>
   <div className='w-full flex  border rounded-lg'>
         <DevDetails user={the_user} />
   </div>
-      <div className='w-full h-fit'>
+      <div className='w-full min-h-fit flex flex-col items-center justify-center mt-3'>
+        <div className='text-lg font-bold '>
+            User posts
+        </div>
+
         <Timeline user={user} profile={the_user?.id as string} />
       </div>
     </QueryStateWrapper>

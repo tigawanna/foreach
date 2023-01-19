@@ -21,7 +21,7 @@ interface TimelineProps {
 export const POSTS_KEY = 'custom_posts'
 
 export const Timeline = ({user,profile}: TimelineProps) => {
-console.log("profile === ", profile)
+
 
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = useState(false);
@@ -120,11 +120,11 @@ return (
                         label='post'
                     />
                     </div>
-            
-            }
+                    }
                 closeModal={() => setIsOpen(false)}
                 delay={0}
                 isOpen={isOpen}
+
                 styles={{
                     overlay_top: '0%',
                     overlay_right: '0%',
