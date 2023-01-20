@@ -19,7 +19,7 @@ export const Toolbar = (
 
 const [isOpen, setIsOpen] = React.useState(false);
 const avatar = user?.avatar
-// console.log("profile ===",avatar)
+// //no-console("profile ===",avatar)
 
 return (
     <div className="w-full h-10 flex justify-between items-center">
@@ -57,7 +57,7 @@ return (
       }}
        />
 
-      <div className="min-w-[10%] md:px-2 h-full flex justify-center items-center gap-1 md:gap-2
+      {/* <div className="min-w-[10%] md:px-2 h-full flex justify-center items-center gap-1 md:gap-2
          md:border-2 rounded-xl  font-bold dark:font-normal ">
 
         <div className="w-full  h-full flex justify-center items-center
@@ -69,9 +69,8 @@ return (
       <div className="w-full px-1 h-full flex justify-center items-center 
       hover:text-rose-700">
           <Link to="/test">test</Link>
-   
-        </div> 
-     </div>
+      </div> 
+     </div> */}
       
       <div className="w-fit h-full flex justify-end items-center">
 

@@ -57,7 +57,7 @@ export const ProfileForm = ({user,label}: ProfileFormProps) => {
                 store.updateNotification({ message: "profile changes saved", type: "success" })
             },
             onError: (err: any) => {
-                console.log("errror adding bill in ", err.data);
+                //no-console("errror adding bill in ", err.data);
                 setError({
                     name: "main",
                     message: concatErrors(err)
@@ -67,7 +67,7 @@ export const ProfileForm = ({user,label}: ProfileFormProps) => {
     );
 
    const disableButton = (vals: typeof input) => {
-        // console.log("input === ",input)
+        // //no-console("input === ",input)
         if (vals.displayname !== "" || vals.bio) {
             return false;
         }

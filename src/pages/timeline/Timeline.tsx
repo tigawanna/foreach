@@ -37,7 +37,7 @@ const store = useStroreValues()
 const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
 {key:POSTS_KEY,user,depth:0,post_id:"",profile},{
     getNextPageParam: (lastPage, allPages) => {
-        // console.log("last page ==== ",lastPage,allPages)
+        // //no-console("last page ==== ",lastPage,allPages)
         if (lastPage && lastPage[lastPage.length - 1]) {
             return {
              created: lastPage[lastPage?.length - 1]?.created_at,
@@ -75,7 +75,7 @@ useEffect(() => {
 
 
 const data = customPostsQuery.data
-// console.log("custom query === ",data)
+// //no-console("custom query === ",data)
 return (
 <QueryStateWrapper 
 query={customPostsQuery}
@@ -84,7 +84,7 @@ loader={<PostSkeleton length={6}/>}
     <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
         <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
             {data?.pages?.map((page) => {
-                    // console.log("page=== ",page)
+                    // //no-console("page=== ",page)
                     return page.map((item) => {
                         return (
                         <div

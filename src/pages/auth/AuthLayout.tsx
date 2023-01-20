@@ -8,7 +8,7 @@ interface AuthLayoutProps {
 
 export const AuthLayout = ({user}: AuthLayoutProps) => {
   const navigate = useNavigate();
-  // console.log("user in auth layout ===", user)
+  // //no-console("user in auth layout ===", user)
 
   React.useEffect(() => {
     if (user) {

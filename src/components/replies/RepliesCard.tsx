@@ -13,6 +13,7 @@ import { VscComment } from "react-icons/vsc";
 import { REPLIES_KEY } from './Replies';
 import { useNavigate } from 'react-router';
 import { Mutationprops } from '../../utils/types/form';
+import { POSTS_KEY } from '../../pages/timeline/Timeline';
 
 interface ReplyCardProps {
     reply: CustomPostType
@@ -21,7 +22,7 @@ interface ReplyCardProps {
 }
 
 export const ReplyCard = ({reply,user}:ReplyCardProps) => {
-    // console.log("reply === ",reply)
+    // //no-console("reply === ",reply)
 const navigate = useNavigate()
 return (
     <div className="w-full h-full p-2 flex flex-col">
@@ -88,14 +89,14 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
     const updateReactionMutation = useMutation(
         async (vars: CustomPostType) => {
             const updatevars = { liked: item.mylike === "yes" ? "no" : "yes" };
-            console.log("update mutation vars=== ", updatevars, vars.reaction_id);
+            //no-console("update mutation vars=== ", updatevars, vars.reaction_id);
             try {
                 const response = await client.collection("reactions").update(
                     vars?.reaction_id as string, updatevars);
-                console.log("update reaction response === ", response);
+                //no-console("update reaction response === ", response);
                 return response
             } catch (err: any) {
-                console.log("error updating ===> ", concatErrors(err));
+                //no-console("error updating ===> ", concatErrors(err));
                 // setError({ name: "main", message: err?.messge })
                 throw err;
             }
@@ -106,7 +107,7 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
                 // queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
-                console.log("error updating ===> ", concatErrors(err));
+                //no-console("error updating ===> ", concatErrors(err));
             }
         }
     );
@@ -117,13 +118,13 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
                 user: user?.id,
                 liked: "yes"
             };
-            console.log("create vars =====> ", newReaction);
+            //no-console("create vars =====> ", newReaction);
             try {
                 const response = await client.collection("reactions").create(newReaction);
-                console.log("new reaction response === ", response);
+                //no-console("new reaction response === ", response);
                 return response
             } catch (err: any) {
-                console.log("error liking post", concatErrors(err));
+                //no-console("error liking post", concatErrors(err));
                 // setError({ name: "main", message: err?.messge })
                 throw err;
             }
@@ -131,10 +132,11 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
         {
             onSettled: (data) => {
                 queryClient.invalidateQueries([REPLIES_KEY]);
+                // queryClient.invalidateQueries([POSTS_KEY]);
                 //     queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
-                console.log("error liking post", concatErrors(err));
+                //no-console("error liking post", concatErrors(err));
                 // updateReactionMutation.mutate(item);
             }
         }
@@ -152,8 +154,9 @@ export const ReplyReactionsCard = ({ user,item}: ReplyReactionsCardProps) => {
         }
     }, {
         onSettled: (data: Record | undefined, error: unknown, variables: Mutationprops, context: unknown) => {
-            console.log("data after reply", data)
+            //no-console("data after reply", data)
             queryClient.invalidateQueries([REPLIES_KEY]);
+            queryClient.invalidateQueries([POSTS_KEY]);
         }
     }
 

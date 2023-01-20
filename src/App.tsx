@@ -16,7 +16,7 @@ function App() {
 const query = useQuery(['user'], getUser);
 
    const user = query.data;
-    // console.log("notification in App === ",notificationSignal.value.message)
+    // //no-console("notification in App === ",notificationSignal.value.message)
    return (
 
     <QueryStateWrapper query={query} loader={<LoaderElipse />}>

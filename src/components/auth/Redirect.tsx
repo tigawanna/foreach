@@ -12,7 +12,7 @@ interface RedirectProps {
 }
 
 export const Redirect = ({user}: RedirectProps) => {
-  // console.log("inside Redirect component")
+  // //no-console("inside Redirect component")
   const queryClient = useQueryClient();
   // const navigate = useNavigate();
 
@@ -35,9 +35,9 @@ export const Redirect = ({user}: RedirectProps) => {
           redirectUrl
       ) as unknown as OAuthResponse
       
-      console.log("oathRes === ",oauthRes)
+      //no-console("oathRes === ",oauthRes)
       const rawUser = oauthRes?.meta?.rawUser as GithubRawUser
-      console.log("rawuser  === ",rawUser)
+      //no-console("rawuser  === ",rawUser)
       // updating user profile with provider metadata
 
       await client.collection('devs').update(oauthRes?.record.id as string, {
@@ -52,17 +52,17 @@ export const Redirect = ({user}: RedirectProps) => {
       queryClient.setQueryData(['user'], client.authStore.model);
       ;
     };
-    console.log("redirect logic",local_prov.state , state)
+    //no-console("redirect logic",local_prov.state , state)
     if (local_prov.state !== state) {
       const auth_url = login_url;
       if (typeof window !== 'undefined') {
-        console.log("redirecting to auth becasu it lacks ")
+        //no-console("redirecting to auth becasu it lacks ")
         window.location.href = auth_url;
       }
     } 
     else {
       pbOauthLogin().catch((e) => {
-        console.log('error logging in with provider  == ', e);
+        //no-console('error logging in with provider  == ', e);
       });
     }
   }, []);

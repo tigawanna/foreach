@@ -24,12 +24,12 @@ interface PostCardProps {
 }
 
 export const PostsCard = ({ item, user }: PostCardProps) => {
-    // console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
-    // console.log("creator image  === ",item.creator_image)
+    // //no-console("url === ", makeUrl('posts', item.post_id, item.post_media))
+    // //no-console("creator image  === ",item.creator_image)
     // const { pathname } = useLocation()
     // // useAuthGuard(user,test_mode)
     // useEffect(() => {
-    //     console.log("layout changed")
+    //     //no-console("layout changed")
     // }, [pathname])
 
 const navigate = useNavigate()
@@ -108,13 +108,13 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
     const updateReactionMutation = useMutation(
         async (vars: CustomPostType) => {
             const updatevars = { liked: item.mylike === "yes" ? "no" : "yes" };
-            console.log("update mutation vars=== ", updatevars, vars.reaction_id);
+            //no-console("update mutation vars=== ", updatevars, vars.reaction_id);
             try {
             const response = await client.collection("reactions").update(vars?.reaction_id as string, updatevars);
-            console.log("update reaction response === ", response);
+            //no-console("update reaction response === ", response);
             return response
             } catch (err: any) {
-                console.log("error updating ===> ", concatErrors(err));
+                //no-console("error updating ===> ", concatErrors(err));
                 // setError({ name: "main", message: err?.messge })
                 throw err;
             }
@@ -125,7 +125,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
                 // queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
-                console.log("error updating ===> ", concatErrors(err));
+                //no-console("error updating ===> ", concatErrors(err));
             }
         }
     );
@@ -136,13 +136,13 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
                 user: user?.id,
                 liked: "yes"
             };
-            console.log("create vars =====> ", newReaction);
+            //no-console("create vars =====> ", newReaction);
             try {
                 const response = await client.collection("reactions").create(newReaction);
-                console.log("new reaction response === ", response);
+                //no-console("new reaction response === ", response);
                 return response
             } catch (err: any) {
-                console.log("error liking post", concatErrors(err));
+                //no-console("error liking post", concatErrors(err));
                 // setError({ name: "main", message: err?.messge })
                 throw err;
             }
@@ -153,7 +153,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
                 //     queryClient.invalidateQueries(count_query_key);
             },
             onError: (err: any) => {
-                console.log("error liking post", concatErrors(err));
+                //no-console("error liking post", concatErrors(err));
                 updateReactionMutation.mutate(item);
             }
         }
@@ -180,7 +180,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
     
     );
 
-    // console.log("total likes  ====== ",total_likes)
+    // //no-console("total likes  ====== ",total_likes)
 
     return (
         <div className="w-full p-1">

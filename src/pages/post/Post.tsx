@@ -38,7 +38,7 @@ const query = useCustomPosts<CustomPostType>(
     }
 })
 
-console.log("posts query === ",query.data)
+//no-console("posts query === ",query.data)
 const post = query.data&&query?.data[0]
     return (
         <div className='w-full min-h-screen  flex flex-col items-center justify-start gap-2

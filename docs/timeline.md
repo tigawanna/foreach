@@ -806,7 +806,7 @@ export const useInfiniteCustom = <T>(
     const currentdate = dayjs(new Date()).format("[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]");
 
     const fetchPosts = async (deps?: Partial<PaginationDeps>) => {
-        // console.log("page params dependaces === ", deps, deps.pageParam?.id)
+        // //no-console("page params dependaces === ", deps, deps.pageParam?.id)
         const url = `${pb_url}/custom_posts/?id=${deps?.pageParam?.id ?? ""}&user=${
         user?.id ?? ""}&created=${deps?.pageParam?.created ?? currentdate}`;
         let headersList = {
@@ -818,13 +818,13 @@ export const useInfiniteCustom = <T>(
                 headers: headersList
             });
             const data = await response.json();
-            console.log("response === ", data);
+            //no-console("response === ", data);
             if (data.code === 400) {
                 throw new Error(data.message);
             }
             return data;
         } catch (e: any) {
-            console.log("error fetching custom ", e);
+            //no-console("error fetching custom ", e);
             throw new Error(e.message);
         }
     };
@@ -870,7 +870,7 @@ const [isOpen, setIsOpen] = React.useState(false);
     
 const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
     getNextPageParam: (lastPage, allPages) => {
-        // console.log("last page ==== ",lastPage,allPages)
+        // //no-console("last page ==== ",lastPage,allPages)
         if (lastPage && lastPage[lastPage.length - 1]) {
             return {
              created: lastPage[lastPage?.length - 1]?.created_at,
@@ -888,13 +888,13 @@ const customPostsQuery = useInfiniteCustom<CustomPostType>('custom-posts',user,{
 }, [inView])
 
 const data = customPostsQuery.data
-// console.log("custom query === ",data)
+// //no-console("custom query === ",data)
 return (
 <QueryStateWrapper query={customPostsQuery}>
     <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
         <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
             {data?.pages.map((page) => {
-                    // console.log("page=== ",page)
+                    // //no-console("page=== ",page)
                     return page.map((item) => {
                         return <PostsCard item={item} key={item.post_id} user={user} />
                     })

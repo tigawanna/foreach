@@ -23,12 +23,12 @@ class ErrorBoundary extends Component<Props, State> {
     }
 
     public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-        // console.log("Uncaught error:", error.message)
+        // //no-console("Uncaught error:", error.message)
         // console.error("Uncaught error:", error, errorInfo);
     }
 
     public render() {
-        console.log("error boundary =", this.state.error?.message)
+        //no-console("error boundary =", this.state.error?.message)
         if (this.state.hasError) {
             return (
                 <div className="w-full h-screen  flex-center ">

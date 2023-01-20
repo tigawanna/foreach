@@ -46,7 +46,7 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // console.log("submitting .... ",input)
+        // //no-console("submitting .... ",input)
 
         if (input.user) {
             if ((input?.media && "name" in input?.media) || input.body !== "") {
@@ -67,7 +67,7 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
                         },
                         onSettled: () => {},
                         onError: (err: any) => {
-                            // console.log("errror adding new post in ", err.data);
+                            // //no-console("errror adding new post in ", err.data);
                             setError({
                                 name: "main",
                                 message: concatErrors(err)
@@ -88,7 +88,7 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
     };
 
     const disableButton = (vals: typeof input) => {
-        // console.log("input === ",input)
+        // //no-console("input === ",input)
         if (vals.body !== "" || vals.media) {
             return false;
         }

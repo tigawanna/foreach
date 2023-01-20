@@ -18,8 +18,8 @@ export const appendToCache = async (
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryClient.setQueryData(index, (old: any) => {
-    // console.log("old to be unshifted === ",old)
-    //     console.log(" new data === ",newData)
+    // //no-console("old to be unshifted === ",old)
+    //     //no-console(" new data === ",newData)
     if (old) {
       old.items.unshift(newData);
       return old;
@@ -36,7 +36,7 @@ export const makeUrl = (coll_name: string, coll_id: string, media: string) => {
 
 export const realTime = async (index: [string], queryClient: QueryClient) =>
   client.realtime.subscribe(index[0], (e) => {
-    console.log('new real time response', e.record);
+    //no-console('new real time response', e.record);
     appendToCache(index, queryClient, e.record);
 
     //    queryClient.setQueryData(["peeps", { id: e.record.id }], e.record);

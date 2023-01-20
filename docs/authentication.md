@@ -53,8 +53,8 @@ const startLogin = (prov:ProvType) => {
    localStorage.setItem("provider",JSON.stringify(prov));
   const redirectUrl = "http://localhost:3000/redirect";
   const url = prov.authUrl + redirectUrl;
-      // console.log("prov in button === ", prov)
-      // console.log("combined url ==== >>>>>>  ",url)
+      // //no-console("prov in button === ", prov)
+      // //no-console("combined url ==== >>>>>>  ",url)
   
     if (typeof window !== "undefined") {
       window.location.href = url;
@@ -148,7 +148,7 @@ useEffect(()=>{
     }
     else {
     pbOauthLogin().catch((e) => {
-    console.log("error logging in with provider  == ", e)
+    //no-console("error logging in with provider  == ", e)
     })
     }
 

@@ -20,19 +20,19 @@ interface ProvType {
 }
 
 export const OAuthLogin = ({user}: OAuthLoginProps) => {
-// console.log("inside OAuthLogin component")
+// //no-console("inside OAuthLogin component")
 
   const query = useQuery(['providers'],getProviders)
   const navigate = useNavigate();
-  // console.log("user in Login.tsx  ==  ",user)
+  // //no-console("user in Login.tsx  ==  ",user)
   // if (user?.email) {
   //   navigate('/');
   // }
   const startLogin = (prov: ProvType) => {
     localStorage.setItem('provider', JSON.stringify(prov));
     const url = prov.authUrl + redirect_url;
-    // console.log("prov in button === ", prov)
-    // console.log("combined url ==== >>>>>>  ",url)
+    // //no-console("prov in button === ", prov)
+    // //no-console("combined url ==== >>>>>>  ",url)
 
     if (typeof window !== 'undefined') {
       window.location.href = url;
@@ -43,7 +43,7 @@ export const OAuthLogin = ({user}: OAuthLoginProps) => {
     google: FaGoogle,
   };
   const provs  = query.data?.authProviders
- console.log("provs",provs)
+ //no-console("provs",provs)
   return (
     <div className="w-full h-fit md:h-full flex flex-wrap items-center justify-center gap-2 ">
       {provs &&

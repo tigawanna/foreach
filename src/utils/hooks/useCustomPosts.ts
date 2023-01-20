@@ -29,7 +29,7 @@ const fetchPosts = async (
     query_vars: QueryVariables,
     pagination_params?: Partial<Pagination_params>
 ) => {
-    // console.log(" query vars === ", query_vars);
+    // //no-console(" query vars === ", query_vars);
 
     const postsUrl = new URL(`${pb_url}/${query_vars.key}`);
     const { user, depth, post_id,profile} = query_vars;
@@ -58,13 +58,13 @@ const fetchPosts = async (
             headers: headersList
         });
         const data = await response.json();
-        console.log("response === ", data);
+        //no-console("response === ", data);
         if (data.code === 400) {
             throw new Error(data.message);
         }
         return data;
     } catch (e: any) {
-        console.log("error fetching custom ", e);
+        //no-console("error fetching custom ", e);
         throw new Error(e.message);
     }
 };

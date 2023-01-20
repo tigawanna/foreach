@@ -22,6 +22,6 @@ UpdateUserFnProps) => {
       .collection('devs')
       .update(user_id, { avatar, accessToken, displayname });
   } catch (e) {
-    console.log('error updating profile === ', e);
+    //no-console('error updating profile === ', e);
   }
 };

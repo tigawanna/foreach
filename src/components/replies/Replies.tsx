@@ -30,7 +30,7 @@ const query = useInfiniteCustomPosts<CustomPostType>(
              profile
             }, {
         getNextPageParam: (lastPage, allPages) => {
-            // console.log("last page ==== ",lastPage,allPages)
+            // //no-console("last page ==== ",lastPage,allPages)
             if (lastPage && lastPage[lastPage.length - 1]) {
                 return {
                     created: lastPage[lastPage?.length - 1]?.created_at,
@@ -49,7 +49,7 @@ const query = useInfiniteCustomPosts<CustomPostType>(
 
 
 
-//  console.log("replies list==== ",query.data)
+//  //no-console("replies list==== ",query.data)
     const data = query.data
     if (data?.pages&&data?.pages?.length < 1){
         <div className='w-full h-full  flex flex-col  items-center justify-center '>
@@ -68,7 +68,7 @@ return (
                 {data?.pages?.map((page) => {
            
                     return page.map((item) => {
-                        // console.log("reply items depth === ",item)
+                        // //no-console("reply items depth === ",item)
                         return (
                             <div
                                 onClick={() => navigate({

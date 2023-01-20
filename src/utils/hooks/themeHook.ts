@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 export const useTheme = () => {
   const [theme, setTheme] = useState(localStorage.theme ?? 'dark');
-  // console.log("theme in hook=== ",theme)
+  // //no-console("theme in hook=== ",theme)
   useEffect(() => {
     const colorTheme = theme === 'dark' ? 'light' : 'dark';
     const root = window.document.documentElement;

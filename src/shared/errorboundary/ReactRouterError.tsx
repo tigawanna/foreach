@@ -17,7 +17,7 @@ export const ReactRouterError = () => {
   const error = useRouteError() as RRError;
   const navigate = useNavigate();
 
-  // console.log("route error == ",error)
+  // //no-console("route error == ",error)
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center gap-5">
