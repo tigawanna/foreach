@@ -1,5 +1,3 @@
-import { Record } from "pocketbase";
-
 export interface RequiredProfileFormFields {
     avatar: string;
     displayname: string;
@@ -23,4 +21,9 @@ export interface RequiredReplyFields {
     body: string;
     depth: number;
     parent?: string;
+}
+
+export interface RequiredProfileFields {
+    displayname: string;
+    bio:string;
 }

@@ -10,10 +10,11 @@ import { concatErrors } from "./../../utils/utils";
 import { TheIcon } from "../../shared/wrappers/TheIcon";
 import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
 import { PostForm } from "./PostForm";
-import { Mutationprops } from "./../form/types";
+
 import { POSTS_KEY } from './../../pages/timeline/Timeline';
 import { useStroreValues } from "../../utils/zustand/store";
 import { useNavigate } from 'react-router-dom';
+import { Mutationprops } from "../../utils/types/form";
 
 
 

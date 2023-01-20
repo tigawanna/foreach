@@ -8,11 +8,13 @@ import { PostsCard } from './../../components/timeline/PostCard';
 import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 import { PostForm } from '../../components/timeline/PostForm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Mutationprops } from './../../components/form/types';
+
 import { client } from './../../utils/pb/config';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useInfiniteCustomPosts } from './../../utils/hooks/useCustomPosts';
 import { useStroreValues } from './../../utils/zustand/store';
+import { Mutationprops } from '../../utils/types/form';
+
 
 interface TimelineProps {
     user: PBUser

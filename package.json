@@ -12,19 +12,16 @@
     "upgrade-deps": "npm install -g npm-check-updates && ncu -u && npm install"
   },
   "dependencies": {
-    "@hookform/resolvers": "^2.9.10",
     "@tanstack/react-query": "^4.20.4",
     "dayjs": "^1.11.7",
     "pocketbase": "^0.9.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.41.5",
     "react-icons": "^4.7.1",
     "react-intersection-observer": "^9.4.1",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.6.1",
-    "zustand": "^4.3.2",
-    "zustand-persist": "^0.4.0"
+    "zustand": "^4.3.2"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",

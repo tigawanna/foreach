@@ -1,9 +1,9 @@
 import React from 'react'
-import { CustomPostType, CustomRepliesType, PBUser,} from '../../utils/types/types';
+import { CustomPostType, PBUser,} from '../../utils/types/types';
 import { client, makeUrl } from './../../utils/pb/config';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { concatErrors } from '../../utils/utils';
-import { Mutationprops } from '../form/types';
+
 import { Record } from 'pocketbase';
 import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 import { PostForm } from './../timeline/PostForm';
@@ -12,6 +12,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { VscComment } from "react-icons/vsc";
 import { REPLIES_KEY } from './Replies';
 import { useNavigate } from 'react-router';
+import { Mutationprops } from '../../utils/types/form';
 
 interface ReplyCardProps {
     reply: CustomPostType
