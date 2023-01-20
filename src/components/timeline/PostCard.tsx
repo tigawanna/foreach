@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { VscComment } from "react-icons/vsc";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ import { PostForm } from "./PostForm";
 
 import { POSTS_KEY } from './../../pages/timeline/Timeline';
 import { useStroreValues } from "../../utils/zustand/store";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Mutationprops } from "../../utils/types/form";
 
 
@@ -26,6 +26,12 @@ interface PostCardProps {
 export const PostsCard = ({ item, user }: PostCardProps) => {
     // console.log("url === ", makeUrl('posts', item.post_id, item.post_media))
     // console.log("creator image  === ",item.creator_image)
+    // const { pathname } = useLocation()
+    // // useAuthGuard(user,test_mode)
+    // useEffect(() => {
+    //     console.log("layout changed")
+    // }, [pathname])
+
 const navigate = useNavigate()
     return (
         <div className="w-full h-full p-2 flex flex-col">
@@ -45,6 +51,8 @@ const navigate = useNavigate()
                             src={item?.creator_image}
                             // src={makeUrl('devs', item.creator_id, item.creator_image)}
                             className=" w-full h-full rounded-full aspect-square"
+                   
+            
                         />
                     ) : null}
                 </div>
@@ -61,6 +69,8 @@ const navigate = useNavigate()
                     <img
                         src={makeUrl("posts", item?.post_id, item?.post_media)}
                         className=" w-fit max-h-80 rounded-lg"
+                        alt='../../assets/placeholder.svg'
+                        loading="lazy"
                     />
                 ) : null}
             </div>

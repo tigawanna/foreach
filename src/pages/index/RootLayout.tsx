@@ -1,7 +1,8 @@
-import { Outlet} from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
 import { PBUser } from '../../utils/types/types';
-import { useAuthGuard } from '../../utils/hooks/useAuthGuard';
+import { useScrollToTop } from '../../shared/extra/useScrollToTop';
+
 
 interface RootLayoutProps {
   user: PBUser;
@@ -9,11 +10,10 @@ interface RootLayoutProps {
 }
 
 export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
-
-  // useAuthGuard(user,test_mode)
-
+  useScrollToTop()
   return (
     <div className="w-full h-full dark:bg-slate-900">
+ 
       <div
         className="h-14 w-full  bg-slate-700 dark:bg-slate-800
           bg-opacity-30 dark:bg-opacity-90 max-h-[50px] p-1

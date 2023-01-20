@@ -8,13 +8,13 @@ import { PostsCard } from './../../components/timeline/PostCard';
 import { ReactModalWrapper } from './../../shared/wrappers/ReactModalWrapper';
 import { PostForm } from '../../components/timeline/PostForm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
 import { client } from './../../utils/pb/config';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useInfiniteCustomPosts } from './../../utils/hooks/useCustomPosts';
 import { useStroreValues } from './../../utils/zustand/store';
 import { Mutationprops } from '../../utils/types/form';
 import { PostSkeleton } from '../../shared/loaders/PostSkeleton';
+
 
 
 interface TimelineProps {
@@ -32,6 +32,7 @@ const navigate = useNavigate()
 const queryClient = useQueryClient();
 
 const store = useStroreValues()
+
 
 const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
 {key:POSTS_KEY,user,depth:0,post_id:"",profile},{

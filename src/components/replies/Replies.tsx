@@ -19,9 +19,10 @@ export const REPLIES_KEY = 'custom_replies'
 export const Replies = ({depth,parent,user,profile}:RepliesProps) => {
 //  const query = useReplies(['replies',post_id],post_id)
 const { ref, inView } = useInView()
-const navigate = useNavigate()   
-console.log("parent in replies ",profile)
-    const query = useInfiniteCustomPosts<CustomPostType>(
+const navigate = useNavigate()
+
+
+const query = useInfiniteCustomPosts<CustomPostType>(
         { key: REPLIES_KEY,
             user,
              post_id:parent,
@@ -45,6 +46,8 @@ console.log("parent in replies ",profile)
             query.fetchNextPage()
         }
     }, [inView])
+
+
 
 //  console.log("replies list==== ",query.data)
     const data = query.data

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Outlet, useParams } from 'react-router-dom';
 import { PBUser } from '../../utils/types/types';
 import { useAuthGuard } from '../../utils/hooks/useAuthGuard';
 
@@ -8,7 +8,11 @@ user:PBUser
 }
 
 export const TimelineLayout = ( {user}: TimelineLayoutProps) => {
+    const params = useParams()
+
     useAuthGuard(user,false)
+
+
 return (
  <div className='w-full h-fit'>
   <Outlet/>
