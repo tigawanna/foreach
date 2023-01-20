@@ -10,7 +10,7 @@ interface RootLayoutProps {
 
 export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
 
-  useAuthGuard(user,test_mode)
+  // useAuthGuard(user,test_mode)
 
   return (
     <div className="w-full h-full dark:bg-slate-900">

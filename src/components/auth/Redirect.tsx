@@ -5,15 +5,16 @@ import { PBUser } from '../../utils/types/types';
 import { client } from '../../utils/pb/config';
 import { redirect_url, login_url } from '../../utils/env';
 import { LoaderElipse } from './../../shared/loaders/Loaders';
-import { GithubRawUser } from './types';
+import { GithubRawUser, OAuthResponse } from './types';
 
 interface RedirectProps {
   user?: PBUser;
 }
 
 export const Redirect = ({user}: RedirectProps) => {
+  console.log("inside Redirect component")
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const local_prov = JSON.parse(localStorage.getItem('provider') as string);
   const url = new URL(window.location.href);
@@ -32,26 +33,34 @@ export const Redirect = ({user}: RedirectProps) => {
           code,
           local_prov.codeVerifier,
           redirectUrl
-        );
-      console.log("oat response === ",oauthRes)
+      ) as unknown as OAuthResponse
+      
+      console.log("oathRes === ",oauthRes)
       const rawUser = oauthRes?.meta?.rawUser as GithubRawUser
       console.log("rawuser  === ",rawUser)
+      // updating user profile with provider metadata
+
       await client.collection('devs').update(oauthRes?.record.id as string, {
         avatar: oauthRes.meta?.avatarUrl,
-        accessToken: oauthRes.meta?.accessToken,
+        accesstoken: oauthRes.meta?.accessToken,
+        refreshtoken:oauthRes.meta?.refreshToken,
         displayname:rawUser.name,
+        bio:rawUser.bio,
+        
         userame: rawUser.login.split("")[0]
       });
       queryClient.setQueryData(['user'], client.authStore.model);
       ;
     };
-
+    console.log("redirect logic",local_prov.state , state)
     if (local_prov.state !== state) {
       const auth_url = login_url;
       if (typeof window !== 'undefined') {
+        console.log("redirecting to auth becasu it lacks ")
         window.location.href = auth_url;
       }
-    } else {
+    } 
+    else {
       pbOauthLogin().catch((e) => {
         console.log('error logging in with provider  == ', e);
       });

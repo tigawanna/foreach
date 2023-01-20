@@ -7,6 +7,7 @@ export interface OAuthResponse {
   token: string;
 }
 export interface Meta {
+  refreshToken?:string;
   id: string;
   name: string;
   username: string;

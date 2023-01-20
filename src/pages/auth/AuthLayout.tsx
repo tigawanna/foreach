@@ -8,18 +8,15 @@ interface AuthLayoutProps {
 
 export const AuthLayout = ({user}: AuthLayoutProps) => {
   const navigate = useNavigate();
-  // console.log("user ===", user)
+  console.log("user in auth layout ===", user)
 
   React.useEffect(() => {
     if (user) {
-      if (user?.email && user?.displayName === "") {
+      if (user?.email && user?.isNew) {
         navigate('/profile')
       }
-      else {
         navigate('/')
       }
-    }
-
   }, [user])
 
 

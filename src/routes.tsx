@@ -62,12 +62,13 @@ export const appRoutes=(user:PBUser)=>{
                   element: <Signup />,
                   // loader: blogPostLoader,
                 },
+                {
+                  path: '/auth/redirect',
+                  element: <Redirect />,
+                }
               ],
             },
-            {
-              path: '/redirect',
-              element: <Redirect />,
-            },
+   
             {
               path: '/profile',
               element: <ProfileLayout user={user} />,
