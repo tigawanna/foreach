@@ -11,6 +11,7 @@ import { TheIcon } from './../../shared/wrappers/TheIcon';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { VscComment } from "react-icons/vsc";
 import { REPLIES_KEY } from './Replies';
+import { useNavigate } from 'react-router';
 
 interface ReplyCardProps {
     reply: CustomPostType
@@ -20,10 +21,21 @@ interface ReplyCardProps {
 
 export const ReplyCard = ({reply,user}:ReplyCardProps) => {
     // console.log("reply === ",reply)
+const navigate = useNavigate()
 return (
     <div className="w-full h-full p-2 flex flex-col">
    
-        <div className="w-full flex justify-start itemscenter gap-[1px]">
+        <div className="w-full flex justify-start items-center gap-[1px] cursor-pointer">
+
+            <div 
+                onClick={(event: React.MouseEvent<HTMLElement>) => {
+                    event.stopPropagation();
+                    navigate('../../profile/' + reply.creator_id)
+                }}
+                className="w-fit px-1 flex justify-start itemscenter gap-[1px]
+                 cursor-pointer hover:bg-purple-100 rounded-full"
+            
+            >
             <div className="w-7 h-7 ">
                 {reply.creator_image ? (
                     <img
@@ -37,6 +49,9 @@ return (
                 {reply.creator_name}
             </div>
         </div>
+
+        </div>
+        \
         <div className="w-full  flex  text-sm p-2">{reply.post_body}</div>
         <div className="w-full  flex items-center justify-center ">
             {reply.post_media ? (

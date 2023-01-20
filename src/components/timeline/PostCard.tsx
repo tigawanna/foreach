@@ -29,15 +29,15 @@ const navigate = useNavigate()
     return (
         <div className="w-full h-full p-2 flex flex-col">
        
-                
+            <div className="w-full flex justify-start items-center gap-[1px]">
             <div
             onClick={(event: React.MouseEvent<HTMLElement>)=>{
             event.stopPropagation();
             navigate('../../profile/' + item.creator_id)
              }}
-                className="w-full flex justify-start itemscenter gap-[1px]
-                 cursor-pointer hover:bg-purple-100 rounded-full
-                 ">
+                className="w-fit px-1 flex justify-start itemscenter gap-[1px]
+                 cursor-pointer hover:bg-purple-100 rounded-full"
+                 >
                 <div className=" h-8 w-8 md:w-10 md:h-10 ">
                     {item?.creator_image ? (
                         <img
@@ -51,6 +51,7 @@ const navigate = useNavigate()
                     {item?.creator_name}
                 </div>
             </div>
+            </div>   
          
 
             <div className="w-full  flex items-center justify-start p-2 ">{item?.post_body}</div>
