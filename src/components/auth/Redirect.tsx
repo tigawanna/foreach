@@ -12,7 +12,7 @@ interface RedirectProps {
 }
 
 export const Redirect = ({user}: RedirectProps) => {
-  console.log("inside Redirect component")
+  // console.log("inside Redirect component")
   const queryClient = useQueryClient();
   // const navigate = useNavigate();
 

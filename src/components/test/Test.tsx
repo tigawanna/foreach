@@ -1,6 +1,7 @@
 import React from 'react'
 import { PBUser } from '../../utils/types/types';
 import { useStroreValues } from '../../utils/zustand/store';
+import { PostSkeleton } from '../../shared/loaders/PostSkeleton';
 
 
 
@@ -21,6 +22,7 @@ return (
     className='bg-purple-700 p-2'
     onClick={()=>{store.updateNotification({message:"deez",type:"error"})   }  }
     >add message</button>
+    <PostSkeleton length={7}/>
  </div>
 
 );

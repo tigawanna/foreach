@@ -6,6 +6,7 @@ import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInfiniteCustomPosts } from '../../utils/hooks/useCustomPosts';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { Profile } from './../../pages/profile/Profile';
+import { PostSkeleton } from './../../shared/loaders/PostSkeleton';
 
 interface RepliesProps {
 depth:number
@@ -55,8 +56,11 @@ console.log("parent in replies ",profile)
 
 return (
     <div className='w-full h-full  flex flex-col  items-center justify-center '>
-        <QueryStateWrapper query={query}>
+        <QueryStateWrapper 
+            loader={<PostSkeleton length={6} />}
+        query={query}>
             <div className='w-full h-full  flex flex-col gap-2 items-center justify-start'>
+            
             <div className='w-[95%] min-h-full flex flex-col items-center justify-center gap-2 py-2'>
                 {data?.pages?.map((page) => {
            

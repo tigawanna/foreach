@@ -20,7 +20,7 @@ interface ProvType {
 }
 
 export const OAuthLogin = ({user}: OAuthLoginProps) => {
-console.log("inside OAuthLogin component")
+// console.log("inside OAuthLogin component")
 
   const query = useQuery(['providers'],getProviders)
   const navigate = useNavigate();

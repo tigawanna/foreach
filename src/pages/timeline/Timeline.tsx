@@ -14,6 +14,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useInfiniteCustomPosts } from './../../utils/hooks/useCustomPosts';
 import { useStroreValues } from './../../utils/zustand/store';
 import { Mutationprops } from '../../utils/types/form';
+import { PostSkeleton } from '../../shared/loaders/PostSkeleton';
 
 
 interface TimelineProps {
@@ -75,7 +76,10 @@ useEffect(() => {
 const data = customPostsQuery.data
 // console.log("custom query === ",data)
 return (
-<QueryStateWrapper query={customPostsQuery}>
+<QueryStateWrapper 
+query={customPostsQuery}
+loader={<PostSkeleton length={6}/>}
+>
     <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
         <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
             {data?.pages?.map((page) => {
