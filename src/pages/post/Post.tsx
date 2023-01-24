@@ -5,8 +5,8 @@ import { PostsCard } from '../../components/timeline/PostCard';
 import { QueryStateWrapper } from '../../shared/wrappers/QueryStateWrapper';
 import { Replies } from '../../components/replies/Replies';
 import { POSTS_KEY } from './../timeline/Timeline';
-import {useEffect} from "react";
-import { useScrollToTop } from '../../shared/extra/useScrollToTop';
+import { PostSkeleton } from './../../shared/loaders/PostSkeleton';
+
 interface PostProps {
     user: PBUser
 }
@@ -41,16 +41,21 @@ const query = useCustomPosts<CustomPostType>(
 //no-console("posts query === ",query.data)
 const post = query.data&&query?.data[0]
     return (
-        <div className='w-full min-h-screen  flex flex-col items-center justify-start gap-2
-        
-        '>
+        <div className='w-full min-h-screen  flex flex-col items-center justify-start gap-2'>
             <div className="w-[95%] md:w-[60%] flex flex-col  items-center justify-start">
 
             <div className="w-[95%]  p-2 flex flex-col  border-black border-2 
             dark:border-[1px]  dark:border-white rounded-lg bg-purple-900
             animate-in fade-in
             ">
-            <QueryStateWrapper query={query}>
+            <QueryStateWrapper 
+            query={query}
+            loader={
+                <div className='bg-purple-700 w-[100%]'>
+                  <PostSkeleton length={1} />
+                </div>
+        }
+            >
             <PostsCard item={post as CustomPostType}  user={user} />
             </QueryStateWrapper>
 

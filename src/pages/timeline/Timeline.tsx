@@ -79,7 +79,11 @@ const data = customPostsQuery.data
 return (
 <QueryStateWrapper 
 query={customPostsQuery}
-loader={<PostSkeleton length={6}/>}
+loader={
+    <div className='w-[50%]'>
+        <PostSkeleton length={6} />
+    </div>
+}
 >
     <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
         <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
@@ -148,8 +152,8 @@ loader={<PostSkeleton length={6}/>}
         <button ref={ref}
             onClick={() => customPostsQuery.fetchNextPage()}
             disabled={!customPostsQuery.hasNextPage || customPostsQuery.isFetchingNextPage}>
-                {customPostsQuery.isFetchingNextPage ? 'Loading more...': customPostsQuery.hasNextPage ? 'Load More'
-                : !customPostsQuery.isLoading ? 'Nothing more to load' : null}</button>
+                {customPostsQuery.isFetchingNextPage ? 'Loading more...': customPostsQuery.hasNextPage ? ''
+                : !customPostsQuery.isLoading ? '' : null}</button>
             </div>
 
         </div>

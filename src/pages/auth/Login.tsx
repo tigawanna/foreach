@@ -13,7 +13,7 @@ export const Login = ({user}: LoginProps) => (
   className="w-full  h-full flex flex-col items-center justify-center dark:bg-black bg-white "
 >
   <div
-  className="h-[70%] w-[90%] md:w-[60%]  m-2 p-3 flex flex-col
+  className="h-[70%] w-[90%] md:w-[40%]  m-2 p-3 flex flex-col
   items-center justify-evenly text-slate-100  border  shadow-slate-600  shadow-lg rounded-xl"
   >
     <div className="w-full text-3xl text-center font-bold p-2 text-slate-900 dark:text-slate-100">

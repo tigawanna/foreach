@@ -6,7 +6,6 @@ import { Record, Admin } from "pocketbase";
 import { pb_url } from "../../utils/env";
 import { CustomPostType, PBUser } from "../../utils/types/types";
 import { client } from "./../../utils/pb/config";
-import { concatErrors } from "./../../utils/utils";
 import { TheIcon } from "../../shared/wrappers/TheIcon";
 import { ReactModalWrapper } from "../../shared/wrappers/ReactModalWrapper";
 import { PostForm } from "./PostForm";
@@ -15,6 +14,7 @@ import { POSTS_KEY } from './../../pages/timeline/Timeline';
 import { useStroreValues } from "../../utils/zustand/store";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Mutationprops } from "../../utils/types/form";
+import { REPLIES_KEY } from './../replies/Replies';
 
 
 
@@ -174,6 +174,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
         },
         onSettled: (data) => {
             queryClient.invalidateQueries([POSTS_KEY]);
+            queryClient.invalidateQueries([REPLIES_KEY]);
             //     queryClient.invalidateQueries(count_query_key);
         },
     }
