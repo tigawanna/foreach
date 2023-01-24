@@ -626,6 +626,7 @@ the possible states will be
 
 to avoid multiple likes by the same user to the same post we can add a unique index on the table 
 using the migration by running 
+
 ```go
 go run *.go migrate create 'reaction_user_post_idx'   
 ```
