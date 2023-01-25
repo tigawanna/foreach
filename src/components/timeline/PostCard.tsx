@@ -36,7 +36,7 @@ const navigate = useNavigate()
     return (
         <div className="w-full h-full p-2 flex flex-col">
        
-            <div className="w-full flex justify-start items-center gap-[1px]">
+            <div className="w-full flex justify-start items-center gap-[1px] ">
             <div
             onClick={(event: React.MouseEvent<HTMLElement>)=>{
             event.stopPropagation();
@@ -50,15 +50,13 @@ const navigate = useNavigate()
                         <img
                             src={item?.creator_image}
                             // src={makeUrl('devs', item.creator_id, item.creator_image)}
-                            className=" w-full h-full rounded-full aspect-square"
-                   
-            
-                        />
+                            className=" w-full h-full rounded-full aspect-square" />
                     ) : null}
                 </div>
                 <div className="flex items-center text-blue-700 justifycenter text-md font-bold px-2">
                     {item?.creator_name}
                 </div>
+
             </div>
             </div>   
          

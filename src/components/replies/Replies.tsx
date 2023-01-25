@@ -5,7 +5,6 @@ import { ReplyCard } from './RepliesCard';
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInfiniteCustomPosts } from '../../utils/hooks/useCustomPosts';
 import { createSearchParams, useNavigate } from 'react-router-dom';
-import { Profile } from './../../pages/profile/Profile';
 import { PostSkeleton } from './../../shared/loaders/PostSkeleton';
 
 interface RepliesProps {
@@ -58,7 +57,7 @@ const query = useInfiniteCustomPosts<CustomPostType>(
     }
 
 return (
-    <div className='w-full h-full  flex flex-col  items-center justify-center '>
+    <div className='w-full h-full  flex flex-col  items-center justify-center b'>
         <QueryStateWrapper 
             loader={<PostSkeleton length={6} />}
         query={query}>
@@ -101,7 +100,11 @@ return (
             </div>
   
         
-        
+            {/* <button
+                className='bg-orange-700 '
+                onClick={() => scroll.scrollToTop()}>
+                Scroll To Replies top
+            </button> */}
         </QueryStateWrapper>
     </div>
         

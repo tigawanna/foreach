@@ -38,6 +38,7 @@ const query = useCustomPosts<CustomPostType>(
     }
 })
 
+
 //no-console("posts query === ",query.data)
 const post = query.data&&query?.data[0]
     return (
@@ -61,13 +62,14 @@ const post = query.data&&query?.data[0]
 
         </div>
 
-            <div className="w-full animate-in fade-in">
+            <div className="w-[90%] animate-in fade-in">
             <Replies 
             parent={post?.post_id as string} 
             user={user}
             profile={profile??"general"} 
             depth = {parseInt(depth as string)}/>
             </div>
+
         </div>
 
         </div>

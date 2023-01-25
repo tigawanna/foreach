@@ -53,7 +53,7 @@ return (
         </div>
 
         </div>
-        \
+        
         <div className="w-full  flex  text-sm p-2">{reply.post_body}</div>
         <div className="w-full  flex items-center justify-center ">
             {reply.post_media ? (

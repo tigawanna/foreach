@@ -11,7 +11,7 @@ export const DevDetails = ({user}:DevDetailsProps) => {
 dayjs.extend(relativeTime)
 return (
  <div className='h-full w-full flex-center-col'>
- <div className='w-full h-full flex items-start justify-start gap-3'>
+ <div className='w-fit min-w-[40%] h-full flex items-start justify-start gap-3'>
 
     <div className="  rounded-md  flex justify-center items-center w-[150px]  aspect-square m-2 ">
       <img

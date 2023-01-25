@@ -76,14 +76,7 @@ export const appRoutes=(user:PBUser)=>{
                 {
                  path:':id',
                   element: <Profile user={user} />,
-                  // children: [
-                  //   {
-                  //     path: 'post/:id',
-                  //     element: <Post user={user} />,
-                  //     // loader: deferredBlogPostsLoader,
-                  //   },
-                  // ],
-                  // loader: deferredBlogPostsLoader,
+     
                 },
               ],
             }
