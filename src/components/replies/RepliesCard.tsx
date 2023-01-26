@@ -60,6 +60,7 @@ return (
                 <img
                     src={makeUrl("posts", reply.post_id, reply.post_media)}
                     className=" w-fit max-h-80 rounded-lg border-t"
+                    loading='lazy'
                 />
             ) : null}
         </div>

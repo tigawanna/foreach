@@ -24,13 +24,7 @@ interface PostCardProps {
 }
 
 export const PostsCard = ({ item, user }: PostCardProps) => {
-    // //no-console("url === ", makeUrl('posts', item.post_id, item.post_media))
-    // //no-console("creator image  === ",item.creator_image)
-    // const { pathname } = useLocation()
-    // // useAuthGuard(user,test_mode)
-    // useEffect(() => {
-    //     //no-console("layout changed")
-    // }, [pathname])
+
 
 const navigate = useNavigate()
     return (
@@ -67,8 +61,8 @@ const navigate = useNavigate()
                     <img
                         src={makeUrl("posts", item?.post_id, item?.post_media)}
                         className=" w-fit max-h-80 rounded-lg"
-                        alt='../../assets/placeholder.svg'
-                        loading="lazy"
+                        // alt='../../assets/placeholder.svg'
+                        // loading="lazy"
                     />
                 ) : null}
             </div>

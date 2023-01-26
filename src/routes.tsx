@@ -1,4 +1,4 @@
-import { createBrowserRouter} from 'react-router-dom';
+import { BrowserRouter, Route, Routes, createBrowserRouter} from 'react-router-dom';
 import { RootLayout } from './pages/index/RootLayout';
 import { TestLayout } from './components/test/TestLayout';
 import { AuthLayout } from './pages/auth/AuthLayout';
@@ -97,3 +97,39 @@ export const appRoutes=(user:PBUser)=>{
         },
       ]);
 }
+
+
+// const oldRoutesWithBrowserRouter=(user:PBUser)=>{
+//   return (
+//     <BrowserRouter >
+//       <Routes >
+
+//         <Route path="/" element={<RootLayout user={user} test_mode={false} />}>
+//           <Route index element={<Timeline user={user} profile='general' />} />
+//         </Route>
+
+
+//         {/* auth routes */}
+//         <Route path="/auth" element={<AuthLayout user={user} />}>
+//           <Route index element={<Login user={user} />} />
+//           <Route path="/auth/redirect" element={<Redirect />} />
+//         </Route>
+
+//         {/* post route  */}
+//         <Route path="/post" element={<PostLayout user={user} />}>
+//           <Route path=":id" element={<Post user={user} />} />
+//         </Route>
+
+//         {/* profile route  */}
+//         <Route path="/profile" element={<ProfileLayout user={user} />}>
+//           <Route path=":id" element={<Profile user={user} />} />
+//         </Route>
+
+//         <Route path="/test" element={<TestLayout user={user} />}>
+//           <Route index element={<Test user={user} />} />
+//         </Route>
+
+//       </Routes>
+//     </BrowserRouter>
+//   )
+// }

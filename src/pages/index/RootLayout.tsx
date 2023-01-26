@@ -1,7 +1,7 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
 import { PBUser } from '../../utils/types/types';
-import { useScrollToTop } from '../../shared/extra/useScrollToTop';
+
 
 
 interface RootLayoutProps {
@@ -10,21 +10,7 @@ interface RootLayoutProps {
 }
 
 export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
-  useScrollToTop()
-  // const goToTop = () => {
-  //   console.log("window  ==== ", window)
 
-  //   if (typeof window !== 'undefined') {
-  //     window.scrollTo({
-  //       top: 0,
-  //       // behavior: 'smooth',
-  //     });
-  //   } else {
-  //     console.log("window undefind", window)
-  //     document.documentElement.scrollTop = 0;
-  //   }
-
-  // };
   return (
     <div className="w-full h-full dark:bg-slate-900">
  
@@ -35,7 +21,7 @@ export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
       >
         <Toolbar user={user} />
       </div>
-      <main className=" w-full h-[90%] fixed top-12 overflow-y-scroll scroll-bar">
+      <main className=" w-full sticky top-12 overflow-y-scroll scroll-bar">
         <Outlet />
         {/* <button
           onClick={() => goToTop()}

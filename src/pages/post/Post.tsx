@@ -6,6 +6,7 @@ import { QueryStateWrapper } from '../../shared/wrappers/QueryStateWrapper';
 import { Replies } from '../../components/replies/Replies';
 import { POSTS_KEY } from './../timeline/Timeline';
 import { PostSkeleton } from './../../shared/loaders/PostSkeleton';
+import useScrollToTopOnRouteChange from '../../utils/hooks/useScrollToTop';
 
 interface PostProps {
     user: PBUser
@@ -13,7 +14,7 @@ interface PostProps {
 type Params={id:string}
 
 export const Post = ({user}: PostProps) => {
-
+    useScrollToTopOnRouteChange();
 
 const [searchParams] = useSearchParams({});
 const depth = searchParams.get('depth')
@@ -47,22 +48,21 @@ const post = query.data&&query?.data[0]
 
             <div className="w-[95%]  p-2 flex flex-col  border-black border-2 
             dark:border-[1px]  dark:border-white rounded-lg bg-purple-900
-            animate-in fade-in
+         
             ">
             <QueryStateWrapper 
             query={query}
-            loader={
-                <div className='bg-purple-700 w-[100%]'>
-                  <PostSkeleton length={1} />
-                </div>
-        }
+
             >
-            <PostsCard item={post as CustomPostType}  user={user} />
+            <div className='animate-in ease-in duration-700'>
+                <PostsCard item={post as CustomPostType} user={user} />
+            </div>
+           
             </QueryStateWrapper>
 
         </div>
 
-            <div className="w-[90%] animate-in fade-in">
+            <div className="w-[90%] ">
             <Replies 
             parent={post?.post_id as string} 
             user={user}

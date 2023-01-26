@@ -20,15 +20,22 @@ export const QueryStateWrapper = (
     }: QueryStateWrapperProps
 ) => {
 
-    if (query?.isLoading) {
-        return (
-            <div className="w-full  flex items-center justify-center">
-                <div className="w-[100%] h-full flex items-center justify-center  ">
-                    {loader ? loader : <LoaderElipse />}
+
+    
+
+
+
+    if (query?.isLoading ) {
+          return (
+                <div className="w-full  flex items-center justify-center">
+                    <div className="w-[100%] h-full flex items-center justify-center  ">
+                        {loader ? loader : <LoaderElipse />}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+   
     }
+
     if (query?.isError) {
         return (
             <div className="w-full flex items-center justify-center  ">

@@ -59,7 +59,7 @@ const query = useInfiniteCustomPosts<CustomPostType>(
 return (
     <div className='w-full h-full  flex flex-col  items-center justify-center b'>
         <QueryStateWrapper 
-            loader={<PostSkeleton length={6} />}
+            // loader={<PostSkeleton length={6} />}
         query={query}>
             <div className='w-full h-full  flex flex-col gap-2 items-center justify-start'>
             

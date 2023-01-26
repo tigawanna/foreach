@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import {useState,useEffect,useRef} from 'react'
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInView } from 'react-intersection-observer'
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
@@ -14,7 +14,8 @@ import { useInfiniteCustomPosts } from './../../utils/hooks/useCustomPosts';
 import { useStroreValues } from './../../utils/zustand/store';
 import { Mutationprops } from '../../utils/types/form';
 import { PostSkeleton } from '../../shared/loaders/PostSkeleton';
-import useWindowPosition from '../../shared/hooks/useScrollPostion';
+import useScrollToTopOnRouteChange from '../../utils/hooks/useScrollToTop';
+
 
 
 
@@ -25,7 +26,7 @@ interface TimelineProps {
 export const POSTS_KEY = 'custom_posts'
 
 export const Timeline = ({user,profile}: TimelineProps) => {
-
+useScrollToTopOnRouteChange();
 
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = useState(false);
@@ -33,16 +34,8 @@ const navigate = useNavigate()
 const queryClient = useQueryClient();
 const store = useStroreValues()
 
+const listRef = useRef<HTMLDivElement|null>(null)
 
-    const windowPosition = useWindowPosition();
-    console.log(`Window position: (${windowPosition.y})`);
-
-    function handleClick() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        })
-    }
 
 const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
 {key:POSTS_KEY,user,depth:0,post_id:"",profile},{
@@ -65,7 +58,7 @@ useEffect(() => {
     }
 }, [inView])
 
-    const mutation = useMutation(async ({ basepayload }: Mutationprops) => {
+const mutation = useMutation(async ({ basepayload }: Mutationprops) => {
         basepayload.append("depth", '0')
         try {
             return await client.collection('posts').create(basepayload);
@@ -81,7 +74,7 @@ useEffect(() => {
            
             queryClient.invalidateQueries([POSTS_KEY]);
         }
-    });
+});
 
 
 const data = customPostsQuery.data
@@ -96,7 +89,11 @@ loader={
 }
 >
     <div className='w-full min-h-full  flex flex-col gap-2 items-center justify-center'>
-        <div className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
+        
+        
+        <div 
+        ref={listRef}
+        className='w-[95%] h-full flex flex-col items-center justify-center gap-2 py-2'>
             {data?.pages?.map((page) => {
                     // //no-console("page=== ",page)
                     return page.map((item) => {
@@ -158,16 +155,17 @@ loader={
 
                 }}/>
 
-            <div>
+        
+     
+        
+        <div>
         <button ref={ref}
             onClick={() => customPostsQuery.fetchNextPage()}
             disabled={!customPostsQuery.hasNextPage || customPostsQuery.isFetchingNextPage}>
                 {customPostsQuery.isFetchingNextPage ? 'Loading more...': customPostsQuery.hasNextPage ? ''
                 : !customPostsQuery.isLoading ? '' : null}</button>
             </div>
-            <button 
-            className='p-5 bg-red-900 rounded-full'
-            onClick={handleClick}>Scroll to top</button>
+
         </div>
 
     </QueryStateWrapper>
