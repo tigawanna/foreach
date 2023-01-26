@@ -5,7 +5,6 @@ import { PostsCard } from '../../components/timeline/PostCard';
 import { QueryStateWrapper } from '../../shared/wrappers/QueryStateWrapper';
 import { Replies } from '../../components/replies/Replies';
 import { POSTS_KEY } from './../timeline/Timeline';
-import { PostSkeleton } from './../../shared/loaders/PostSkeleton';
 import useScrollToTopOnRouteChange from '../../utils/hooks/useScrollToTop';
 
 interface PostProps {

@@ -25,7 +25,7 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
         media: undefined
     });
     const [pic, setPic] = React.useState<File | string | null>();
-    
+
     const fileInput = React.useRef<HTMLInputElement | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -65,7 +65,12 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
                         onSuccess: () => {
                             setIsOpen(false);
                         },
-                        onSettled: () => {},
+                        onSettled: () => {
+                            setPic(null);
+                            setInput(prev => {
+                                return { ...prev, body:"",media: undefined };
+                            });
+                        },
                         onError: (err: any) => {
                             // //no-console("errror adding new post in ", err.data);
                             setError({
@@ -108,13 +113,13 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
     return (
         <div
             className="w-full h-fit max-h-[90%] flex flex-col items-center justify-center 
-            dark:bg-black bg-white rounded-xl "
+             rounded-xl "
         >
    
             <form
                 onSubmit={handleSubmit}
                 className="w-full md:w-[60%] h-full border-2 shadow-xl rounded-xl p-3
-                flex flex-col items-center justify-center"
+                flex flex-col items-center justify-center bg-white dark:bg-black"
             >
                 <div className="w-full p-2 text-3xl font-bold">
                     {label}
@@ -127,10 +132,10 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
                     <textarea
                         id="body"
                         style={{ borderColor: isError(error, "body") ? "red" : "" }}
-                        className="w-[95%] min-h-[150px] md:h-[30%]
-                        m-2 p-2  border border-black dark:border-white text-base rounded-lg
+                        className="w-[95%] min-h-[50px] md:h-[30%]
+                        m-2 p-2  text-base rounded-lg
                         dark:bg-slate-700focus:border-2 dark:focus:border-4 focus:border-purple-700
-                        dark:focus:border-purple-600 "
+                        dark:focus:border-purple-600 bg-white dark:bg-black "
                         onChange={handleChange}
                         placeholder="What's on your mind"
                     />
