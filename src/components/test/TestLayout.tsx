@@ -5,9 +5,9 @@ interface TestLayoutProps {
     user:any
 }
 
-export const TestLayout: React.FC<TestLayoutProps> = ({user}) => {
+export const TestLayout = ({user}: TestLayoutProps) => {
 return (
- <div>
+ <div className='w-full h-full  '>
   <Outlet/>
  </div>
 );

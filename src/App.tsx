@@ -1,84 +1,40 @@
-import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { RootLayout } from './pages/index/RootLayout';
-import { WelcomePage } from './pages/index/WelcomePage';
-import { TestLayout } from './components/test/TestLayout';
-import { AuthLayout } from './pages/auth/AuthLayout';
-import { Login } from './pages/auth/Login';
-import { Signup } from './pages/auth/Signup';
-import { Test } from './components/test/Test';
-import { QueryStateWrapper,LoadingRipples } from '@denniskinuthia/tiny-pkgs';
+import './App.css';
+import { RouterProvider } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { ReactRouterError } from './shared/ReactRouterError';
+import { QueryStateWrapper } from './shared/wrappers/QueryStateWrapper';
+import { LoaderElipse } from './shared/loaders/Loaders';
+import { appRoutes } from './routes';
 import { getUser } from './utils/pb/config';
-import { Redirect } from './components/auth/Redirect';
+import { Notification } from './components/index/Notification';
+import { useScrollToTop } from './shared/extra/useScrollToTop';
+
+
 
 function App() {
 
-  const query = useQuery(['user'],getUser)
-  const user = query.data
-  console.log("user , ",user)
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <RootLayout user={user} test_mode={true} />,
-      // loader:userLoader(queryClient),
-      errorElement: <ReactRouterError/>,
-      children: [
-        { index: true, element: <WelcomePage user={user} /> },
+const query = useQuery(['user'], getUser);
 
-        {
-          path: '/auth',
-          element: <AuthLayout user={user} />,
-          children: [
-            {
-              index: true,
-              element: <Login />,
-              // loader: deferredBlogPostsLoader,
-            },
-            {
-              path: '/auth/signup',
-              element: <Signup />,
-              // loader: blogPostLoader,
-            },
-          ],
-        },
-         {
-          path: '/redirect',
-          element: <Redirect/>,
-         },
+   const user = query.data;
+    // //no-console("notification in App === ",notificationSignal.value.message)
+   return (
 
-        {
-          path: '/test',
-          element: <TestLayout user={user} />,
-          children: [
-            {
-              index: true,
-              element: <Test user={user} />,
-              // loader: deferredBlogPostsLoader,
-            },
+    <QueryStateWrapper query={query} loader={<LoaderElipse />}>
+      
+      <div className=" dark:bg-slate-900 h-full dark:text-white dark:shadow-white">
 
-          ],
-        },
+      <RouterProvider router={appRoutes(user)} />
 
-      ],
-    },
-
-  ]);
-
-
-  return (
-    <QueryStateWrapper
-      query={query}
-      loader={<LoadingRipples />}
-    >
-      <div className=" dark:bg-slate-900 h-full max-h-screen
-       dark:text-white dark:shadow-white">
-        <RouterProvider router={router} />
+   
       </div>
+       <div className='w-full fixed bottom-3 flex items-center justify-center'>
+          <Notification/>
+       </div>
     </QueryStateWrapper>
-  )
+
+  );
 }
 
-export default App
+export default App;
+
+

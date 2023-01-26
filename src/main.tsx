@@ -1,9 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ErrorBoundary } from '@denniskinuthia/tiny-pkgs';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+import App from './App';
+import './index.css';
+import ErrorBoundary from './shared/errorboundary/ErrorBoundary';
+
 
 
 
@@ -21,12 +24,15 @@ const queryClient = new QueryClient({
   },
 });
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ErrorBoundary>
+
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </QueryClientProvider>
+   
   </ErrorBoundary>
 );

@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/naming-convention */
 // export const pb_url="https://pb.tigawanna.tech"
+
 // export const redirect_url="https://pb.tigawanna.tech/redirect"
 // export const login_url = "https://pb.tigawanna.tech/login";
 const local_url='http://localhost:3000'
@@ -14,4 +17,6 @@ export const main_url = local_url
 
 export const redirect_url=main_url+"/redirect"
 export const login_url = main_url+"/auth";
+
+
 

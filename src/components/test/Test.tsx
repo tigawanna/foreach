@@ -1,24 +1,32 @@
 import React from 'react'
-import { User } from '../../utils/types/types';
+import { PBUser } from '../../utils/types/types';
+import { useStroreValues } from '../../utils/zustand/store';
+import { PostSkeleton } from '../../shared/loaders/PostSkeleton';
+
+
+
 
 interface TestProps {
-    user: User
+    user: PBUser
 }
 
 
-export const Test: React.FC<TestProps> = ({}) => {
-
-
-
-
+export const Test = ({user}: TestProps) => {
+ 
+const store = useStroreValues()
+ 
 
 return (
-    <div className=" w-full   px-2 bg-slate-700  first-letter:text-white">
-
-
-  </div>
+  <div className=" w-full  h-full px-2">
+    <button
+    className='bg-purple-700 p-2'
+    onClick={()=>{store.updateNotification({message:"deez",type:"error"})   }  }
+    >add message</button>
+    <PostSkeleton length={7}/>
+ </div>
 
 );
 }
+
 
 

@@ -1,12 +1,11 @@
 import React from 'react'
-import HeroImg from '../../assets/emps-hero.svg'
 import { Link } from 'react-router-dom';
 import LOGO from '../../assets/react.svg'
 interface HeroProps {
 
 }
 
-export const Hero: React.FC<HeroProps> = ({}) => {
+export const Hero = ({}: HeroProps) => {
 return (
 <div className='min-h-screen w-full 
    flex flex-col   items-center justify-center
@@ -14,7 +13,7 @@ return (
  '>
         <div className='h-fit flex justify-center items-center w-[95%] absolute top-0 '>
             <div className='flex justify-center items-center w-[20%] text-2xl font-bold'>
-           REACT
+           HOMEPAGE
             </div>
             <div className='flex justify-end items-center w-full'>
                 <Link to="/auth/signup" >

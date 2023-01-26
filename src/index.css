@@ -22,3 +22,18 @@
 .scroll-bar{
   @apply scrollbar-thin hover:scrollbar-thumb-purple-700 scrollbar-track-gray-400
 }
+ .flex-center{
+  @apply flex items-center justify-center
+ }
+ .flex-center-col{
+  @apply flex flex-col items-center justify-center
+ }
+
+ .flex-start{
+  @apply flex flex-col items-start justify-start
+ }
+
+
+ /* *{
+  outline:2px solid rgb(5, 248, 5)
+ } */
