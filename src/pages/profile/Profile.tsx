@@ -11,17 +11,19 @@ type Params = { id: string }
 
 export const Profile = ({user}: ProfileProps) => {
   const params = useParams<Params>()
+
   const getOneUser=async()=>{
     return await client.collection('devs').getFirstListItem(`id="${params.id}"`, {
     });
   }
+
   const query = useQuery(['profile',params?.id], getOneUser);
   const the_user = query?.data??user
  
   return(
   <div className="w-full h-full flex flex-col items-center justify-start gap-1">
     <QueryStateWrapper query={query}>
-  <div className='w-full flex  border rounded-lg'>
+  <div className='w-full flex  border rounded-lg '>
         <DevDetails user={the_user} />
   </div>
       <div className='w-full min-h-fit flex flex-col items-center justify-center mt-3'>

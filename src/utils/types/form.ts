@@ -2,6 +2,7 @@ export interface RequiredProfileFormFields {
     avatar: string;
     displayname: string;
     accessToken: string;
+    bio:string
 }
 
 export interface RequiredNewPostFormFields {
@@ -23,7 +24,3 @@ export interface RequiredReplyFields {
     parent?: string;
 }
 
-export interface RequiredProfileFields {
-    displayname: string;
-    bio:string;
-}

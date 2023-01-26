@@ -47,7 +47,7 @@ export const ReactModalWrapper = (
     const customStyles: ModalStyles = {
         overlay: {
             position: 'fixed',
-            zIndex: 1000,
+            zIndex: 9999999,
             top: adjustSize(styles?.overlay_top ?? '0%', '0%'),
             left: adjustSize(styles?.overlay_left ?? '15%', '0%'),
             right: adjustSize(styles?.overlay_right ?? '15%', '0%'),
@@ -79,13 +79,13 @@ export const ReactModalWrapper = (
             shouldCloseOnOverlayClick={true}
             appElement={document.getElementById('root') as HTMLElement}
             style={customStyles}
-            closeTimeoutMS={delay*1000}
+            // closeTimeoutMS={delay*1000}
             contentLabel="Modal"
             
  
         >
             <div 
-                onClick={(event) => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
             className="w-full flex justify-end">
                 <IconContext.Provider value={{ size: '25' }}>
                     <AiOutlineCloseCircle onClick={closeModal} />
