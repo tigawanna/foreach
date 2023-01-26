@@ -6,8 +6,8 @@
 // export const login_url = "https://pb.tigawanna.tech/login";
 const local_url='http://localhost:3000'
 const local_pb = "http://127.0.0.1:8090";
-const web1_url = "https://emps.tigawanna.tech"
-const vercel_url ="https://mech-up-vite.vercel.app";
+const web1_url = "https://tigawanna-pocketbase.fly.dev/"
+const vercel_url ="https://devhub-brown.vercel.app/";
 
 export const pb_url=web1_url
 export const main_url =vercel_url
