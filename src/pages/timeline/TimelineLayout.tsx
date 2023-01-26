@@ -16,6 +16,7 @@ export const TimelineLayout = ( {user}: TimelineLayoutProps) => {
 return (
  <div className='w-full h-fit'>
   <Outlet/>
+
  </div>
 );
 }

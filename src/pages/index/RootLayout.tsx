@@ -11,6 +11,20 @@ interface RootLayoutProps {
 
 export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
   useScrollToTop()
+  // const goToTop = () => {
+  //   console.log("window  ==== ", window)
+
+  //   if (typeof window !== 'undefined') {
+  //     window.scrollTo({
+  //       top: 0,
+  //       // behavior: 'smooth',
+  //     });
+  //   } else {
+  //     console.log("window undefind", window)
+  //     document.documentElement.scrollTop = 0;
+  //   }
+
+  // };
   return (
     <div className="w-full h-full dark:bg-slate-900">
  
@@ -23,7 +37,11 @@ export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
       </div>
       <main className=" w-full h-[90%] fixed top-12 overflow-y-scroll scroll-bar">
         <Outlet />
+        {/* <button
+          onClick={() => goToTop()}
+          className='w-full p-6 rounded-xl bg-red-700'>go to top </button> */}
       </main>
+
     </div>
   );
 };

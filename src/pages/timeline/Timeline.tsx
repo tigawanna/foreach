@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react'
+import React, {useState,useEffect} from 'react'
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInView } from 'react-intersection-observer'
 import { QueryStateWrapper } from './../../shared/wrappers/QueryStateWrapper';
@@ -14,6 +14,7 @@ import { useInfiniteCustomPosts } from './../../utils/hooks/useCustomPosts';
 import { useStroreValues } from './../../utils/zustand/store';
 import { Mutationprops } from '../../utils/types/form';
 import { PostSkeleton } from '../../shared/loaders/PostSkeleton';
+import useWindowPosition from '../../shared/hooks/useScrollPostion';
 
 
 
@@ -30,9 +31,18 @@ const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = useState(false);
 const navigate = useNavigate()   
 const queryClient = useQueryClient();
-
 const store = useStroreValues()
 
+
+    const windowPosition = useWindowPosition();
+    console.log(`Window position: (${windowPosition.y})`);
+
+    function handleClick() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }
 
 const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
 {key:POSTS_KEY,user,depth:0,post_id:"",profile},{
@@ -155,8 +165,11 @@ loader={
                 {customPostsQuery.isFetchingNextPage ? 'Loading more...': customPostsQuery.hasNextPage ? ''
                 : !customPostsQuery.isLoading ? '' : null}</button>
             </div>
-
+            <button 
+            className='p-5 bg-red-900 rounded-full'
+            onClick={handleClick}>Scroll to top</button>
         </div>
+
     </QueryStateWrapper>
 );
 }
