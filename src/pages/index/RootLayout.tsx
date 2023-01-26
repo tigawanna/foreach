@@ -6,10 +6,10 @@ import { PBUser } from '../../utils/types/types';
 
 interface RootLayoutProps {
   user: PBUser;
-  test_mode: boolean;
+ 
 }
 
-export const RootLayout = ({user,test_mode}: RootLayoutProps) => {
+export const RootLayout = ({user}: RootLayoutProps) => {
 
   return (
     <div className="w-full h-full dark:bg-slate-900">

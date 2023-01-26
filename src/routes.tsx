@@ -18,11 +18,11 @@ import { PostLayout } from './pages/post/PostLayout';
 
 
 export const appRoutes=(user:PBUser)=>{
-  const test_mode = false
+
    return createBrowserRouter([
         {
           path: '/',
-          element: <RootLayout user={user}  test_mode={test_mode}/>,
+          element: <RootLayout user={user}  />,
           // loader:userLoader(queryClient),
           errorElement: <ReactRouterError />,
           children: [
