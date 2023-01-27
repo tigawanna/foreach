@@ -24,7 +24,7 @@ export const Profile = ({user}: ProfileProps) => {
   <div className="w-full h-full flex flex-col items-center justify-start gap-1">
     <QueryStateWrapper query={query}>
   <div className='w-full flex  border rounded-lg '>
-        <DevDetails user={the_user} />
+        <DevDetails user={the_user} og_user={query.data}/>
   </div>
       <div className='w-full min-h-fit flex flex-col items-center justify-center mt-3'>
         <div className='text-lg font-bold '>

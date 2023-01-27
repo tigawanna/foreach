@@ -12,7 +12,7 @@ interface RootLayoutProps {
 export const RootLayout = ({user}: RootLayoutProps) => {
 
   return (
-    <div className="w-full h-full dark:bg-slate-900">
+    <div className="w-full h-full dark:bg-slate-900 ">
  
       <div
         className="h-14 w-full  bg-slate-500 dark:bg-slate-700
@@ -21,7 +21,9 @@ export const RootLayout = ({user}: RootLayoutProps) => {
       >
         <Toolbar user={user} />
       </div>
-      <main className=" w-full sticky mt-2 top-12 overflow-y-scroll scroll-bar">
+      <main className=" w-full sticky mt-2 top-12 overflow-y-scroll 
+
+      ">
         <Outlet />
         {/* <button
           onClick={() => goToTop()}

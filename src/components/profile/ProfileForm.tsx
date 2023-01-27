@@ -8,6 +8,7 @@ import { PlainFormButton } from "../form/FormButton";
 import { RequiredProfileFormFields } from "../../utils/types/form";
 import { FormInput } from "./../form/FormInput";
 import { FormTextArea } from "./../form/FormTextArea";
+import { client } from './../../utils/pb/config';
 
 interface ProfileFormProps {
     user: PBUser;
@@ -54,6 +55,8 @@ export const ProfileForm = ({ user, setIsOpen }: ProfileFormProps) => {
                     bio:vals?.bio,
                     username:user?.username
                 });
+                // const freshUser = await client.collection('devs').authRefresh()
+                // queryClient.setQueryData(['user'],()=>freshUser)
                 
             } catch (e) {
                 throw e;
@@ -73,7 +76,7 @@ export const ProfileForm = ({ user, setIsOpen }: ProfileFormProps) => {
                 });
             },
             onSettled: () => {
-                queryClient.invalidateQueries(['user']);
+                queryClient.invalidateQueries(['profile']);
             }
         }
     );

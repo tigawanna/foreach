@@ -8,17 +8,17 @@ import { FaPlus,FaRegEdit } from 'react-icons/fa';
 
 interface DevDetailsProps {
 user:PBUser
-
+og_user: PBUser
 }
 
-export const DevDetails = ({user}:DevDetailsProps) => {
+export const DevDetails = ({user,og_user}:DevDetailsProps) => {
 const [isOpen, setIsOpen] = useState(false);
 
 
 
 return (
  <div className='h-full w-full flex items-center justify-center'>
- <div className='w-fit min-w-[50%] h-full flex flex-col items-center justify-center gap-1
+    <div className='w-fit min-w-[50%] h-full flex flex-col md:flex-row items-center justify-center gap-1
    rounded-lg'>
 
     <div className="  flex justify-center items-center w-[200px]  aspect-square m-2 ">
@@ -30,18 +30,25 @@ return (
         />
     </div>
     
-    <div className='h-full  flex flex-col items-center justify-center text-sm p-2'>
+    <div className='h-full  flex flex-wrap items-center justify-center p-2'>
+        <div className='h-full  flex flex-wrap items-center justify-center text-sm p-2'>
+
         <div className='w-full flex items-center justify-center  text-bold text-lg'>{user?.displayname}</div>
         <div className='w-full flex items-center justify-center text-bold '>@{user?.username}</div>
         <div className='w-full flex items-center justify-center '>email {user?.email}</div>
-        <div className='w-full flex items-center justify-center font-serif'>{user?.bio}</div>
+ 
         <div className='w-full flex items-center justify-center '>{user?.githuburl}</div>
         <div className='w-full flex items-center justify-center'>
           Joined : {dayjs(user?.created).format('DD-MMM-YYYY')}</div>
-        <div className='w-fit flex-center rounded-full aspect-square  m-1'>
+     
+    {og_user?.id===user?.id?
+    <div className='w-fit flex-center rounded-full aspect-square  m-1'>
           <TheIcon Icon={FaRegEdit} size={'20'} iconAction={() => setIsOpen(true)} />
-        </div>
+    </div>:null}
     </div>
+        
+    <div className='w-full flex items-center justify-center font-serif border p-1'>{user?.bio}</div>
+</div>
 
  </div>
 
