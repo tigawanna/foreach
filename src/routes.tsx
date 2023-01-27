@@ -13,11 +13,12 @@ import { PBUser } from './utils/types/types';
 import { TimelineLayout } from './pages/timeline/TimelineLayout';
 import { Timeline } from './pages/timeline/Timeline';
 
-import { Post } from './pages/post/Post';
+import { Post,loader as postLoader} from './pages/post/Post';
 import { PostLayout } from './pages/post/PostLayout';
+import { QueryClient } from '@tanstack/react-query';
 
 
-export const appRoutes=(user:PBUser)=>{
+export const appRoutes=(user:PBUser,qc:QueryClient)=>{
 
    return createBrowserRouter([
         {
@@ -42,8 +43,8 @@ export const appRoutes=(user:PBUser)=>{
                 {
                   path: ':id',
                   element: <Post user={user} />,
-                  
-                  // loader: deferredBlogPostsLoader,
+                  loader:postLoader(qc,user)
+               
                 },
               ],
             },

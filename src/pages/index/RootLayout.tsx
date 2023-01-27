@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Toolbar } from '../../components/toolbar/Toolbar';
 import { PBUser } from '../../utils/types/types';
+import { useAuthGuard } from './../../utils/hooks/useAuthGuard';
 
 
 
@@ -10,7 +11,7 @@ interface RootLayoutProps {
 }
 
 export const RootLayout = ({user}: RootLayoutProps) => {
-
+useAuthGuard(user,false)
   return (
     <div className="w-full h-full dark:bg-slate-900 ">
  

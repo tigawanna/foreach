@@ -20,7 +20,8 @@ export const AuthLayout = ({user}: AuthLayoutProps) => {
   }, [user])
 
 
-  return (<div className="w-full h-full">
+  return (
+  <div className="w-full h-full bg-red-900">
     <Outlet />
   </div>
   )

@@ -60,9 +60,9 @@ const navigate = useNavigate()
                 {item?.post_media ? (
                     <img
                         src={makeUrl("posts", item?.post_id, item?.post_media)}
-                        className=" w-fit max-h-80 rounded-lg"
+                        className=" w-fit max-h-80 min-h-[200px] rounded-lg"
                         // alt='../../assets/placeholder.svg'
-                        // loading="lazy"
+                        loading="lazy"
                     />
                 ) : null}
             </div>

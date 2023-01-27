@@ -36,7 +36,7 @@ export const Redirect = ({user}: RedirectProps) => {
           redirectUrl
       ) as unknown as OAuthResponse
       
-      //no-console("oathRes === ",oauthRes)
+      console.log("oathRes === ",oauthRes)
       const rawUser = oauthRes?.meta?.rawUser as GithubRawUser
       //no-console("rawuser  === ",rawUser)
       // updating user profile with provider metadata

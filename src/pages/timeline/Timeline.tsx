@@ -31,11 +31,11 @@ useScrollToTopOnRouteChange();
 const { ref, inView } = useInView()
 const [isOpen, setIsOpen] = useState(false);
 const navigate = useNavigate()   
-const queryClient = useQueryClient();
+
 const store = useStroreValues()
 
 const listRef = useRef<HTMLDivElement|null>(null)
-
+ 
 
 const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
 {key:POSTS_KEY,user,depth:0,post_id:"",profile},{
@@ -50,6 +50,10 @@ const customPostsQuery = useInfiniteCustomPosts<CustomPostType>(
         return;
     }
 })
+
+    const queryClient = useQueryClient();
+
+
 
 
 useEffect(() => {
