@@ -28,8 +28,10 @@ export const OAuthLogin = ({user}: OAuthLoginProps) => {
   // if (user?.email) {
   //   navigate('/');
   // }
+  console.log("redirect url ===", redirect_url)
   const startLogin = (prov: ProvType) => {
     localStorage.setItem('provider', JSON.stringify(prov));
+    
     const url = prov.authUrl + redirect_url;
     // //no-console("prov in button === ", prov)
     // //no-console("combined url ==== >>>>>>  ",url)
@@ -45,7 +47,7 @@ export const OAuthLogin = ({user}: OAuthLoginProps) => {
   const provs  = query.data?.authProviders
  //no-console("provs",provs)
   return (
-    <div className="w-full h-fit md:h-full flex flex-wrap items-center justify-center gap-2 ">
+    <div className="w-full  h-full flex flex-wrap items-center justify-center gap-2 ">
       {provs &&
         provs?.map((item) => {
           if(item.name === 'github')
@@ -53,14 +55,14 @@ export const OAuthLogin = ({user}: OAuthLoginProps) => {
             <div
               key={item.name}
               onClick={() => startLogin(item)}
-              className="p-2 w-[50%] md:w-[30%] cursor-pointer
+              className="p-3 min-w-fit w-[50%]  cursor-pointer
                bg-slate-600 rounded-lg hover:bg-slate-800 
-             capitalize text-xl font-bold flex items-center justify-center gap-2"
+             capitalize text-2xl font-bold flex items-center justify-center gap-2"
             >
               <TheIcon
                 iconstyle=""
                 Icon={providerIcons[item.name as keyof typeof providerIcons]}
-                size="30"
+                size="40"
               />
               {item.name}
             </div>

@@ -24,7 +24,7 @@ export const ProfileForm = ({user,setIsOpen}: ProfileFormProps) => {
             displayname:user?.displayname,
               avatar:user?.avatar,
                 accessToken:user?.accesstoken});
-    const [response, setResponse] = React.useState<Record | undefined>();
+ 
 
     const store = useStroreValues()
     interface Mutationprops {
@@ -53,7 +53,7 @@ export const ProfileForm = ({user,setIsOpen}: ProfileFormProps) => {
                     // @ts-expect-error
                     bio:vals?.bio
                 });
-                setResponse(res);
+
             } catch (e) {
                 throw e;
             }

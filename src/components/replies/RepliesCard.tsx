@@ -186,7 +186,8 @@ return (
                     content_bottom: "2%",
                     content_right: "2%",
                     content_left: "2%",
-                    content_top: "2%"
+                    content_top: "2%",
+              
                 }}
             />
 

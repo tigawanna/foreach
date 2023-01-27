@@ -6,6 +6,7 @@ import { client } from '../../utils/pb/config';
 import { redirect_url, login_url } from '../../utils/env';
 import { LoaderElipse } from './../../shared/loaders/Loaders';
 import { GithubRawUser, OAuthResponse } from './types';
+import { Record } from 'pocketbase';
 
 interface RedirectProps {
   user?: PBUser;
@@ -39,14 +40,17 @@ export const Redirect = ({user}: RedirectProps) => {
       const rawUser = oauthRes?.meta?.rawUser as GithubRawUser
       //no-console("rawuser  === ",rawUser)
       // updating user profile with provider metadata
-
+  
+      const updateNotOverwrite=(field:keyof typeof oauthRes.record,value:string)=>{
+       return  oauthRes.record[field] === "" ? value : oauthRes.record[field]
+      }
       await client.collection('devs').update(oauthRes?.record.id as string, {
-        avatar: oauthRes.meta?.avatarUrl,
+        avatar: updateNotOverwrite('avatar', oauthRes.meta?.avatarUrl),
         accesstoken: oauthRes.meta?.accessToken,
         refreshtoken:oauthRes.meta?.refreshToken,
-        displayname:rawUser.name,
-        bio:rawUser.bio,
-        
+        displayname: updateNotOverwrite('displayname', rawUser.name),
+        bio: updateNotOverwrite('bio',rawUser.bio ),
+        githuburl: updateNotOverwrite('githuburl', rawUser.url),
         userame: rawUser.login.split("")[0]
       });
       queryClient.setQueryData(['user'], client.authStore.model);
@@ -62,7 +66,7 @@ export const Redirect = ({user}: RedirectProps) => {
     } 
     else {
       pbOauthLogin().catch((e) => {
-        //no-console('error logging in with provider  == ', e);
+      // console.log('error logging in with provider  == ', e);
       });
     }
   }, []);

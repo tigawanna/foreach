@@ -83,6 +83,8 @@ export interface Record {
   updated: string;
   username: string;
   displayname: string;
+  bio:string;
+  githuburl:string;
   verified: boolean;
   expand: {};
 }
