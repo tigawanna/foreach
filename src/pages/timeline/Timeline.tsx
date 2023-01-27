@@ -71,8 +71,7 @@ const mutation = useMutation(async ({ basepayload }: Mutationprops) => {
             store.updateNotification({ message: "posted", type: "success" })
         },
         onSettled: () => {
-           
-            queryClient.invalidateQueries([POSTS_KEY]);
+           queryClient.invalidateQueries([POSTS_KEY]);
         }
 });
 
@@ -83,7 +82,7 @@ return (
 <QueryStateWrapper 
 query={customPostsQuery}
 loader={
-    <div className='w-[50%]'>
+    <div className='w-[90%] md:w-[50%]'>
         <PostSkeleton length={6} />
     </div>
 }
@@ -126,8 +125,8 @@ loader={
             <TheIcon Icon={FaPlus} size={'40'} iconAction={() => setIsOpen(true)} />
         </div>
         
-            <ReactModalWrapper
-                child={
+        <ReactModalWrapper
+          child={
                     <div 
                     // onClick={(event) => event.stopPropagation()}
                     className='z-50'>
@@ -153,12 +152,11 @@ loader={
                     content_left: '2%',
                     content_top: '2%'
 
-                }}/>
-
-        
-     
-        
+            }}/>
         <div>
+
+
+
         <button ref={ref}
             onClick={() => customPostsQuery.fetchNextPage()}
             disabled={!customPostsQuery.hasNextPage || customPostsQuery.isFetchingNextPage}>

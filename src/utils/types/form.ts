@@ -1,8 +1,9 @@
 export interface RequiredProfileFormFields {
+    accesstoken: string;
     avatar: string;
     displayname: string;
-    accessToken: string;
     bio:string
+    username:string
 }
 
 export interface RequiredNewPostFormFields {

@@ -7,7 +7,7 @@ import { UseMutationResult } from "@tanstack/react-query";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { concatErrors } from "../../utils/utils";
 import { Record } from "pocketbase";
-import { PlainFormButton } from './../form/FormParts';
+import { PlainFormButton } from '../form/FormButton';
 import { Mutationprops, RequiredNewPostFormFields } from "../../utils/types/form";
 
 interface PlainFormProps {

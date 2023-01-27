@@ -1,4 +1,4 @@
-import { LoaderElipse } from './../../shared/loaders/Loaders';
+import { LoaderElipse } from '../../shared/loaders/Loaders';
 interface PlainFormButtonProps {
     isSubmitting: boolean;
     disabled: boolean;
@@ -9,7 +9,7 @@ interface PlainFormButtonProps {
 export const PlainFormButton = ({
     disabled,
     isSubmitting,
-    label = "Subimt"
+    label = "Submit"
 }: PlainFormButtonProps) => {
     return (
         <button

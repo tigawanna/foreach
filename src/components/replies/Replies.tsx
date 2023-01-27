@@ -5,7 +5,7 @@ import { ReplyCard } from './RepliesCard';
 import { CustomPostType, PBUser } from '../../utils/types/types';
 import { useInfiniteCustomPosts } from '../../utils/hooks/useCustomPosts';
 import { createSearchParams, useNavigate } from 'react-router-dom';
-import { PostSkeleton } from './../../shared/loaders/PostSkeleton';
+
 
 interface RepliesProps {
 depth:number

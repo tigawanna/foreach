@@ -34,6 +34,7 @@ return (
         <div className='w-full flex items-center justify-center  text-bold text-lg'>{user?.displayname}</div>
         <div className='w-full flex items-center justify-center text-bold '>@{user?.username}</div>
         <div className='w-full flex items-center justify-center '>email {user?.email}</div>
+        <div className='w-full flex items-center justify-center font-serif'>{user?.bio}</div>
         <div className='w-full flex items-center justify-center '>{user?.githuburl}</div>
         <div className='w-full flex items-center justify-center'>
           Joined : {dayjs(user?.created).format('DD-MMM-YYYY')}</div>
