@@ -12,10 +12,10 @@ function App() {
     const query = useQuery(["user"], getUser);
     const qc =  useQueryClient()
     const user = query.data;
-    interface CustomPostDataShape {
-        pages: CustomPostType[][]
-        pageParams: any[]
-    }
+    // interface CustomPostDataShape {
+    //     pages: CustomPostType[][]
+    //     pageParams: any[]
+    // }
 
     // //no-console("notification in App === ",notificationSignal.value.message)
     return (

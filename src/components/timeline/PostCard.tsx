@@ -15,6 +15,7 @@ import { useStroreValues } from "../../utils/zustand/store";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Mutationprops } from "../../utils/types/form";
 import { REPLIES_KEY } from './../replies/Replies';
+import { CUSTOM_ONE_POST_KEY } from './../../pages/post/Post';
 
 
 
@@ -167,6 +168,7 @@ export const PostReactionsCard = ({ user, item }: PostReactionsCardProps) => {
         onSettled: (data) => {
             queryClient.invalidateQueries([POSTS_KEY]);
             queryClient.invalidateQueries([REPLIES_KEY]);
+            queryClient.invalidateQueries([CUSTOM_ONE_POST_KEY]);
             //     queryClient.invalidateQueries(count_query_key);
         },
     }
