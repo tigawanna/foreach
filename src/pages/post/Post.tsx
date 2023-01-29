@@ -5,6 +5,7 @@ import { Replies } from '../../components/replies/Replies';
 import useScrollToTopOnRouteChange from '../../utils/hooks/useScrollToTop';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { fetchPosts } from './../../utils/hooks/useCustomPosts';
+import { POSTS_KEY } from './../timeline/Timeline';
 
 
 
@@ -28,7 +29,7 @@ const params = useParams<CustomParams>()
 
 const preloaded_post = useLoaderData() as CustomPostType[]
 
-
+console.log("preloaded posts ===>> ",preloaded_post)
 const query_key = [CUSTOM_ONE_POST_KEY, user?.id as string, params.id, depth?.toString() as string, profile as string]
     const query = useQuery<CustomPostType[], unknown, CustomPostType[], any>({
         ...onePostQuery({
@@ -132,9 +133,12 @@ export const loader =
     (queryClient:QueryClient,user:PBUser) =>
         async ({ params,request}:LoaderOptions) => {
             // console.log("params and request in loader ",params,request)
+
             const depth = parseInt(new URL(request.url).searchParams.get('depth') as string) as number | undefined;
             const profile = new URL(request.url).searchParams.get('profile') as string | undefined;
-            const query_key = [CUSTOM_ONE_POST_KEY, user?.id as string, params.id, depth?.toString() as string, profile as string]
+            const query_key = [CUSTOM_ONE_POST_KEY, user?.id as string,"", depth?.toString() as string, profile as string]
+            const timeline_query_key = [POSTS_KEY, user?.id as string, "", depth?.toString() as string, profile as string]
+            
             const query = onePostQuery({
                 depth,
                 post_id:params?.id as string,
@@ -143,7 +147,7 @@ export const loader =
             },user)
             // ⬇️ return data or fetch it
             return (
-                queryClient.getQueryData(query.queryKey) ??
+                queryClient.getQueryData(timeline_query_key)??
                 (await queryClient.fetchQuery<CustomPostType[], unknown, CustomPostType[], (string | undefined)[]>(
                     query))
             )

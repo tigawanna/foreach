@@ -119,9 +119,9 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
             <form
                 onSubmit={handleSubmit}
                 className="w-full md:w-[60%] h-full border-2 shadow-xl rounded-xl p-3
-                flex flex-col items-center justify-center bg-white dark:bg-black"
+                flex flex-col items-center justify-center bg-white dark:bg-black dark:text-white"
             >
-                <div className="w-[90%]  text-xl font-bold">
+                <div className="w-[95%]  text-xl font-bold">
                     {label}
                 </div>
                 <div className="w-full  h-full flex flex-col items-center justify-center ">
@@ -137,6 +137,7 @@ export const PostForm = ({ label, user, mutation, setIsOpen }: PlainFormProps) =
                         dark:bg-slate-700focus:border-2 dark:focus:border-4 focus:border-purple-700
                         dark:focus:border-purple-600 bg-white dark:bg-black "
                         onChange={handleChange}
+                        autoFocus={true}
                         placeholder={label==="reply"?"add to the conversation":"What's on your mind"}
                     />
 
