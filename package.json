@@ -12,6 +12,7 @@
     "upgrade-deps": "npm install -g npm-check-updates && ncu -u && npm install"
   },
   "dependencies": {
+    "@tanem/react-nprogress": "^5.0.25",
     "@tanstack/react-query": "^4.20.4",
     "dayjs": "^1.11.7",
     "pocketbase": "^0.9.1",
