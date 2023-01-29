@@ -12,7 +12,7 @@ import { PostForm } from "./PostForm";
 
 import { POSTS_KEY } from './../../pages/timeline/Timeline';
 import { useStroreValues } from "../../utils/zustand/store";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Mutationprops } from "../../utils/types/form";
 import { REPLIES_KEY } from './../replies/Replies';
 import { CUSTOM_ONE_POST_KEY } from './../../pages/post/Post';

@@ -16,7 +16,7 @@ useAuthGuard(user,false)
 const navigation = useNavigation()
   const location = useLocation()
 
-  console.log(" transitiononig ?=== >", navigation.state === "loading")
+  // console.log(" transitiononig ?=== >", navigation.state === "loading")
 
   return (
     <div className="w-full h-full dark:bg-slate-900 ">

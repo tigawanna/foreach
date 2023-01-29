@@ -1,5 +1,4 @@
 import { useNProgress } from '@tanem/react-nprogress';
-import React from 'react'
 import { ReactNode } from 'react';
 
 interface ReactProgressProps {
