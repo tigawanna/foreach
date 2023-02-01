@@ -23,29 +23,33 @@ export const OAuthLogin = ({user}: OAuthLoginProps) => {
 // //no-console("inside OAuthLogin component")
 
   const query = useQuery(['providers'],getProviders)
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // //no-console("user in Login.tsx  ==  ",user)
   // if (user?.email) {
   //   navigate('/');
   // }
   console.log("redirect url ===", redirect_url)
   const startLogin = (prov: ProvType) => {
+    localStorage.removeItem('provider')
     localStorage.setItem('provider', JSON.stringify(prov));
     
-    const url = prov.authUrl + redirect_url;
+    const url = new URL(prov.authUrl + redirect_url);
+    const params = url.searchParams;
+    // params.set("scope", "myScope1 myScope2");
+    url.search = params.toString();
     // //no-console("prov in button === ", prov)
-    // //no-console("combined url ==== >>>>>>  ",url)
+    console.log("combined url ==== >>>>>>  ", url.toString())
 
-    if (typeof window !== 'undefined') {
-      window.location.href = url;
-    }
+    // if (typeof window !== 'undefined') {
+    //   window.location.href = url.toString();
+    // }
   };
   const providerIcons = {
     github: FaGithub,
     google: FaGoogle,
   };
   const provs  = query.data?.authProviders
- //no-console("provs",provs)
+ console.log("provs",provs)
   return (
     <div className="w-full  h-full flex flex-wrap items-center justify-center gap-2 ">
       {provs &&

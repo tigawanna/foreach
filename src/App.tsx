@@ -5,7 +5,7 @@ import { QueryStateWrapper } from "./shared/wrappers/QueryStateWrapper";
 import { LoaderElipse } from "./shared/loaders/Loaders";
 import { appRoutes } from "./routes";
 import { getUser } from "./utils/pb/config";
-import { Notification } from "./components/index/Notification";
+import { Notification } from "./shared/extra/Notification";
 import { CustomPostType } from "./utils/types/types";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
             <div className=" dark:bg-slate-900 h-full dark:text-white dark:shadow-white ">
                 <RouterProvider router={appRoutes(user,qc)} />
             </div>
-            <div className="w-full fixed bottom-3 flex items-center justify-center">
+            <div className="w-full h-full fixed bottom-3 flex items-center justify-center">
                 <Notification />
             </div>
         </QueryStateWrapper>

@@ -29,9 +29,7 @@ const navigation = useNavigation()
         <Toolbar user={user} />
         <ReactProgress isAnimating={navigation.state === "loading"} key={location.key} />
       </div>
-      <main className=" w-full sticky mt-2 top-12 overflow-y-scroll 
-
-      ">
+      <main className=" w-full sticky mt-2 top-12 overflow-y-scroll ">
         <Outlet />
         {/* <button
           onClick={() => goToTop()}

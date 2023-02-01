@@ -44,6 +44,7 @@ export const Redirect = ({user}: RedirectProps) => {
       const updateNotOverwrite=(field:keyof typeof oauthRes.record,value:string)=>{
        return  oauthRes.record[field] === "" ? value : oauthRes.record[field]
       }
+      
       await client.collection('devs').update(oauthRes?.record.id as string, {
         avatar: updateNotOverwrite('avatar', oauthRes.meta?.avatarUrl),
         accesstoken: oauthRes.meta?.accessToken,

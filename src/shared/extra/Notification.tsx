@@ -1,7 +1,7 @@
 
-import { TheIcon } from '../../shared/wrappers/TheIcon';
+import { TheIcon } from '../wrappers/TheIcon';
 import { FaTimes } from 'react-icons/fa'
-import { useStroreValues } from './../../utils/zustand/store';
+import { useStroreValues } from '../../utils/zustand/store';
 
 interface NotificationProps {
 }
