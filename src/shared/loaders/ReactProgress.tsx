@@ -1,67 +1,69 @@
-import { useNProgress } from '@tanem/react-nprogress';
-import { ReactNode } from 'react';
+import { useNProgress } from "@tanem/react-nprogress";
+import { ReactNode } from "react";
 
 interface ReactProgressProps {
-isAnimating:boolean
+  isAnimating: boolean;
 }
 
-export const ReactProgress = ({isAnimating}:ReactProgressProps) => {
-    const { animationDuration, isFinished, progress } = useNProgress({
-        isAnimating,
-    })
-return (
+export const ReactProgress = ({ isAnimating }: ReactProgressProps) => {
+  const { animationDuration, isFinished, progress } = useNProgress({
+    isAnimating,
+  });
+  return (
     <Container animationDuration={animationDuration} isFinished={isFinished}>
-        <Bar animationDuration={animationDuration} progress={progress} />
-        {/*
+      <Bar animationDuration={animationDuration} progress={progress} />
+      {/*
       This example doesn't use a spinner component so the UI stays
       tidy. You're free to render whatever is appropriate for your
       use-case.
       */}
     </Container>
-);
-}
-
+  );
+};
 
 interface ContainerProps {
-    animationDuration: number
-    isFinished: boolean
-    children: ReactNode
+  animationDuration: number;
+  isFinished: boolean;
+  children: ReactNode;
 }
 
-const Container=({ animationDuration, children, isFinished }:ContainerProps) =>(
-    <div
-    className='relative'
-        style={{
-            opacity: isFinished ? 0 : 1,
-            pointerEvents: 'none',
-            transition: `opacity ${animationDuration}ms linear`,
-        }}
-    >
-        {children}
-    </div>
-)
+const Container = ({
+  animationDuration,
+  children,
+  isFinished,
+}: ContainerProps) => (
+  <div
+    className="relative top-2"
+    style={{
+      opacity: isFinished ? 0 : 1,
+      pointerEvents: "none",
+      transition: `opacity ${animationDuration}ms linear`,
+    }}
+  >
+    {children}
+  </div>
+);
 
-
-interface BarProps{
-    animationDuration: number
-    progress: number
+interface BarProps {
+  animationDuration: number;
+  progress: number;
 }
 
-const Bar= ({ animationDuration, progress }:BarProps) => (
-    <div
-        style={{
-            background: '#29d',
-            height: 3,
-            left: 0,
-            marginLeft: `${(-1 + progress) * 100}%`,
-            position: 'absolute',
-            top: 0,
-            transition: `margin-left ${animationDuration}ms linear`,
-            width: '100%',
-            zIndex: 1031,
-        }}
-    >
-        <div
+const Bar = ({ animationDuration, progress }: BarProps) => (
+  <div
+    style={{
+      background: "#ad69b8",
+      height: 5,
+      left: 0,
+      marginLeft: `${(-1 + progress) * 100}%`,
+      position: "absolute",
+      top: 0,
+      transition: `margin-left ${animationDuration}ms linear`,
+      width: "100%",
+      zIndex: 1031,
+    }}
+  >
+    {/* <div
             style={{
                 boxShadow: '0 0 10px #29d, 0 0 5px #29d',
                 display: 'block',
@@ -72,6 +74,6 @@ const Bar= ({ animationDuration, progress }:BarProps) => (
                 transform: 'rotate(3deg) translate(0px, -4px)',
                 width: 100,
             }}
-        />
-    </div>
-)
+        /> */}
+  </div>
+);
