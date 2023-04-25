@@ -3,9 +3,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "rakkas",
+    "dev": "rakkas --port 3000",
     "build": "rakkas build",
-    "start": "node dist/server",
+    "start": "node dist/server --port 3000",
     "format": "prettier --write --ignore-unknown src",
     "test": "npm run test:typecheck && npm run test:format && npm run test:lint && npm run test:unit",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
@@ -34,6 +34,7 @@
     "@emotion/react": "^11.10.6",
     "@mantine/core": "^6.0.9",
     "@mantine/hooks": "^6.0.9",
+    "@mantine/nprogress": "^6.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
