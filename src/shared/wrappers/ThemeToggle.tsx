@@ -1,4 +1,4 @@
-import { ActionIcon, ColorScheme, useMantineColorScheme } from "@mantine/core";
+import { ActionIcon, ColorScheme } from "@mantine/core";
 import { IconSun, IconMoonStars } from "@tabler/icons-react";
 
 interface ThemeToggleProps {
@@ -10,7 +10,7 @@ toggleColorScheme: (value?: ColorScheme) => void
 export function ThemeToggle({dark,toggleColorScheme}:ThemeToggleProps){
     return (
     <ActionIcon
-        variant="outline"
+        
         color={dark ? 'yellow' : 'blue'}
         onClick={() => toggleColorScheme()}
         title="Toggle color scheme">

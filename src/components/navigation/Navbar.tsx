@@ -45,7 +45,7 @@ interface NavbarLinkProps {
 function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
     const { classes, cx } = useStyles();
     return (
-        <Tooltip label={label} position="right" transitionProps={{ duration: 10 }}>
+        <Tooltip label={label} position="right" transitionProps={{ duration: 1 }}>
             <UnstyledButton onClick={onClick} className={cx(classes.link, { [classes.active]: active })}>
                 <Icon size="1.5rem" stroke={1.5} />
             </UnstyledButton>
@@ -82,44 +82,45 @@ export function NavbarMinimal({ open, color_theme }:INavbarProps){
         <Link href={link.href} key={link.label}>
         <NavbarLink
           {...link}
-         active={index === active}
-        onClick={() => setActive(index)}
+          active={index === active}
+          onClick={() => setActive(index)}
         />
         </Link>
     ));
 
     return (
-        <Navbar  width={{ base: 80 }} p="md" hidden={open}>
+        <Navbar width={{ base: 80 }} p="md" hidden={open}>
             <Center>
                 <Link href='/'>
                <AppLogo/>
                </Link>
             </Center>
+            
             <Navbar.Section mt={50} grow>
                 <Stack justify="center" spacing={0}>
                     {links}
                 </Stack>
-
-         
-
             </Navbar.Section>
-            <Navbar.Section >
+
+             <Navbar.Section >
                 <Center>
+                    <Tooltip label="theme" position="right" transitionProps={{ duration: 0 }}>
                     <ThemeToggle 
                     dark={color_theme.dark} 
                     toggleColorScheme={color_theme.toggleColorScheme}
                     />
+                    </Tooltip>
                 </Center>
             </Navbar.Section>
+
             <Navbar.Section>
-                
                 <Stack justify="center" spacing={0}>
-                    
                     <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
                     <NavbarLink icon={IconLogout} label="Logout" />
-              
-                </Stack>
+              </Stack>
             </Navbar.Section>
+
+
         </Navbar>
     );
 }

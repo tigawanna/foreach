@@ -28,27 +28,24 @@ export function MainLayoout({children}:mainLayooutProps){
 return (
     <ColorSchemeProvider colorScheme={color_theme.colorScheme} 
     toggleColorScheme={color_theme.toggleColorScheme}>
-        <MantineProvider theme={{ colorScheme:color_theme.colorScheme }} 
+    
+    <MantineProvider theme={{ colorScheme:color_theme.colorScheme }} 
         withGlobalStyles withNormalizeCSS>
-    <AppShell
-        // styles={{
-        //     main: {
-        //         background: color_theme.dark ? theme.colors.dark[8] : 'transparent',
-        //     },
-        // }}
+      <AppShell
         navbarOffsetBreakpoint="sm"
         asideOffsetBreakpoint="sm"
+
         navbar={
-       
-            <NavbarMinimal open={!opened} color_theme={color_theme}/>
+       <NavbarMinimal open={!opened} color_theme={color_theme}/>
         }
-        aside={
-            <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
-                <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-                    <Text>Application sidebar</Text>
-                </Aside>
-            </MediaQuery>
-        }
+
+        // aside={
+        //     <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+        //         <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
+        //             <Text>Application sidebar</Text>
+        //         </Aside>
+        //     </MediaQuery>
+        // }
         footer={
             <Footer height={60} p="md">
                 <footer className="footer flex flex-col md:flex-row items-center justify-center p-2">
