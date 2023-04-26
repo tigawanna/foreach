@@ -1,79 +1,59 @@
-import { useState } from 'react';
-import {
-    AppShell,
-    Navbar,
-    Header,
-    Footer,
-    Aside,
-    Text,
-    MediaQuery,
-    Burger,
-    useMantineTheme,
-    ColorSchemeProvider,
-    MantineProvider,
-} from '@mantine/core';
-import { ClientSuspense } from 'rakkasjs';
-import { RootHeader } from '../rootlayout/RootHeader';
+import { useEffect, useState } from 'react';
+import { Burger,ColorSchemeProvider,MantineProvider} from '@mantine/core';
 import { NavbarMinimal } from './Navbar';
 import { useMantineColorTheme } from '../../shared/hooks/useMantineColorTheme';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface mainLayooutProps {
     children: React.ReactNode
 }
 
 export function MainLayoout({children}:mainLayooutProps){
-    const theme = useMantineTheme();
+  
     const [opened, setOpened] = useState(false);
     const color_theme = useMantineColorTheme({})
+ 
+    const matchesSm = useMediaQuery('(min-width: 768px)');
+    useEffect(() => {
+        if (matchesSm) {
+            setOpened(true)
+        }
+    }, [matchesSm])
+
 return (
     <ColorSchemeProvider colorScheme={color_theme.colorScheme} 
     toggleColorScheme={color_theme.toggleColorScheme}>
+    <MantineProvider theme={{ colorScheme:color_theme.colorScheme }} withGlobalStyles withNormalizeCSS>
     
-    <MantineProvider theme={{ colorScheme:color_theme.colorScheme }} 
-        withGlobalStyles withNormalizeCSS>
-      <AppShell
-        navbarOffsetBreakpoint="sm"
-        asideOffsetBreakpoint="sm"
+    <div className='h-full w-full flex flex-col'>
+        
+        <div 
+        style={{backgroundColor:color_theme.dark?"black":""}}
+        className='h-12 w-full p-2 md:hidden fixed top-0 z-50 '>
+                    <Burger
+                        opened={opened}
+                        onClick={() => setOpened((o) => !o)}
+                        size="sm"
+                        // color={theme.colors.gray[6]}
+                        mr="xl"
+                    />
+        </div>
 
-        navbar={
-       <NavbarMinimal open={!opened} color_theme={color_theme}/>
-        }
 
-        // aside={
-        //     <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
-        //         <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-        //             <Text>Application sidebar</Text>
-        //         </Aside>
-        //     </MediaQuery>
-        // }
-        footer={
-            <Footer height={60} p="md">
-                <footer className="footer flex flex-col md:flex-row items-center justify-center p-2">
-                    Application Footer
-                </footer>
-            </Footer>
-        }
-        header={
-            <Header height={{ base: 50, md: 70 }} p="md">
-                <RootHeader/>
-                <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-                    <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                        <Burger
-                            opened={opened}
-                            onClick={() => setOpened((o) => !o)}
-                            size="sm"
-                            color={theme.colors.gray[6]}
-                            mr="xl"
-                        />
-                    </MediaQuery>
+        <div className='w-full flex mt-12 md:mt-2  gap-2'>
+               {opened&&
+               <div style={{ backgroundColor: color_theme.dark ? "black" : "" }} 
+                    className='w-20 md:static fixed '>
+                    <NavbarMinimal color_theme={color_theme} />
+                </div>}
+                <div className='h-full w-full '>{children}</div>
+        </div>
 
-                    <Text>Application header</Text>
-                </div>
-            </Header>
-        }
-    >
-        {children}
-    </AppShell>
+ 
+    </div>
+<div>
+</div>
+
     </MantineProvider>
     </ColorSchemeProvider>
 );

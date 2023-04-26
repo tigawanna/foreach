@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem,ColorScheme } from '@mantine/core';
+import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, rem,ColorScheme, ActionIcon, MediaQuery } from '@mantine/core';
 import {
     IconHome2,
     IconUser,
     IconSettings,
     IconLogout,
     IconSwitchHorizontal,
+    IconMoonStars,
+    IconSun,
 } from '@tabler/icons-react';
 import { AppLogo } from '../../shared/wrappers/AppLogo';
-import { ThemeToggle } from '../../shared/wrappers/ThemeToggle';
 import { Link } from 'rakkasjs';
 
 
@@ -65,7 +66,7 @@ const mockdata = [
 
 
 interface INavbarProps{
-    open:boolean
+  
     color_theme: {
         colorScheme: ColorScheme;
         toggleColorScheme: (value?: ColorScheme | undefined) => void;
@@ -73,7 +74,7 @@ interface INavbarProps{
     }
 }
 
-export function NavbarMinimal({ open, color_theme }:INavbarProps){
+export function NavbarMinimal({  color_theme }:INavbarProps){
     const [active, setActive] = useState(2);
 
 
@@ -89,7 +90,9 @@ export function NavbarMinimal({ open, color_theme }:INavbarProps){
     ));
 
     return (
-        <Navbar width={{ base: 80 }} p="md" hidden={open}>
+        <MediaQuery largerThan="sm" styles={{ height:'95vh'}}>
+        <Navbar 
+        width={{ base:'100%' }} height="85vh" p="md" >
             <Center>
                 <Link href='/'>
                <AppLogo/>
@@ -104,11 +107,14 @@ export function NavbarMinimal({ open, color_theme }:INavbarProps){
 
              <Navbar.Section >
                 <Center>
-                    <Tooltip label="theme" position="right" transitionProps={{ duration: 0 }}>
-                    <ThemeToggle 
-                    dark={color_theme.dark} 
-                    toggleColorScheme={color_theme.toggleColorScheme}
-                    />
+                    <Tooltip label="theme" position="right">
+                        <ActionIcon
+                            color={color_theme.dark ? 'yellow' : 'blue'}
+                            onClick={() => color_theme.toggleColorScheme()}
+                            title="Toggle color scheme">
+                            {color_theme.dark ? <IconSun size="2rem" /> : <IconMoonStars size="2rem" />}
+
+                        </ActionIcon>
                     </Tooltip>
                 </Center>
             </Navbar.Section>
@@ -122,5 +128,6 @@ export function NavbarMinimal({ open, color_theme }:INavbarProps){
 
 
         </Navbar>
+        </MediaQuery>
     );
 }
