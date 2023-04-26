@@ -28,7 +28,7 @@ return (
     <div className='h-full w-full flex flex-col'>
         
         <div 
-        style={{backgroundColor:color_theme.dark?"black":""}}
+        // style={{backgroundColor:color_theme.dark?"black":""}}
         className='h-12 w-full p-2 md:hidden fixed top-0 z-50 '>
                     <Burger
                         opened={opened}
@@ -42,7 +42,8 @@ return (
 
         <div className='w-full flex mt-12 md:mt-2  gap-2'>
                {opened&&
-               <div style={{ backgroundColor: color_theme.dark ? "black" : "" }} 
+               <div 
+            //    style={{ backgroundColor: color_theme.dark ? "black" : "" }} 
                     className='w-20 md:static fixed '>
                     <NavbarMinimal color_theme={color_theme} />
                 </div>}

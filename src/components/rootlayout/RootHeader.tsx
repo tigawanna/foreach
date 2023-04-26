@@ -9,7 +9,7 @@ export function RootHeader({}:RootHeaderProps){
 const is_navigating = useIsNavigating()
 return (
     <header className="w-full  z-50 fixed top-0  bg-slate-900 bg-opacity-20 text-slate-800 ">
-        <ReactProgress isAnimating={is_navigating||true} />
+        <ReactProgress isAnimating={is_navigating} />
     </header>
 );
 }

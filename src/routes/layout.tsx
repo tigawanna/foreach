@@ -4,9 +4,6 @@ import '../styles/tailwind.css'
 import { RootHeader } from "../components/rootlayout/RootHeader";
 
 
-
-
-
 const layout: Layout = ({ children }) => {
   return (
     <div className="h-screen w-full flex ">

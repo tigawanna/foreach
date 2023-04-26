@@ -12,17 +12,8 @@ return (
       <html lang="en" />
       <link rel="icon" type="image/svg+xml" href="/loop.svg" />
     </Head>
-
-      <header className="w-full h-12 p-2 z-30 sticky top-0 bg-slate-900 bg-opacity-20 text-slate-800 ">
-        User Profile
-      </header>
-
       <section className={" h-full w-full "}>{children}</section>
-
-      <footer className="footer flex flex-col md:flex-row items-center justify-center p-2">
-  
-      </footer>
-    </>
+  </>
 );
 }
 
