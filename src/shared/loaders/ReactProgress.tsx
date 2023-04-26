@@ -33,7 +33,8 @@ const Container = ({
   isFinished,
 }: ContainerProps) => (
   <div
-    className="relative top-2"
+    // className="relative top-0 "
+    
     style={{
       opacity: isFinished ? 0 : 1,
       pointerEvents: "none",
@@ -52,7 +53,7 @@ interface BarProps {
 const Bar = ({ animationDuration, progress }: BarProps) => (
   <div
     style={{
-      background: "#ad69b8",
+      background: "var(--accent-color)",
       height: 5,
       left: 0,
       marginLeft: `${(-1 + progress) * 100}%`,
@@ -63,17 +64,6 @@ const Bar = ({ animationDuration, progress }: BarProps) => (
       zIndex: 1031,
     }}
   >
-    {/* <div
-            style={{
-                boxShadow: '0 0 10px #29d, 0 0 5px #29d',
-                display: 'block',
-                height: '100%',
-                opacity: 1,
-                position: 'absolute',
-                right: 0,
-                transform: 'rotate(3deg) translate(0px, -4px)',
-                width: 100,
-            }}
-        /> */}
+
   </div>
 );
