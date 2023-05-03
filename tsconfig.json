@@ -14,8 +14,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "include": ["src",".eslintrc.cjs"],
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+    
+  },"files": ["./globals.d.ts"],
+
+  "include": ["src", ".eslintrc.cjs", "global.d.ts", "src/entry-client.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

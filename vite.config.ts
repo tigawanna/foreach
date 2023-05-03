@@ -1,22 +1,15 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/// <reference types="vitest" />
-/// <reference types="vite/client" />
+import { defineConfig } from "vite";
+import rakkas from "rakkasjs/vite-plugin";
+import tsconfigPaths from "vite-tsconfig-paths";
 
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-
-
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    tsconfigPaths(),
+    rakkas({
+      adapter: "vercel", // or "vercel-edge"
+    }),
   ],
-    server: {
-      host: true,
-    },
-  test: {
-    globals: true,
-    environment: "jsdom",
-    setupFiles: ["./src/setupTests.ts"],
+  server: {
+    host: true,
   },
 });
