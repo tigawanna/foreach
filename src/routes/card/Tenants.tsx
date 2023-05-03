@@ -1,4 +1,3 @@
-import { LoadMoreButton } from "@/src/components/shared/wrappers/LoadMoreBitton";
 import { getTenants } from "@/src/state/pb/config";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
