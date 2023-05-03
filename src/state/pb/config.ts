@@ -3,11 +3,7 @@ import PocketBase from 'PocketBase'
 
 
 export const pb_url = import.meta.env.RAKKAS_UTILS_PROD_URL
-
-
 export const pb = new PocketBase(pb_url);
-
-
 
 export async function getUser() {
     return pb.authStore.model 
