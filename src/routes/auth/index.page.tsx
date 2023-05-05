@@ -1,25 +1,17 @@
 import { LoginForm } from "@/src/components/form/LoginForm";
-import { pb } from "@/src/state/pb/config";
-import { useAuthStateHook } from "@/src/state/pb/useAuthStoreHook";
+import { getUser, pb } from "@/src/state/pb/config";
 import { useQuery } from "@tanstack/react-query";
-import { Page, usePageContext } from "rakkasjs";
+import { Page} from "rakkasjs";
 
 const auth: Page = ({}) => {
-  // const {} = usePageContext()
-  // useAuthStateHook();
-  const query = useQuery({
-    queryKey:['user'],
-    queryFn:()=>pb.authStore.model,
-  })
+
+
+  // const query = useQuery('user',getUser)
+  // console.log("query.data  == ",query.data)
+
   return (
-    <main className="min-h-screen w-full flex items-center justify-center ">
-      {query.data?.user?.email && <h1 className="w-[50%] h-[505] flex items-center justify-center bg-green-700 ">
-        {query.data?.user?.email}</h1>}
-      {!query.data?.user?.email &&<LoginForm/>}
-      <button className="w-[50%]  bg-red-700 p-2 rounded-lg"
-      onClick={()=>pb.authStore.clear()}>
-          LogOut
-      </button>
+    <main className="min-h-screen h-full w-full flex flex-col items-center justify-evenly gap-2 ">
+      <LoginForm/>
     </main>
   );
 }

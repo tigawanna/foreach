@@ -1,20 +1,18 @@
 import { useEffect } from "react";
-import { pb } from "./config";
-import { logNormal } from "@/src/utils/general";
+import { getUser,} from "./config";
+import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "rakkasjs";
 
 
 
 
 
 export function useAuthStateHook(){
+    const query = useQuery({ queryKey: ['user'], queryFn: getUser })
     
-    useEffect(() => {
-        pb.authStore.onChange(() => {
-            const auth_store = pb.authStore.exportToCookie({ httpOnly: false })
-            console.log("auth changed")
-            logNormal(auth_store)
-            document.cookie = auth_store; // make sure to export with httpOnly: false also on the node client
-        });
-    })
+    const location = useLocation()
+    useEffect(() =>{
+        
+    },[query.data])
 
 }

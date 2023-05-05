@@ -3,47 +3,72 @@ import {
   QueryCache,
   QueryClient,
   QueryClientProvider,
+  useQuery
 } from "@tanstack/react-query";
 import { uneval } from "devalue";
 import { cookie } from "@hattip/cookie";
 import { logNormal, logSuccess } from "./utils/general";
+import { AppUser, getUser } from "./state/pb/config";
+
 export default createRequestHandler({
   middleware: {
-    beforePages: [cookie(),async(ctx)=>{
-      logNormal("cookie context",ctx.cookie)
+    beforePages: [
+      // @ts-expect-error
+      cookie(),async(ctx)=>{
+         // @ts-expect-error
+      const cookie = ctx.cookie
+      ctx.locals.cookie = cookie
+        // queryClient.fetchQuery({ queryKey: ['user'], queryFn:()=>getUser(cookie) })
+        //   .then(res => { console.log("prefectched query server side ====> ", res) }) 
+      logNormal("hattip entry cookie  === ",cookie)
     }
     
     ]
   },
-  createPageHooks() {
+  createPageHooks(ctx) {
+  // console.log("create page hooks ctx === ",ctx.locals.cookie)
     let queries = Object.create(null);
+
+    const queryCache = new QueryCache({
+      onSuccess(data, query) {
+        // Store newly fetched data
+    
+        queries[query.queryHash] = data;
+      },
+    });
+
+    const queryClient = new QueryClient({
+      queryCache,
+      defaultOptions: {
+        queries: {
+          suspense: true,
+          staleTime: Infinity,
+          refetchOnWindowFocus: false,
+          refetchOnReconnect: false,
+        },
+      },
+    });
+
+
 
     return {
       wrapApp(app) {
-        const queryCache = new QueryCache({
-          onSuccess(data, query) {
-            // Store newly fetched data
-            queries[query.queryHash] = data;
-          },
-        });
+        // queryClient.fetchQuery({ queryKey: ['user'], queryFn: () => getUser(ctx.locals.cookie) })
+        //   .then(res => { console.log("prefectched query server side ====> ", res) })
 
-        const queryClient = new QueryClient({
-          queryCache,
-          defaultOptions: {
-            queries: {
-              suspense: true,
-              staleTime: Infinity,
-              refetchOnWindowFocus: false,
-              refetchOnReconnect: false,
-            },
-          },
-        });
-
+  
         return (
           <QueryClientProvider client={queryClient}>{app}</QueryClientProvider>
         );
       },
-      async extendPageContext(pageCtx) {
+      async extendPageContext(ctx) {
+ 
+        // const user = await queryClient.getQueryData<AppUser>(['user'])
+        // logNormal("user in server  == ",user)
+       // ctx.locals.tan_queryClient = queryClient
+        // const user = queryClient.getQueryData<AppUser>(['user'])
+        // console.log("user passed into server ctx ===> ", user)
+        // ctx.locals.auth = user
         // pageCtx.locals.auth
         // pageCtx.locals.user=
         // pageCtx.locals.auth = reqCtx.locals.auth;

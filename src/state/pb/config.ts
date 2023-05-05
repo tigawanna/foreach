@@ -1,21 +1,27 @@
-import { QueryFunctionContext, QueryKey } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
 import PocketBase,{Record} from 'PocketBase'
+import { PageContext } from 'rakkasjs';
+
 
 
 export const pb_url = import.meta.env.RAKKAS_UTILS_PROD_URL
 export const pb = new PocketBase(pb_url);
 
 
-export async function getUser() {
+export async function getUser(cookie?:string) {
     // pb.authStore.loadFromCookie(document.cookie)
-
+    pb.authStore.loadFromCookie(cookie??document.cookie)
     return pb.authStore.model
 }
 
 //  get awiated type of the retunr type of getUser
 export type AppUser = Awaited<ReturnType<typeof getUser>>
 
-
+export function logOutUser(pgc: PageContext) {
+    pb.authStore.clear()
+    pgc.locals.tan_queryClient.invalidateQueries({ queryKey: ['user'] })
+    // location.reload()
+}
 
 export const loginUser = async ({ email, password }: { email: string; password: string }) => {
     try {

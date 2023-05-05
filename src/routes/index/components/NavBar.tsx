@@ -1,8 +1,9 @@
-import { LucideIcon,Home,User,X,Settings, LogOut, CreditCard } from "lucide-react";
-import { Link, StyledLink } from "rakkasjs";
+import { LucideIcon,Home,User,X,Settings, LogOut, CreditCard, UserPlus } from "lucide-react";
+import { Link, StyledLink, usePageContext } from "rakkasjs";
 import { useDarkTheme } from "../../../hooks/useDarkTheme";
 import { IconWrapper } from "../../../components/shared/LucideIcon";
 import { AppLogo } from "../../../components/shared/AppLogo";
+import { logOutUser } from "@/src/state/pb/config";
 
 
 interface NavBarProps {
@@ -14,11 +15,12 @@ const links: { label: string; url: string; RouteIcon:LucideIcon }[] = [
   { label: "Home", url: "/", RouteIcon: Home },
   { label: "profile", url: "/profile", RouteIcon: User },
   { label: "card", url: "/card", RouteIcon: CreditCard },
+  { label: "auth", url: "/auth", RouteIcon:UserPlus },
 ];
 
 export function NavBar({ open, setOpen }: NavBarProps) {
   const { modeIcon, theme, toggleTheme } = useDarkTheme();
-
+  const pgc = usePageContext()
   return (
     <div
       className="fixed flex h-full w-[80%] flex-col items-center 
@@ -49,8 +51,10 @@ export function NavBar({ open, setOpen }: NavBarProps) {
 
       <div className=" flex h-[20%] flex-col gap-5">
         <IconWrapper Icon={Settings} size={"25px"} className="hover:brightness-75 hover:text-accent" />
+        {pgc.locals.auth&&<div className="text-lg">USER</div>}
         <IconWrapper
           Icon={LogOut}
+          onClick={() => { logOutUser(pgc) }}
           size={"25px"}
           className="hover:brightness-75"
         />
