@@ -20,7 +20,7 @@ export type AppUser = Awaited<ReturnType<typeof getUser>>
 export function logOutUser(pgc: PageContext) {
     pb.authStore.clear()
     pgc.locals.tan_queryClient.invalidateQueries({ queryKey: ['user'] })
-    // location.reload()
+     location.reload()
 }
 
 export const loginUser = async ({ email, password }: { email: string; password: string }) => {

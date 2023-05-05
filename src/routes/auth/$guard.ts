@@ -1,10 +1,8 @@
 import { PageRouteGuard } from "rakkasjs";
 
 export const pageGuard: PageRouteGuard = (ctx) => {
-    console.log("ctx.locals ==== >",ctx.locals)
-    console.log("ctx.locals ==== >", ctx.requestContext?.platform)
-    
-    if(!ctx.locals.auth){
+    console.log("card guard ctx.locals ==== >",ctx.locals)
+    if(!ctx.locals.has_pb_cookie){
          return { redirect: "/auth" };
     }
 

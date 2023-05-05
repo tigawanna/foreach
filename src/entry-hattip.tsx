@@ -7,8 +7,9 @@ import {
 } from "@tanstack/react-query";
 import { uneval } from "devalue";
 import { cookie } from "@hattip/cookie";
-import { logNormal, logSuccess } from "./utils/general";
-import { AppUser, getUser } from "./state/pb/config";
+import PocketBase,{Record} from 'PocketBase'
+import {logError, logNormal, logSuccess} from "./utils/general";
+import {AppUser, getUser, pb_url} from "./state/pb/config";
 
 export default createRequestHandler({
   middleware: {
@@ -16,11 +17,20 @@ export default createRequestHandler({
       // @ts-expect-error
       cookie(),async(ctx)=>{
          // @ts-expect-error
-      const cookie = ctx.cookie
+      const cookie =  ctx.cookie
       ctx.locals.cookie = cookie
+
         // queryClient.fetchQuery({ queryKey: ['user'], queryFn:()=>getUser(cookie) })
-        //   .then(res => { console.log("prefectched query server side ====> ", res) }) 
-      logNormal("hattip entry cookie  === ",cookie)
+        //   .then(res => { console.log("prefectched query server side ====> ", res) })
+        logNormal("hattip entry cookie  === ",cookie)
+        if(cookie.pb_auth){
+         logNormal("hattip entry pb auth pb_cookie  === ",cookie.pb_auth)
+          ctx.locals.has_pb_cookie=true
+        }else{
+          logError("hattip entry cookie pb_auth cookie not found  === ",cookie.pb_auth)
+          ctx.locals.has_pb_cookie=false
+        }
+
     }
     
     ]
@@ -32,7 +42,6 @@ export default createRequestHandler({
     const queryCache = new QueryCache({
       onSuccess(data, query) {
         // Store newly fetched data
-    
         queries[query.queryHash] = data;
       },
     });
@@ -61,8 +70,8 @@ export default createRequestHandler({
           <QueryClientProvider client={queryClient}>{app}</QueryClientProvider>
         );
       },
-      async extendPageContext(ctx) {
- 
+      async extendPageContext(local_ctx) {
+        local_ctx.locals.has_pb_cookie = ctx.locals.has_pb_cookie
         // const user = await queryClient.getQueryData<AppUser>(['user'])
         // logNormal("user in server  == ",user)
        // ctx.locals.tan_queryClient = queryClient

@@ -12,6 +12,7 @@ const auth: Page = ({}) => {
   return (
     <main className="min-h-screen h-full w-full flex flex-col items-center justify-evenly gap-2 ">
       <LoginForm/>
+      
     </main>
   );
 }
